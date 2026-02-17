@@ -320,7 +320,7 @@ class LeRobotLiberoDataConfig(DataConfigFactory):
             data_transforms=data_transforms,
             model_transforms=model_transforms,
         )
-    
+
 
 @dataclasses.dataclass(frozen=True)
 class RiclDroidDataConfig(DataConfigFactory):
@@ -351,7 +351,12 @@ class RiclDroidDataConfig(DataConfigFactory):
         # how to modify the transforms to match your dataset. Once you created your own transforms, you can
         # replace the transforms below with your own.
         data_transforms = _transforms.Group(
-            inputs=[droid_policy.RiclDroidInputs(action_dim=model_config.action_dim, num_retrieved_observations=model_config.num_retrieved_observations)],
+            inputs=[
+                droid_policy.RiclDroidInputs(
+                    action_dim=model_config.action_dim,
+                    num_retrieved_observations=model_config.num_retrieved_observations,
+                )
+            ],
             outputs=[droid_policy.RiclDroidOutputs()],
         )
 
@@ -374,23 +379,84 @@ class RiclDroidDataConfig(DataConfigFactory):
         # Model transforms include things like tokenizing the prompt and action targets
         # You do not need to change anything here for your own dataset.
         model_transforms = _transforms.Group(
-                    inputs=[
-                        _transforms.ResizeImagesRicl(224, 224, model_config.num_retrieved_observations),
-                        _transforms.TokenizeFASTInputsRicl(
-                            _tokenizer.FASTTokenizerRicl(max_len = model_config.max_token_len, action_horizon=model_config.action_horizon, action_dim=model_config.action_dim),
-                            num_retrieved_observations=model_config.num_retrieved_observations,
-                        ),
-                    ],
-                    outputs=[
-                        _transforms.ExtractFASTActionsRicl(
-                            _tokenizer.FASTTokenizerRicl(max_len = model_config.max_token_len, action_horizon=model_config.action_horizon, action_dim=model_config.action_dim),
-                            action_horizon=model_config.action_horizon,
-                            action_dim=model_config.action_dim,
-                        )
-                    ],
+            inputs=[
+                _transforms.ResizeImagesRicl(224, 224, model_config.num_retrieved_observations),
+                _transforms.TokenizeFASTInputsRicl(
+                    _tokenizer.FASTTokenizerRicl(
+                        max_len=model_config.max_token_len,
+                        action_horizon=model_config.action_horizon,
+                        action_dim=model_config.action_dim,
+                    ),
+                    num_retrieved_observations=model_config.num_retrieved_observations,
+                ),
+            ],
+            outputs=[
+                _transforms.ExtractFASTActionsRicl(
+                    _tokenizer.FASTTokenizerRicl(
+                        max_len=model_config.max_token_len,
+                        action_horizon=model_config.action_horizon,
+                        action_dim=model_config.action_dim,
+                    ),
+                    action_horizon=model_config.action_horizon,
+                    action_dim=model_config.action_dim,
                 )
+            ],
+        )
 
         # We return all data transforms for training and inference. No need to change anything here.
+        return dataclasses.replace(
+            self.create_base_config(assets_dirs),
+            repack_transforms=repack_transform,
+            data_transforms=data_transforms,
+            model_transforms=model_transforms,
+        )
+
+
+@dataclasses.dataclass(frozen=True)
+class RiclLiberoDataConfig(DataConfigFactory):
+    """RICL data config for LIBERO environment (2 cameras: base + wrist, action_dim=7)."""
+
+    @override
+    def create(self, assets_dirs: pathlib.Path, model_config: pi0_fast_ricl.Pi0FASTRiclConfig) -> DataConfig:
+        repack_transform = _transforms.Group(
+            inputs=[_transforms.IdentityTransform()],
+        )
+
+        data_transforms = _transforms.Group(
+            inputs=[
+                libero_policy.RiclLiberoInputs(
+                    action_dim=model_config.action_dim,
+                    num_retrieved_observations=model_config.num_retrieved_observations,
+                )
+            ],
+            outputs=[libero_policy.RiclLiberoOutputs()],
+        )
+
+        model_transforms = _transforms.Group(
+            inputs=[
+                _transforms.ResizeImagesRicl(224, 224, model_config.num_retrieved_observations),
+                _transforms.TokenizeFASTInputsRicl(
+                    _tokenizer.FASTTokenizerRicl(
+                        max_len=model_config.max_token_len,
+                        action_horizon=model_config.action_horizon,
+                        action_dim=model_config.action_dim,
+                    ),
+                    num_retrieved_observations=model_config.num_retrieved_observations,
+                ),
+            ],
+            outputs=[
+                _transforms.ExtractFASTActionsRicl(
+                    _tokenizer.FASTTokenizerRicl(
+                        max_len=model_config.max_token_len,
+                        action_horizon=model_config.action_horizon,
+                        action_dim=model_config.action_dim,
+                    ),
+                    action_horizon=model_config.action_horizon,
+                    action_dim=model_config.action_dim,
+                )
+            ],
+        )
+
         return dataclasses.replace(
             self.create_base_config(assets_dirs),
             repack_transforms=repack_transform,
@@ -547,23 +613,37 @@ _CONFIGS = [
             ),
         ),
     ),
-    # 
+    #
     # Creating RICL-Pi0-FAST-DROID configs.
-    # 
+    #
     TrainConfig(
         name="pi0_fast_droid_ricl",
-        model=pi0_fast_ricl.Pi0FASTRiclConfig(action_dim=8, action_horizon=15, max_token_len=250, num_retrieved_observations=4, use_action_interpolation=True, lamda=10.0),
+        model=pi0_fast_ricl.Pi0FASTRiclConfig(
+            action_dim=8,
+            action_horizon=15,
+            max_token_len=250,
+            num_retrieved_observations=4,
+            use_action_interpolation=True,
+            lamda=10.0,
+        ),
         data=RiclDroidDataConfig(
             repo_id=None,
             assets=AssetsConfig(asset_id="droid"),
             base_config=DataConfig(
-                prompt_from_task=False, # only needed for LeRobot datasets to convert task_index to prompt
+                prompt_from_task=False,  # only needed for LeRobot datasets to convert task_index to prompt
             ),
         ),
         weight_loader=weight_loaders.CheckpointWeightLoader("s3://openpi-assets/checkpoints/pi0_fast_droid/params"),
         num_train_steps=10_000,
         batch_size=16,
-        freeze_filter=pi0_fast_ricl.Pi0FASTRiclConfig(action_dim=8, action_horizon=15, max_token_len=250, num_retrieved_observations=4, use_action_interpolation=True, lamda=10.0).get_freeze_filter_with_frozen_img_encoder(),
+        freeze_filter=pi0_fast_ricl.Pi0FASTRiclConfig(
+            action_dim=8,
+            action_horizon=15,
+            max_token_len=250,
+            num_retrieved_observations=4,
+            use_action_interpolation=True,
+            lamda=10.0,
+        ).get_freeze_filter_with_frozen_img_encoder(),
         ema_decay=None,
         log_interval=1,
         save_interval=300,
@@ -577,12 +657,98 @@ _CONFIGS = [
     TrainConfig(
         name="pi0_fast_droid_ricl___finetune_on_new_task",
         finetuning_collected_demos_dir="ricl_droid_preprocessing/collected_demos/YYYY-MM-DD_new_task_prompt",
-        model=pi0_fast_ricl.Pi0FASTRiclConfig(action_dim=8, action_horizon=15, max_token_len=250, num_retrieved_observations=4, use_action_interpolation=True, lamda=10.0),
-        data=RiclDroidDataConfig(repo_id=None, assets=AssetsConfig(asset_id="droid"), base_config=DataConfig(prompt_from_task=False)),
+        model=pi0_fast_ricl.Pi0FASTRiclConfig(
+            action_dim=8,
+            action_horizon=15,
+            max_token_len=250,
+            num_retrieved_observations=4,
+            use_action_interpolation=True,
+            lamda=10.0,
+        ),
+        data=RiclDroidDataConfig(
+            repo_id=None, assets=AssetsConfig(asset_id="droid"), base_config=DataConfig(prompt_from_task=False)
+        ),
         weight_loader=weight_loaders.CheckpointWeightLoader("pi0_fast_droid_ricl_checkpoint/params"),
         num_train_steps=1_000,
         batch_size=16,
-        freeze_filter=pi0_fast_ricl.Pi0FASTRiclConfig(action_dim=8, action_horizon=15, max_token_len=250, num_retrieved_observations=4, use_action_interpolation=True, lamda=10.0).get_freeze_filter_with_frozen_img_encoder(),
+        freeze_filter=pi0_fast_ricl.Pi0FASTRiclConfig(
+            action_dim=8,
+            action_horizon=15,
+            max_token_len=250,
+            num_retrieved_observations=4,
+            use_action_interpolation=True,
+            lamda=10.0,
+        ).get_freeze_filter_with_frozen_img_encoder(),
+        log_interval=1,
+        save_interval=100,
+        keep_period=100,
+        lr_schedule=_optimizer.CosineDecaySchedule(warmup_steps=50, peak_lr=2.5e-5, decay_steps=1_000, decay_lr=2.5e-6),
+    ),
+    #
+    # Creating RICL-Pi0-FAST-LIBERO configs.
+    #
+    TrainConfig(
+        name="pi0_fast_libero_ricl",
+        model=pi0_fast_ricl.Pi0FASTRiclConfig(
+            action_dim=7,
+            action_horizon=10,
+            max_token_len=180,
+            num_retrieved_observations=4,
+            use_action_interpolation=True,
+            lamda=10.0,
+        ),
+        data=RiclLiberoDataConfig(
+            repo_id=None,
+            assets=AssetsConfig(asset_id="libero"),
+            base_config=DataConfig(
+                prompt_from_task=False,
+            ),
+        ),
+        weight_loader=weight_loaders.CheckpointWeightLoader("s3://openpi-assets/checkpoints/pi0_fast_base/params"),
+        num_train_steps=10_000,
+        batch_size=16,
+        freeze_filter=pi0_fast_ricl.Pi0FASTRiclConfig(
+            action_dim=7,
+            action_horizon=10,
+            max_token_len=180,
+            num_retrieved_observations=4,
+            use_action_interpolation=True,
+            lamda=10.0,
+        ).get_freeze_filter_with_frozen_img_encoder(),
+        ema_decay=None,
+        log_interval=1,
+        save_interval=300,
+        keep_period=300,
+        lr_schedule=_optimizer.CosineDecaySchedule(warmup_steps=300, peak_lr=2.5e-5, decay_steps=3000, decay_lr=2.5e-6),
+    ),
+    #
+    # RICL-Pi0-FAST-LIBERO Finetuning configs.
+    #
+    TrainConfig(
+        name="pi0_fast_libero_ricl___finetune_on_new_task",
+        finetuning_collected_demos_dir="preprocessing/libero_collected_demos/YYYY-MM-DD_new_task_prompt",
+        model=pi0_fast_ricl.Pi0FASTRiclConfig(
+            action_dim=7,
+            action_horizon=10,
+            max_token_len=180,
+            num_retrieved_observations=4,
+            use_action_interpolation=True,
+            lamda=10.0,
+        ),
+        data=RiclLiberoDataConfig(
+            repo_id=None, assets=AssetsConfig(asset_id="libero"), base_config=DataConfig(prompt_from_task=False)
+        ),
+        weight_loader=weight_loaders.CheckpointWeightLoader("pi0_fast_libero_ricl_checkpoint/params"),
+        num_train_steps=1_000,
+        batch_size=16,
+        freeze_filter=pi0_fast_ricl.Pi0FASTRiclConfig(
+            action_dim=7,
+            action_horizon=10,
+            max_token_len=180,
+            num_retrieved_observations=4,
+            use_action_interpolation=True,
+            lamda=10.0,
+        ).get_freeze_filter_with_frozen_img_encoder(),
         log_interval=1,
         save_interval=100,
         keep_period=100,

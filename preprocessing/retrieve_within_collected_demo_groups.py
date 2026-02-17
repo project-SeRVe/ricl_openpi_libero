@@ -6,7 +6,7 @@ import os
 import argparse
 from autofaiss import build_index
 os.environ["XLA_PYTHON_CLIENT_PREALLOCATE"] = "false" # This prevents JAX from preallocating most of the GPU memory.
-EMBED_TYPES = ["top_image", "wrist_image"]
+EMBED_TYPES = ["top_image", "wrist_image", "base_image"]
 
 def create_idx_fol_mapping(ds_name):
 	mapping_names = ['groups_to_ep_fols', 'ep_idxs_to_fol', 'fols_to_ep_idxs', 'groups_to_ep_idxs']
@@ -182,19 +182,20 @@ if __name__ == "__main__":
 	parser.add_argument("--folder_name", type=str, default="collected_demos_training")
 	args = parser.parse_args()
 
-	if args.folder_name == "collected_demos_training":
-		# setup
+	if args.folder_name in ("collected_demos_training", "libero_collected_demos_training"):
+		# setup - training data has task groups as subdirectories
 		ds_name = args.folder_name
 		mappings = create_idx_fol_mapping(ds_name)
 
 		# retrieval preprocessing
 		retrieval_preprocessing(groups_to_ep_idxs=mappings['groups_to_ep_idxs'],
 								ep_idxs_to_fol=mappings['ep_idxs_to_fol'],
-								nb_cores_autofaiss=args.nb_cores_autofaiss, 
+								nb_cores_autofaiss=args.nb_cores_autofaiss,
 								knn_k=args.knn_k,
 								embedding_type=args.embedding_type)
 		print(f'done!')
-	elif args.folder_name == "collected_demos":
+	elif args.folder_name in ("collected_demos", "libero_collected_demos"):
+		# setup - inference data has single task groups
 		all_groups_in_folder = [f"{args.folder_name}/{fol}" for fol in os.listdir(args.folder_name) if os.path.isdir(f"{args.folder_name}/{fol}")]
 		for fol_count, fol_name in enumerate(all_groups_in_folder):
 			# setup
@@ -206,7 +207,7 @@ if __name__ == "__main__":
 			# retrieval preprocessing
 			retrieval_preprocessing(groups_to_ep_idxs=mappings['groups_to_ep_idxs'],
 									ep_idxs_to_fol=mappings['ep_idxs_to_fol'],
-									nb_cores_autofaiss=args.nb_cores_autofaiss, 
+									nb_cores_autofaiss=args.nb_cores_autofaiss,
 									knn_k=args.knn_k,
 									embedding_type=args.embedding_type)
 			print(f'done for {ds_name=}! [fol count {fol_count}/{len(all_groups_in_folder)}]')

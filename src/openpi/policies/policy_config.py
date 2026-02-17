@@ -13,7 +13,9 @@ from openpi.training import checkpoints as _checkpoints
 from openpi.training import config as _config
 import openpi.transforms as transforms
 import logging
+
 logger = logging.getLogger()
+
 
 @dataclasses.dataclass
 class PolicyConfig:
@@ -110,7 +112,9 @@ def create_trained_ricl_policy(
             raise ValueError("Asset id is required to load norm stats.")
         norm_stats = _checkpoints.load_norm_stats(f"{checkpoint_dir}/assets", data_config.asset_id)
 
-    return _policy.RiclPolicy(
+    policy_cls = _policy.RiclLiberoPolicy if "libero" in train_config.name else _policy.RiclPolicy
+
+    return policy_cls(
         model,
         transforms=[
             *data_config.data_transforms.inputs,

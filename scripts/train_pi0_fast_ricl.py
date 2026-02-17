@@ -83,11 +83,9 @@ def _load_weights_and_validate(loader: _weight_loaders.WeightLoader, params_shap
 def count_parameters(params, trainable_filter):
     """Counts total and trainable parameters."""
     total_params = sum(p.size for p in jax.tree_util.tree_leaves(params))
-    
-    trainable_params = sum(
-        p.size for p in jax.tree_util.tree_leaves(params.filter(trainable_filter))
-    )
-    
+
+    trainable_params = sum(p.size for p in jax.tree_util.tree_leaves(params.filter(trainable_filter)))
+
     return total_params, trainable_params
 
 
@@ -151,14 +149,17 @@ def init_train_state(
 
 def create_decode_indices(config: _config.TrainConfig) -> at.Int[at.Array, "decode_len"]:
     # create the indices to decide which tokens to decode: i.e. only those belonging to each retrieved/query "prompt, state, action" prompt and not the images
-    image_token_len = 256*2 # number of image tokens times number of images
-    prompt_token_len = config.model.max_token_len # max token len for each retrieved/query "prompt, state, action" prompt
+    num_images = 2 if "libero" in config.name else 2  # LIBERO: 2 cameras, DROID: 2 cameras (current default)
+    image_token_len = 256 * num_images  # number of image tokens times number of images
+    prompt_token_len = (
+        config.model.max_token_len
+    )  # max token len for each retrieved/query "prompt, state, action" prompt
     total_token_len = image_token_len + prompt_token_len
     decode_indices = []
     for i in range(config.model.num_retrieved_observations + 1):
-        decode_indices.extend(list(range(i * total_token_len + image_token_len + 1, (i+1) * total_token_len)))
+        decode_indices.extend(list(range(i * total_token_len + image_token_len + 1, (i + 1) * total_token_len)))
     decode_indices = jnp.asarray(decode_indices)
-    print(f'decode_indices shape: {decode_indices.shape}')
+    print(f"decode_indices shape: {decode_indices.shape}")
     return decode_indices
 
 

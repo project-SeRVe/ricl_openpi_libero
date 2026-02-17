@@ -115,3 +115,62 @@ class LiberoOutputs(transforms.DataTransformFn):
         # For Libero, we only return the first 7 actions (since the rest is padding).
         # For your own dataset, replace `7` with the action dimension of your dataset.
         return {"actions": np.asarray(data["actions"][:, :7])}
+
+
+@dataclasses.dataclass(frozen=True)
+class RiclLiberoInputs(transforms.DataTransformFn):
+    """RICL input transform for LIBERO environment.
+
+    Handles 2 cameras (base + wrist) and multiple retrieved + query observations.
+    """
+
+    action_dim: int
+    num_retrieved_observations: int
+
+    def __call__(self, data: dict) -> dict:
+        all_prefix = [f"retrieved_{i}_" for i in range(self.num_retrieved_observations)] + ["query_"]
+        inputs_dicts = [
+            {
+                f"{prefix}state": data[f"{prefix}state"],
+                f"{prefix}image": {
+                    "base_0_rgb": _parse_image(data[f"{prefix}base_image"]),
+                    "left_wrist_0_rgb": _parse_image(data[f"{prefix}wrist_image"]),
+                },
+                f"{prefix}image_mask": {
+                    "base_0_rgb": np.True_,
+                    "left_wrist_0_rgb": np.True_,
+                },
+            }
+            for prefix in all_prefix
+        ]
+
+        # Collapse to single dict
+        inputs = {k: v for d in inputs_dicts for k, v in d.items()}
+
+        # Include retrieved actions and, if present, include query actions
+        for prefix in all_prefix[:-1]:
+            inputs[f"{prefix}actions"] = data[f"{prefix}actions"]
+        if "query_actions" in data:
+            inputs["query_actions"] = data["query_actions"]
+
+        # Pass prompts
+        for prefix in all_prefix:
+            inputs[f"{prefix}prompt"] = data[f"{prefix}prompt"]
+
+        # Pass exp_lamda_distances if present
+        if "exp_lamda_distances" in data:
+            inputs["exp_lamda_distances"] = data["exp_lamda_distances"]
+
+        # Pass inference_time flag if present
+        if "inference_time" in data:
+            inputs["inference_time"] = data["inference_time"]
+
+        return inputs
+
+
+@dataclasses.dataclass(frozen=True)
+class RiclLiberoOutputs(transforms.DataTransformFn):
+    """RICL output transform for LIBERO environment."""
+
+    def __call__(self, data: dict) -> dict:
+        return {"query_actions": np.asarray(data["query_actions"])}

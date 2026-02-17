@@ -1,9 +1,14 @@
-import numpy as np
-import os
 import argparse
-from openpi.policies.utils import embed_with_batches, load_dinov2, EMBED_DIM
-from openpi_client.image_tools import resize_with_pad
+import json
 import logging
+import os
+
+import numpy as np
+from openpi_client.image_tools import resize_with_pad
+
+from openpi.policies.utils import EMBED_DIM
+from openpi.policies.utils import embed_with_batches
+from openpi.policies.utils import load_dinov2
 
 logging.basicConfig(level=logging.INFO, force=True)
 logger = logging.getLogger(__name__)
@@ -14,6 +19,60 @@ TASK_SUITE_TO_REPO = {
     "libero_object": "physical-intelligence/libero",
     "libero_goal": "physical-intelligence/libero",
     "libero_10": "physical-intelligence/libero",
+}
+
+# Hardcoded fallback mapping from task suite to task descriptions.
+# Derived from tasks.jsonl: indices 0-9 = libero_10, 10-19 = libero_goal,
+# 20-29 = libero_object, 30-39 = libero_spatial.
+TASK_SUITE_TO_TASKS = {
+    "libero_10": [
+        "put the white mug on the left plate and put the yellow and white mug on the right plate",
+        "put the white mug on the plate and put the chocolate pudding to the right of the plate",
+        "put the yellow and white mug in the microwave and close it",
+        "turn on the stove and put the moka pot on it",
+        "put both the alphabet soup and the cream cheese box in the basket",
+        "put both the alphabet soup and the tomato sauce in the basket",
+        "put both moka pots on the stove",
+        "put both the cream cheese box and the butter in the basket",
+        "put the black bowl in the bottom drawer of the cabinet and close it",
+        "pick up the book and place it in the back compartment of the caddy",
+    ],
+    "libero_goal": [
+        "put the bowl on the plate",
+        "put the wine bottle on the rack",
+        "open the top drawer and put the bowl inside",
+        "put the cream cheese in the bowl",
+        "put the wine bottle on top of the cabinet",
+        "push the plate to the front of the stove",
+        "turn on the stove",
+        "put the bowl on the stove",
+        "put the bowl on top of the cabinet",
+        "open the middle drawer of the cabinet",
+    ],
+    "libero_object": [
+        "pick up the orange juice and place it in the basket",
+        "pick up the ketchup and place it in the basket",
+        "pick up the cream cheese and place it in the basket",
+        "pick up the bbq sauce and place it in the basket",
+        "pick up the alphabet soup and place it in the basket",
+        "pick up the milk and place it in the basket",
+        "pick up the salad dressing and place it in the basket",
+        "pick up the butter and place it in the basket",
+        "pick up the tomato sauce and place it in the basket",
+        "pick up the chocolate pudding and place it in the basket",
+    ],
+    "libero_spatial": [
+        "pick up the black bowl next to the cookie box and place it on the plate",
+        "pick up the black bowl in the top drawer of the wooden cabinet and place it on the plate",
+        "pick up the black bowl on the ramekin and place it on the plate",
+        "pick up the black bowl on the stove and place it on the plate",
+        "pick up the black bowl between the plate and the ramekin and place it on the plate",
+        "pick up the black bowl on the cookie box and place it on the plate",
+        "pick up the black bowl next to the plate and place it on the plate",
+        "pick up the black bowl next to the ramekin and place it on the plate",
+        "pick up the black bowl from table center and place it on the plate",
+        "pick up the black bowl on the wooden cabinet and place it on the plate",
+    ],
 }
 
 
@@ -39,24 +98,13 @@ def process_libero_demos(task_suite_name: str, output_dir: str):
     total_episodes = dataset.meta.total_episodes
     logger.info(f"Total episodes in dataset: {total_episodes}")
 
-    # Get task descriptions
-    tasks = dataset.meta.tasks
-    logger.info(f"Tasks: {tasks}")
-
-    # Filter episodes by task suite name
-    # LIBERO dataset in LeRobot format groups episodes by task suite
-    # We need to identify which episodes belong to the requested task suite
+    # Group episodes by task description
+    # LeRobot v2 episodes.jsonl uses "tasks" (list of strings), not "task_index"
     episode_indices = list(range(total_episodes))
-
-    # Group episodes by task (language instruction)
     episodes_by_task = {}
     for ep_idx in episode_indices:
-        # Get the task index for this episode
-        ep_task_index = dataset.meta.episodes[ep_idx]["task_index"]
-        task_description = tasks[ep_task_index]
+        task_description = dataset.meta.episodes[ep_idx]["tasks"][0]
 
-        # Filter by task suite name prefix in the task description
-        # LIBERO tasks in the combined dataset are tagged by suite
         if task_description not in episodes_by_task:
             episodes_by_task[task_description] = []
         episodes_by_task[task_description].append(ep_idx)
@@ -66,7 +114,8 @@ def process_libero_demos(task_suite_name: str, output_dir: str):
         logger.info(f"  Task: '{task_desc}' -> {len(ep_list)} episodes")
 
     # Filter tasks that belong to the requested suite
-    # Use LIBERO benchmark to get the task names for the requested suite
+    # Try using LIBERO benchmark package first, fall back to hardcoded mapping
+    suite_task_names = None
     try:
         from libero.libero import benchmark
 
@@ -76,17 +125,19 @@ def process_libero_demos(task_suite_name: str, output_dir: str):
         for task_id in range(task_suite.n_tasks):
             task = task_suite.get_task(task_id)
             suite_task_names.add(task.language)
-        logger.info(f"Suite '{task_suite_name}' has {len(suite_task_names)} tasks: {suite_task_names}")
-
-        # Filter episodes_by_task to only include tasks in the suite
-        filtered_episodes_by_task = {}
-        for task_desc, ep_list in episodes_by_task.items():
-            if task_desc in suite_task_names:
-                filtered_episodes_by_task[task_desc] = ep_list
-        episodes_by_task = filtered_episodes_by_task
-        logger.info(f"After filtering by suite, {len(episodes_by_task)} tasks remain")
+        logger.info(f"Suite '{task_suite_name}' has {len(suite_task_names)} tasks (from libero package)")
     except ImportError:
-        logger.warning("LIBERO benchmark not available, using all tasks from the dataset")
+        logger.warning("LIBERO benchmark package not available, using hardcoded task mapping as fallback")
+        suite_task_names = set(TASK_SUITE_TO_TASKS[task_suite_name])
+        logger.info(f"Suite '{task_suite_name}' has {len(suite_task_names)} tasks (from hardcoded mapping)")
+
+    # Always filter episodes to only include tasks in the suite
+    filtered_episodes_by_task = {}
+    for task_desc, ep_list in episodes_by_task.items():
+        if task_desc in suite_task_names:
+            filtered_episodes_by_task[task_desc] = ep_list
+    episodes_by_task = filtered_episodes_by_task
+    logger.info(f"After filtering by suite, {len(episodes_by_task)} tasks remain")
 
     # Process each task group
     current_dir = os.path.dirname(os.path.abspath(__file__))
@@ -132,26 +183,48 @@ def process_libero_demos(task_suite_name: str, output_dir: str):
                 sample = dataset[step_idx]
 
                 # State: already 8-dim [eef_pos(3), axis_angle(3), gripper(1), pad(1)]
-                state = np.array(sample["observation.state"], dtype=np.float32)
+                # LeRobot v2 uses "state" key (not "observation.state")
+                state_val = sample["state"]
+                if hasattr(state_val, "numpy"):
+                    state_val = state_val.numpy()
+                state = np.array(state_val, dtype=np.float32)
                 states.append(state)
 
                 # Actions: 7-dim [pos_delta(3), rot_delta(3), gripper(1)]
-                action = np.array(sample["action"], dtype=np.float32)
+                # LeRobot v2 uses "actions" key (not "action")
+                action_val = sample["actions"]
+                if hasattr(action_val, "numpy"):
+                    action_val = action_val.numpy()
+                action = np.array(action_val, dtype=np.float32)
                 actions_list.append(action)
 
                 # Images: base camera (agentview) and wrist camera
-                # LeRobot stores images as float32 (C, H, W), need to convert to uint8 (H, W, C)
-                base_img = np.array(sample["observation.images.image"])
+                # LeRobot v2 uses "image" and "wrist_image" keys
+                # May return PIL Image or torch Tensor
+                base_img_val = sample["image"]
+                if hasattr(base_img_val, "numpy"):
+                    base_img = base_img_val.numpy()
+                elif hasattr(base_img_val, "convert"):
+                    # PIL Image
+                    base_img = np.array(base_img_val)
+                else:
+                    base_img = np.array(base_img_val)
                 if np.issubdtype(base_img.dtype, np.floating):
                     base_img = (255 * base_img).astype(np.uint8)
-                if base_img.shape[0] == 3:
+                if base_img.ndim == 3 and base_img.shape[0] == 3:
                     base_img = np.transpose(base_img, (1, 2, 0))
                 base_images.append(base_img)
 
-                wrist_img = np.array(sample["observation.images.wrist_image"])
+                wrist_img_val = sample["wrist_image"]
+                if hasattr(wrist_img_val, "numpy"):
+                    wrist_img = wrist_img_val.numpy()
+                elif hasattr(wrist_img_val, "convert"):
+                    wrist_img = np.array(wrist_img_val)
+                else:
+                    wrist_img = np.array(wrist_img_val)
                 if np.issubdtype(wrist_img.dtype, np.floating):
                     wrist_img = (255 * wrist_img).astype(np.uint8)
-                if wrist_img.shape[0] == 3:
+                if wrist_img.ndim == 3 and wrist_img.shape[0] == 3:
                     wrist_img = np.transpose(wrist_img, (1, 2, 0))
                 wrist_images.append(wrist_img)
 
@@ -190,6 +263,21 @@ def process_libero_demos(task_suite_name: str, output_dir: str):
                 "prompt": task_desc,
             }
             np.savez(os.path.join(ep_output_dir, "processed_demo.npz"), **processed_demo)
+
+            # Save episode metadata
+            episode_meta = {
+                "source_repo": repo_id,
+                "source_episode_index": ep_idx,
+                "task_suite": task_suite_name,
+                "task_description": task_desc,
+                "num_steps": num_steps,
+                "state_dim": int(states.shape[1]),
+                "action_dim": int(actions_arr.shape[1]),
+                "image_size": [int(base_images.shape[1]), int(base_images.shape[2])],
+            }
+            with open(os.path.join(ep_output_dir, "episode_meta.json"), "w") as f:
+                json.dump(episode_meta, f, indent=2)
+
             logger.info(f"Saved processed demo for episode {ep_idx}")
 
     logger.info(f"Done processing {task_suite_name}!")

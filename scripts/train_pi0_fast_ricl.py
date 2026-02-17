@@ -149,7 +149,12 @@ def init_train_state(
 
 def create_decode_indices(config: _config.TrainConfig) -> at.Int[at.Array, "decode_len"]:
     # create the indices to decide which tokens to decode: i.e. only those belonging to each retrieved/query "prompt, state, action" prompt and not the images
-    num_images = 2 if "libero" in config.name else 2  # LIBERO: 2 cameras, DROID: 2 cameras (current default)
+    if config.ricl_env == "libero":
+        num_images = 2  # base + wrist
+    elif config.ricl_env == "droid":
+        num_images = 3  # top + right + wrist
+    else:
+        raise ValueError(f"Unsupported ricl_env: {config.ricl_env}")
     image_token_len = 256 * num_images  # number of image tokens times number of images
     prompt_token_len = (
         config.model.max_token_len

@@ -2,7 +2,7 @@ from collections.abc import Sequence
 import dataclasses
 import logging
 import pathlib
-from typing import Any
+from typing import Any, Literal
 
 import jax.numpy as jnp
 
@@ -90,6 +90,7 @@ def create_trained_ricl_policy(
     train_config: _config.TrainConfig,
     checkpoint_dir: str,
     demos_dir: str,
+    ricl_env: Literal["droid", "libero"] = "libero",
     norm_stats: dict[str, transforms.NormStats] | None = None,
 ) -> _policy.RiclPolicy:
     """Create a ricl policy from a trained checkpoint.
@@ -112,7 +113,12 @@ def create_trained_ricl_policy(
             raise ValueError("Asset id is required to load norm stats.")
         norm_stats = _checkpoints.load_norm_stats(f"{checkpoint_dir}/assets", data_config.asset_id)
 
-    policy_cls = _policy.RiclLiberoPolicy if "libero" in train_config.name else _policy.RiclPolicy
+    if ricl_env == "libero":
+        policy_cls = _policy.RiclLiberoPolicy
+    elif ricl_env == "droid":
+        policy_cls = _policy.RiclPolicy
+    else:
+        raise ValueError(f"Unsupported ricl_env: {ricl_env}")
 
     return policy_cls(
         model,

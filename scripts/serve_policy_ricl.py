@@ -2,6 +2,7 @@ import dataclasses
 import enum
 import logging
 import socket
+from typing import Literal
 
 import tyro
 
@@ -30,6 +31,8 @@ class Checkpoint:
     dir: str
     # Demos directory (e.g., "ricl_droid_preprocessing/collected_demos/2025-03-04").
     demos_dir: str
+    # RICL environment mode used by the policy server.
+    ricl_env: Literal["droid", "libero"] = "libero"
 
 
 @dataclasses.dataclass
@@ -60,7 +63,10 @@ class Args:
 def create_policy(args: Args) -> _policy.Policy:
     """Create a policy from the given arguments."""
     return _policy_config.create_trained_ricl_policy(
-        _config.get_config(args.policy.config), args.policy.dir, demos_dir=args.policy.demos_dir
+        _config.get_config(args.policy.config),
+        args.policy.dir,
+        demos_dir=args.policy.demos_dir,
+        ricl_env=args.policy.ricl_env,
     )
 
 

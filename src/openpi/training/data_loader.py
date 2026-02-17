@@ -615,10 +615,13 @@ def create_data_loader(
     """
     data_config = config.data.create(config.assets_dirs, config.model)
 
-    if "libero_ricl" in config.name:
-        dataset = RiclLiberoDataset(config.model, config.finetuning_collected_demos_dir)
-    elif "ricl" in config.name:
-        dataset = RiclDroidDataset(config.model, config.finetuning_collected_demos_dir)
+    if "ricl" in config.name:
+        if config.ricl_env == "libero":
+            dataset = RiclLiberoDataset(config.model, config.finetuning_collected_demos_dir)
+        elif config.ricl_env == "droid":
+            dataset = RiclDroidDataset(config.model, config.finetuning_collected_demos_dir)
+        else:
+            raise ValueError(f"Unsupported ricl_env: {config.ricl_env}")
     elif "pi0_fast_droid___finetune_on_" in config.name:
         dataset = Pi0FastDroidFinetuneDataset(config.model, config.finetuning_collected_demos_dir)
     else:

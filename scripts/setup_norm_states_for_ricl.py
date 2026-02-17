@@ -4,7 +4,7 @@ import argparse
 import numpy as np
 
 
-def compute_and_save_simple_norm_stats_for_ricl(num_retrieved):
+def compute_and_save_simple_norm_stats_for_ricl(num_retrieved, embedding_type="top_image"):
     norm_stats_basic_file_save_loc = "assets/norm_stats_simple.json"
     max_distance_file_save_loc = "assets/max_distance.json"
 
@@ -23,7 +23,7 @@ def compute_and_save_simple_norm_stats_for_ricl(num_retrieved):
     all_distances = []
     for demo_dir in demo_dirs:
         demo_data = np.load(f"{demo_dir}/processed_demo.npz")
-        indices_and_dists = np.load(f"{demo_dir}/indices_and_distances.npz")
+        indices_and_dists = np.load(f"{demo_dir}/indices_and_distances_{embedding_type}.npz")
         all_states.append(demo_data["state"])
         all_actions.append(demo_data["actions"])
         all_distances.append(
@@ -69,7 +69,7 @@ def compute_and_save_simple_norm_stats_for_ricl(num_retrieved):
     return norm_stats_basic_file_save_loc
 
 
-def compute_and_save_simple_norm_stats_for_ricl_libero(num_retrieved):
+def compute_and_save_simple_norm_stats_for_ricl_libero(num_retrieved, embedding_type="base_image"):
     norm_stats_basic_file_save_loc = "assets/norm_stats_simple_libero.json"
     max_distance_file_save_loc = "assets/max_distance_libero.json"
 
@@ -88,7 +88,7 @@ def compute_and_save_simple_norm_stats_for_ricl_libero(num_retrieved):
     all_distances = []
     for demo_dir in demo_dirs:
         demo_data = np.load(f"{demo_dir}/processed_demo.npz")
-        indices_and_dists = np.load(f"{demo_dir}/indices_and_distances.npz")
+        indices_and_dists = np.load(f"{demo_dir}/indices_and_distances_{embedding_type}.npz")
         all_states.append(demo_data["state"])
         all_actions.append(demo_data["actions"])
         all_distances.append(
@@ -163,19 +163,24 @@ if __name__ == "__main__":
     parser.add_argument(
         "--env", type=str, default="droid", choices=["droid", "libero"], help="Environment to compute norm stats for"
     )
+    parser.add_argument(
+        "--embedding_type", type=str, default=None, help="Embedding type used for retrieval (default: top_image for droid, base_image for libero)"
+    )
     args = parser.parse_args()
 
     num_retrieved = 4  # consequence is distances
 
     if args.env == "droid":
-        output_file_name = compute_and_save_simple_norm_stats_for_ricl(num_retrieved=num_retrieved)
+        embedding_type = args.embedding_type or "top_image"
+        output_file_name = compute_and_save_simple_norm_stats_for_ricl(num_retrieved=num_retrieved, embedding_type=embedding_type)
         convert_simple_norm_stats_to_retrieved_and_query_norm_stats(
             norm_stats_basic_file=output_file_name,
             num_retrieved=num_retrieved,
             output_files=["assets/pi0_fast_droid_ricl/droid/norm_stats.json"],
         )
     elif args.env == "libero":
-        output_file_name = compute_and_save_simple_norm_stats_for_ricl_libero(num_retrieved=num_retrieved)
+        embedding_type = args.embedding_type or "base_image"
+        output_file_name = compute_and_save_simple_norm_stats_for_ricl_libero(num_retrieved=num_retrieved, embedding_type=embedding_type)
         convert_simple_norm_stats_to_retrieved_and_query_norm_stats(
             norm_stats_basic_file=output_file_name,
             num_retrieved=num_retrieved,

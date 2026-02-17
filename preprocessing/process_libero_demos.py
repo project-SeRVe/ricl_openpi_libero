@@ -96,8 +96,8 @@ def process_libero_demos(task_suite_name: str, output_dir: str):
         task_dir_name = task_desc.replace(" ", "_")
 
         if output_dir in ("libero_collected_demos_training",):
-            # For training data: group by task suite
-            task_output_dir = os.path.join(current_dir, output_dir, task_suite_name)
+            # For training data: group by task suite + task name for per-task retrieval
+            task_output_dir = os.path.join(current_dir, output_dir, f"{task_suite_name}_{task_dir_name}")
         else:
             # For test data: use task_suite_name_task_name format
             task_output_dir = os.path.join(current_dir, output_dir, f"{task_suite_name}_{task_dir_name}")

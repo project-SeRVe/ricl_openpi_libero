@@ -184,5 +184,5 @@ if __name__ == "__main__":
         convert_simple_norm_stats_to_retrieved_and_query_norm_stats(
             norm_stats_basic_file=output_file_name,
             num_retrieved=num_retrieved,
-            output_files=["assets/pi0_fast_libero_ricl/libero/norm_stats.json"],
+            output_files=["assets/libero/norm_stats.json"],
         )

@@ -13,74 +13,13 @@ from openpi.policies.utils import load_dinov2
 logging.basicConfig(level=logging.INFO, force=True)
 logger = logging.getLogger(__name__)
 
-# LIBERO task suite names and their corresponding HuggingFace dataset repo IDs
-TASK_SUITE_TO_REPO = {
-    "libero_spatial": "physical-intelligence/libero",
-    "libero_object": "physical-intelligence/libero",
-    "libero_goal": "physical-intelligence/libero",
-    "libero_10": "physical-intelligence/libero",
-}
-
-# Hardcoded fallback mapping from task suite to task descriptions.
-# Derived from tasks.jsonl: indices 0-9 = libero_10, 10-19 = libero_goal,
-# 20-29 = libero_object, 30-39 = libero_spatial.
-TASK_SUITE_TO_TASKS = {
-    "libero_10": [
-        "put the white mug on the left plate and put the yellow and white mug on the right plate",
-        "put the white mug on the plate and put the chocolate pudding to the right of the plate",
-        "put the yellow and white mug in the microwave and close it",
-        "turn on the stove and put the moka pot on it",
-        "put both the alphabet soup and the cream cheese box in the basket",
-        "put both the alphabet soup and the tomato sauce in the basket",
-        "put both moka pots on the stove",
-        "put both the cream cheese box and the butter in the basket",
-        "put the black bowl in the bottom drawer of the cabinet and close it",
-        "pick up the book and place it in the back compartment of the caddy",
-    ],
-    "libero_goal": [
-        "put the bowl on the plate",
-        "put the wine bottle on the rack",
-        "open the top drawer and put the bowl inside",
-        "put the cream cheese in the bowl",
-        "put the wine bottle on top of the cabinet",
-        "push the plate to the front of the stove",
-        "turn on the stove",
-        "put the bowl on the stove",
-        "put the bowl on top of the cabinet",
-        "open the middle drawer of the cabinet",
-    ],
-    "libero_object": [
-        "pick up the orange juice and place it in the basket",
-        "pick up the ketchup and place it in the basket",
-        "pick up the cream cheese and place it in the basket",
-        "pick up the bbq sauce and place it in the basket",
-        "pick up the alphabet soup and place it in the basket",
-        "pick up the milk and place it in the basket",
-        "pick up the salad dressing and place it in the basket",
-        "pick up the butter and place it in the basket",
-        "pick up the tomato sauce and place it in the basket",
-        "pick up the chocolate pudding and place it in the basket",
-    ],
-    "libero_spatial": [
-        "pick up the black bowl next to the cookie box and place it on the plate",
-        "pick up the black bowl in the top drawer of the wooden cabinet and place it on the plate",
-        "pick up the black bowl on the ramekin and place it on the plate",
-        "pick up the black bowl on the stove and place it on the plate",
-        "pick up the black bowl between the plate and the ramekin and place it on the plate",
-        "pick up the black bowl on the cookie box and place it on the plate",
-        "pick up the black bowl next to the plate and place it on the plate",
-        "pick up the black bowl next to the ramekin and place it on the plate",
-        "pick up the black bowl from table center and place it on the plate",
-        "pick up the black bowl on the wooden cabinet and place it on the plate",
-    ],
-}
+REPO_ID = "physical-intelligence/libero"
 
 
-def process_libero_demos(task_suite_name: str, output_dir: str):
-    """Extract LIBERO benchmark demos from LeRobot HF dataset into processed_demo.npz format.
+def process_libero_demos(output_dir: str):
+    """Extract all LIBERO benchmark demos from LeRobot HF dataset into processed_demo.npz format.
 
     Args:
-        task_suite_name: One of libero_spatial, libero_object, libero_goal, libero_10.
         output_dir: Output directory (e.g., libero_collected_demos_training or libero_collected_demos).
     """
     from lerobot.common.datasets.lerobot_dataset import LeRobotDataset
@@ -90,7 +29,7 @@ def process_libero_demos(task_suite_name: str, output_dir: str):
     logger.info("Loaded DINOv2 for image embedding")
 
     # Load the LeRobot dataset
-    repo_id = TASK_SUITE_TO_REPO[task_suite_name]
+    repo_id = REPO_ID
     logger.info(f"Loading LeRobot dataset: {repo_id}")
     dataset = LeRobotDataset(repo_id, local_files_only=False)
 
@@ -113,32 +52,6 @@ def process_libero_demos(task_suite_name: str, output_dir: str):
     for task_desc, ep_list in episodes_by_task.items():
         logger.info(f"  Task: '{task_desc}' -> {len(ep_list)} episodes")
 
-    # Filter tasks that belong to the requested suite
-    # Try using LIBERO benchmark package first, fall back to hardcoded mapping
-    suite_task_names = None
-    try:
-        from libero.libero import benchmark
-
-        benchmark_dict = benchmark.get_benchmark_dict()
-        task_suite = benchmark_dict[task_suite_name]()
-        suite_task_names = set()
-        for task_id in range(task_suite.n_tasks):
-            task = task_suite.get_task(task_id)
-            suite_task_names.add(task.language)
-        logger.info(f"Suite '{task_suite_name}' has {len(suite_task_names)} tasks (from libero package)")
-    except ImportError:
-        logger.warning("LIBERO benchmark package not available, using hardcoded task mapping as fallback")
-        suite_task_names = set(TASK_SUITE_TO_TASKS[task_suite_name])
-        logger.info(f"Suite '{task_suite_name}' has {len(suite_task_names)} tasks (from hardcoded mapping)")
-
-    # Always filter episodes to only include tasks in the suite
-    filtered_episodes_by_task = {}
-    for task_desc, ep_list in episodes_by_task.items():
-        if task_desc in suite_task_names:
-            filtered_episodes_by_task[task_desc] = ep_list
-    episodes_by_task = filtered_episodes_by_task
-    logger.info(f"After filtering by suite, {len(episodes_by_task)} tasks remain")
-
     # Process each task group
     current_dir = os.path.dirname(os.path.abspath(__file__))
 
@@ -146,20 +59,12 @@ def process_libero_demos(task_suite_name: str, output_dir: str):
         # Create task directory name: replace spaces with underscores
         task_dir_name = task_desc.replace(" ", "_")
 
-        if output_dir in ("libero_collected_demos_training",):
-            # For training data: group by task suite + task name for per-task retrieval
-            task_output_dir = os.path.join(current_dir, output_dir, f"{task_suite_name}_{task_dir_name}")
-        else:
-            # For test data: use task_suite_name_task_name format
-            task_output_dir = os.path.join(current_dir, output_dir, f"{task_suite_name}_{task_dir_name}")
+        task_output_dir = os.path.join(current_dir, output_dir, task_dir_name)
 
         os.makedirs(task_output_dir, exist_ok=True)
 
         for ep_count, ep_idx in enumerate(ep_list):
-            if output_dir in ("libero_collected_demos_training",):
-                ep_output_dir = os.path.join(task_output_dir, f"episode_{ep_idx}")
-            else:
-                ep_output_dir = os.path.join(task_output_dir, f"demo_{ep_count}")
+            ep_output_dir = os.path.join(task_output_dir, f"episode_{ep_idx}")
 
             if os.path.exists(os.path.join(ep_output_dir, "processed_demo.npz")):
                 logger.info(f"Episode {ep_idx} already processed, skipping")
@@ -268,7 +173,6 @@ def process_libero_demos(task_suite_name: str, output_dir: str):
             episode_meta = {
                 "source_repo": repo_id,
                 "source_episode_index": ep_idx,
-                "task_suite": task_suite_name,
                 "task_description": task_desc,
                 "num_steps": num_steps,
                 "state_dim": int(states.shape[1]),
@@ -280,18 +184,11 @@ def process_libero_demos(task_suite_name: str, output_dir: str):
 
             logger.info(f"Saved processed demo for episode {ep_idx}")
 
-    logger.info(f"Done processing {task_suite_name}!")
+    logger.info("Done processing all LIBERO tasks!")
 
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument(
-        "--task_suite_name",
-        type=str,
-        required=True,
-        choices=["libero_spatial", "libero_object", "libero_goal", "libero_10"],
-        help="LIBERO task suite name",
-    )
     parser.add_argument(
         "--output_dir",
         type=str,
@@ -300,4 +197,4 @@ if __name__ == "__main__":
     )
     args = parser.parse_args()
 
-    process_libero_demos(args.task_suite_name, args.output_dir)
+    process_libero_demos(args.output_dir)

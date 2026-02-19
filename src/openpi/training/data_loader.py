@@ -474,9 +474,7 @@ class RiclLiberoDataset(Dataset):
             for ep_idx in all_ep_idxs
         }
         all_ep_prompts = {
-            ep_idx: " ".join(collected_demos_infos["ep_idxs_to_fol"][str(ep_idx)].split("/")[-2].split("_")[1:])
-            if "_" in collected_demos_infos["ep_idxs_to_fol"][str(ep_idx)].split("/")[-2]
-            else collected_demos_infos["ep_idxs_to_fol"][str(ep_idx)].split("/")[-2]
+            ep_idx: " ".join(collected_demos_infos["ep_idxs_to_fol"][str(ep_idx)].split("/")[-2].split("_"))
             for ep_idx in all_ep_idxs
         }
 

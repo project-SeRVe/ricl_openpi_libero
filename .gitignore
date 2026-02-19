@@ -173,3 +173,6 @@ pi0_fast_droid_ricl_checkpoint/
 preprocessing/collected_demos_training/
 preprocessing/collected_demos/
 
+# third-party code
+third_party/
+

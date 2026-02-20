@@ -49,6 +49,8 @@
 
   ---
   4. Serving
+  
+  이 코드에서는 serving하는 프로세스 하나와, evaluation이 돌아가는 프로세스(로봇에 해당) 하나가 사용된다.
 
   uv run scripts/serve_policy_ricl.py policy:checkpoint \
     --policy.config=pi0_fast_libero_ricl \

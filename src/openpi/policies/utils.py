@@ -77,6 +77,8 @@ def embed(images, dinov2):
 	images = process_dinov2(images)
 
 	with torch.no_grad():
+		images = images.to(torch.bfloat16)
+		dinov2 = dinov2.to(torch.bfloat16)
 		features = dinov2.forward_features(images) # dict_keys(['x_norm_clstoken', 'x_norm_regtokens', 'x_norm_patchtokens', 'x_prenorm', 'masks']) # shape of x_norm_regtokens = (batch_size, 0, 768)
 		if EMBEDDING_TYPE == 'CLS': # output of the CLS token
 			batch_embeddings = features["x_norm_clstoken"] # (batch_size, 768)
@@ -105,7 +107,7 @@ def embed(images, dinov2):
 			assert len(patches) == N_patches, f"{len(patches)=} {N_patches=}"
 			batch_embeddings = torch.cat(patches, dim=1) # (batch_size, 16*768)
 
-	return batch_embeddings.cpu().numpy()
+	return batch_embeddings.float().cpu().numpy()
 
 def embed_with_batches(images, dinov2, batch_size=256):
 	all_embeddings = []

@@ -390,7 +390,7 @@ def get_action_chunk_libero(actions, step_idx, action_horizon):
 
 
 class RiclLiberoDataset(Dataset):
-    def __init__(self, model_config: _pi0_fast_ricl.Pi0FASTRiclConfig, finetuning_collected_demos_dir: str | None):
+    def __init__(self, model_config: _pi0_fast_ricl.Pi0FASTRiclConfig, finetuning_collected_demos_dir: str | None, embedding_type: str = "base_image"):
         # setup
         num_retrieved_observations = model_config.num_retrieved_observations
         knn_k = 100
@@ -414,7 +414,7 @@ class RiclLiberoDataset(Dataset):
         indices_files = []
         for group_name, ep_fols in collected_demos_infos["groups_to_ep_fols"].items():
             for ep_fol in ep_fols:
-                indices_files.append(f"{ep_fol}/indices_and_distances.npz")
+                indices_files.append(f"{ep_fol}/indices_and_distances_{embedding_type}.npz")
 
         # actual loading...
         count_collected_demos = 0
@@ -474,9 +474,7 @@ class RiclLiberoDataset(Dataset):
             for ep_idx in all_ep_idxs
         }
         all_ep_prompts = {
-            ep_idx: " ".join(collected_demos_infos["ep_idxs_to_fol"][str(ep_idx)].split("/")[-2].split("_")[1:])
-            if "_" in collected_demos_infos["ep_idxs_to_fol"][str(ep_idx)].split("/")[-2]
-            else collected_demos_infos["ep_idxs_to_fol"][str(ep_idx)].split("/")[-2]
+            ep_idx: " ".join(collected_demos_infos["ep_idxs_to_fol"][str(ep_idx)].split("/")[-2].split("_"))
             for ep_idx in all_ep_idxs
         }
 
@@ -617,7 +615,8 @@ def create_data_loader(
 
     if "ricl" in config.name:
         if config.ricl_env == "libero":
-            dataset = RiclLiberoDataset(config.model, config.finetuning_collected_demos_dir)
+            embedding_type = getattr(config.data, "embedding_type", "base_image")
+            dataset = RiclLiberoDataset(config.model, config.finetuning_collected_demos_dir, embedding_type=embedding_type)
         elif config.ricl_env == "droid":
             dataset = RiclDroidDataset(config.model, config.finetuning_collected_demos_dir)
         else:

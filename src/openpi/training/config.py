@@ -416,6 +416,8 @@ class RiclDroidDataConfig(DataConfigFactory):
 class RiclLiberoDataConfig(DataConfigFactory):
     """RICL data config for LIBERO environment (2 cameras: base + wrist, action_dim=7)."""
 
+    embedding_type: str = "base_image"
+
     @override
     def create(self, assets_dirs: pathlib.Path, model_config: pi0_fast_ricl.Pi0FASTRiclConfig) -> DataConfig:
         repack_transform = _transforms.Group(

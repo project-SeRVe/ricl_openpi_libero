@@ -98,7 +98,7 @@ def retrieval_preprocessing(groups_to_ep_idxs, ep_idxs_to_fol, nb_cores_autofais
 
 		# for each episode, retrieve from all other embeddings
 		for ep_count, ep_idx in enumerate(ep_idxs):
-			if os.path.exists(f"{ep_idxs_to_fol[ep_idx]}/indices_and_distances.npz"):
+			if os.path.exists(f"{ep_idxs_to_fol[ep_idx]}/indices_and_distances_{embedding_type}.npz"):
 				myprint(f'[retrieval_preprocessing] skipping episode {ep_idx} [episode count {ep_count}/{total_episodes_in_grouping}]')
 				continue
 
@@ -166,8 +166,8 @@ def retrieval_preprocessing(groups_to_ep_idxs, ep_idxs_to_fol, nb_cores_autofais
 			assert all_distances.shape == (num_query, knn_k + 1), f'{all_distances.shape=} {num_query=} {knn_k=}'
 
 			# save the retrieved indices and this_episode_indices
-			np.savez(f"{ep_idxs_to_fol[ep_idx]}/indices_and_distances.npz", 
-						retrieved_indices=retrieved_indices, 
+			np.savez(f"{ep_idxs_to_fol[ep_idx]}/indices_and_distances_{embedding_type}.npz",
+						retrieved_indices=retrieved_indices,
 						query_indices=this_episode_indices,
 						distances=all_distances)
 			myprint(f'[retrieval_preprocessing] finished and saved retrieval indices for episode {ep_idx} [episode count {ep_count}/{total_episodes_in_grouping}]')

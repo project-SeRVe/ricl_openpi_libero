@@ -15,10 +15,13 @@ dependencies = [
 requires = ["hatchling"]
 build-backend = "hatchling.build"
 
-[tool.uv]
-dev-dependencies = [
+[dependency-groups]
+dev = [
     "pytest>=8.3.4",
 ]
+
+[tool.uv]
+environments = ["python_full_version == '3.11.*' and platform_machine == 'x86_64' and sys_platform == 'linux'"]
 
 [tool.ruff]
 line-length = 120

@@ -7,7 +7,7 @@ This document reflects what is implemented now in `ricl_openpi_libero`.
 - Inference/operation path: `pending -> review(O/X) -> approved/rejected -> local_vector_db -> serve`.
 - Sync path: chunk upload/pull/materialize CLI is implemented.
 
-Not yet implemented is listed in Section 8.
+Not yet implemented is listed in Section 9.
 
 ---
 
@@ -105,6 +105,16 @@ Default paths:
 Optional:
 - `--run-inference-cmd` is a hook command template, not mandatory.
 - placeholders: `{episode_dir}`, `{rel_path}`, `{result_dir}`
+- built-in evaluator script is available:
+  - `scripts/run_episode_eval.py`
+
+Example (run evaluator + O/X):
+```bash
+cd preprocessing
+uv run review_and_route_demos.py \
+  --require-results \
+  --run-inference-cmd "uv run ../scripts/run_episode_eval.py --episode {episode_dir} --out {result_dir} --mode infer --host 0.0.0.0 --port 8000 --overwrite"
+```
 
 ---
 
@@ -155,19 +165,57 @@ Current behavior:
 - Materialize:
   - reconstructs file from pulled chunks
   - writes to `preprocessing/runtime_demos/approved_synced/...` (by naming convention)
+- Optional rebuild:
+  - `data pull` can trigger local vector DB rebuild in the same command via `--rebuild-local-db`
+  - rebuild target defaults to pulled team id unless overridden
 
 Run example:
 ```bash
 uv run data upload team_a pick_up_book demo_11 --dry-run
 uv run data pull team_a --materialize --materialize-approved-root preprocessing/runtime_demos/approved_synced
+uv run data pull team_a --materialize --rebuild-local-db
 uv run data status team_a
 ```
 
 ---
 
-## 7) Serving Retrieval Runtime
+## 7) Data Locations (Default + Current Workspace)
 
-### 7.1 Policy-side retrieval adapter
+### 7.1 Default paths used by scripts
+- Pending demos:
+  - `preprocessing/runtime_demos/pending`
+- Approved demos:
+  - `preprocessing/runtime_demos/approved`
+- Rejected demos:
+  - `preprocessing/runtime_demos/rejected`
+- Synced/materialized demos:
+  - `preprocessing/runtime_demos/approved_synced`
+- Review/inference artifacts:
+  - `preprocessing/runtime_logs/inference`
+- Local vector DB:
+  - `preprocessing/local_vector_db/<team_id>`
+- Sync state:
+  - `preprocessing/.sync_state/<team_id>`
+- Synced chunks:
+  - `preprocessing/.synced_chunks/<team_id>/<documentId>/`
+
+### 7.2 Current sample data found in this workspace
+- Pending sample:
+  - `preprocessing/runtime_demos/pending/sample_one/demo_11/processed_demo.npz`
+- Synced approved sample:
+  - `preprocessing/runtime_demos/approved_synced/pick_up_book/demo_999/processed_demo.npz`
+- Local vector DB samples:
+  - `preprocessing/local_vector_db/team_sync/{summary.json,episodes.json,vectors.npz}`
+  - `preprocessing/local_vector_db/team_demo/{summary.json,episodes.json,vectors.npz}`
+
+Note:
+- `preprocessing/runtime_logs/inference` can be empty until evaluation/review creates artifacts.
+
+---
+
+## 8) Serving Retrieval Runtime
+
+### 8.1 Policy-side retrieval adapter
 - `src/openpi/policies/retrieval_store.py`
 - `src/openpi/policies/policy.py` (`RiclLiberoPolicy`)
 
@@ -177,7 +225,7 @@ Selection logic:
 - otherwise:
   - uses legacy demos-folder store (`processed_demo.npz` folders)
 
-### 7.2 Serving command example
+### 8.2 Serving command example
 ```bash
 uv run scripts/serve_policy_ricl.py policy:checkpoint \
   --policy.config=pi0_fast_libero_ricl \
@@ -189,27 +237,18 @@ uv run scripts/serve_policy_ricl.py policy:checkpoint \
 
 ---
 
-## 8) Not Implemented Yet (Important)
+## 9) Not Implemented Yet (Important)
 
-1. Automatic inference execution is not hard-wired in O/X loop.
-- `review_and_route_demos.py` can run an external command via `--run-inference-cmd`, but no built-in evaluator script is provided.
-
-2. Automatic vector DB rebuild after approval is not implemented.
-- You must run `build_local_vector_db.py` manually.
-
-3. Automatic vector DB rebuild after `data pull --materialize` is not implemented.
-- Pull/materialize and index rebuild are separate commands.
-
-4. Real crypto pipeline is not implemented inside `data_sync_cli.py`.
+1. Real crypto pipeline is not implemented inside `data_sync_cli.py`.
 - Chunk payload uses base64 transport and optional `encryptedDEK` field pass-through.
 - No local key generation/decryption logic is currently in this CLI.
 
-5. Vector-delta upload is not implemented.
+2. Vector-delta upload is not implemented.
 - Current upload unit is file-based (`processed_demo.npz` chunking).
 
 ---
 
-## 9) Minimal End-to-End (Current)
+## 10) Minimal End-to-End (Current)
 
 ```bash
 cd preprocessing
@@ -223,8 +262,11 @@ uv run validate_processed_demo.py --root runtime_demos/pending
 # human review O/X
 uv run review_and_route_demos.py --require-results
 
-# build local vector db from approved
-uv run build_local_vector_db.py --approved-root runtime_demos/approved --output-root local_vector_db --team-id team_a --overwrite
+# optional: human review O/X + immediate reindex
+uv run review_and_route_demos.py \
+  --require-results \
+  --reindex-on-approve \
+  --reindex-team-id team_a
 
 # (repo root) serve with local vector db
 cd ..

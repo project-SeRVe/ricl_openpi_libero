@@ -2,6 +2,7 @@ import argparse
 import json
 import logging
 import os
+import shlex
 import shutil
 import subprocess
 from datetime import datetime, timezone
@@ -81,6 +82,42 @@ def _run_inference_command(
     return proc.returncode, cmd
 
 
+def _run_reindex_command(
+    *,
+    preprocessing_dir: Path,
+    approved_root: Path,
+    output_root: Path,
+    team_id: str,
+    write_faiss: bool,
+    dry_run: bool,
+) -> tuple[int, str]:
+    cmd = [
+        "uv",
+        "run",
+        "build_local_vector_db.py",
+        "--approved-root",
+        str(approved_root),
+        "--output-root",
+        str(output_root),
+        "--team-id",
+        team_id,
+        "--overwrite",
+    ]
+    if write_faiss:
+        cmd.append("--write-faiss")
+    cmd_str = shlex.join(cmd)
+    if dry_run:
+        return 0, cmd_str
+    proc = subprocess.run(cmd, cwd=preprocessing_dir, text=True, capture_output=True)
+    if proc.returncode != 0:
+        logger.error("reindex failed: rc=%s", proc.returncode)
+        if proc.stdout:
+            logger.error("reindex stdout:\n%s", proc.stdout)
+        if proc.stderr:
+            logger.error("reindex stderr:\n%s", proc.stderr)
+    return proc.returncode, cmd_str
+
+
 def _build_row(
     reviewer: str,
     decision: str,
@@ -93,6 +130,8 @@ def _build_row(
     result_artifact_count: int,
     inference_command: str | None,
     inference_returncode: int | None,
+    reindex_command: str | None,
+    reindex_returncode: int | None,
 ) -> dict:
     return {
         "timestamp_utc": datetime.now(timezone.utc).isoformat(),
@@ -107,6 +146,8 @@ def _build_row(
         "result_artifact_count": result_artifact_count,
         "inference_command": inference_command,
         "inference_returncode": inference_returncode,
+        "reindex_command": reindex_command,
+        "reindex_returncode": reindex_returncode,
     }
 
 
@@ -139,6 +180,24 @@ def main() -> None:
         ),
     )
     parser.add_argument("--show-artifacts-limit", type=int, default=8)
+    parser.add_argument(
+        "--reindex-on-approve",
+        action="store_true",
+        help="rebuild local vector DB immediately after each approved episode",
+    )
+    parser.add_argument(
+        "--reindex-team-id",
+        type=str,
+        default=None,
+        help="team id for local vector DB output (required if --reindex-on-approve)",
+    )
+    parser.add_argument(
+        "--reindex-output-root",
+        type=str,
+        default="local_vector_db",
+        help="output root for local vector DB artifacts",
+    )
+    parser.add_argument("--reindex-write-faiss", action="store_true")
     parser.add_argument("--overwrite", action="store_true")
     parser.add_argument("--dry-run", action="store_true")
     parser.add_argument("--limit", type=int, default=None, help="optional max number of pending episodes to review")
@@ -150,9 +209,12 @@ def main() -> None:
     rejected_root = (current_dir / args.rejected_root).resolve()
     results_root = (current_dir / args.results_root).resolve()
     log_path = (current_dir / args.log_path).resolve()
+    reindex_output_root = (current_dir / args.reindex_output_root).resolve()
 
     if not pending_root.exists():
         raise FileNotFoundError(f"pending root does not exist: {pending_root}")
+    if args.reindex_on_approve and not args.reindex_team_id:
+        raise ValueError("--reindex-team-id is required when --reindex-on-approve is set")
 
     episode_dirs = _find_episode_dirs(pending_root)
     if args.limit is not None:
@@ -228,6 +290,21 @@ def main() -> None:
             target_root = approved_root if decision == "approved" else rejected_root
             target_dir = target_root / rel_path
             _move_episode(episode_dir, target_dir, overwrite=args.overwrite, dry_run=args.dry_run)
+            reindex_command = None
+            reindex_returncode = None
+            if decision == "approved" and args.reindex_on_approve:
+                reindex_returncode, reindex_command = _run_reindex_command(
+                    preprocessing_dir=current_dir,
+                    approved_root=approved_root,
+                    output_root=reindex_output_root,
+                    team_id=args.reindex_team_id,
+                    write_faiss=args.reindex_write_faiss,
+                    dry_run=args.dry_run,
+                )
+                print(f"  reindex_cmd={reindex_command}")
+                print(f"  reindex_returncode={reindex_returncode}")
+                if reindex_returncode != 0:
+                    print("  warning: reindex command returned non-zero")
             row = _build_row(
                 reviewer=args.reviewer,
                 decision=decision,
@@ -240,6 +317,8 @@ def main() -> None:
                 result_artifact_count=len(artifacts),
                 inference_command=inference_command,
                 inference_returncode=inference_returncode,
+                reindex_command=reindex_command,
+                reindex_returncode=reindex_returncode,
             )
             _append_log(log_path, row, dry_run=args.dry_run)
             print(f"moved -> {decision}: {target_dir}")

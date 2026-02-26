@@ -9,6 +9,8 @@ import json
 import os
 from pathlib import Path
 import re
+import shlex
+import subprocess
 from typing import Any
 import urllib.error
 import urllib.parse
@@ -465,6 +467,39 @@ def _materialize_documents(
     return result
 
 
+def _run_rebuild_local_db(
+    *,
+    repo_root: Path,
+    approved_root: Path,
+    output_root: Path,
+    team_id: str,
+    write_faiss: bool,
+) -> tuple[int, str]:
+    approved_root_abs = approved_root if approved_root.is_absolute() else (repo_root / approved_root).resolve()
+    output_root_abs = output_root if output_root.is_absolute() else (repo_root / output_root).resolve()
+    cmd = [
+        "uv",
+        "run",
+        "preprocessing/build_local_vector_db.py",
+        "--approved-root",
+        str(approved_root_abs),
+        "--output-root",
+        str(output_root_abs),
+        "--team-id",
+        team_id,
+        "--overwrite",
+    ]
+    if write_faiss:
+        cmd.append("--write-faiss")
+    cmd_str = shlex.join(cmd)
+    proc = subprocess.run(cmd, cwd=repo_root, text=True, capture_output=True)
+    if proc.stdout:
+        print(proc.stdout, end="")
+    if proc.stderr:
+        print(proc.stderr, end="")
+    return proc.returncode, cmd_str
+
+
 def _cmd_pull(args) -> None:
     token = _read_token(args.token, args.token_file)
     if args.mock_response is None and not token:
@@ -510,6 +545,28 @@ def _cmd_pull(args) -> None:
             allow_incomplete=args.materialize_allow_incomplete,
         )
         print("[MATERIALIZE]", json.dumps(materialize_result, ensure_ascii=True))
+
+    if args.rebuild_local_db:
+        rebuild_team_id = args.rebuild_local_db_team_id or args.team_id
+        if args.rebuild_local_db_approved_root:
+            approved_root = Path(args.rebuild_local_db_approved_root)
+        elif args.materialize:
+            approved_root = Path(args.materialize_approved_root)
+        else:
+            approved_root = Path("preprocessing/runtime_demos/approved_synced")
+
+        repo_root = Path(__file__).resolve().parents[3]
+        rc, cmd_str = _run_rebuild_local_db(
+            repo_root=repo_root,
+            approved_root=approved_root,
+            output_root=Path(args.rebuild_local_db_output_root),
+            team_id=rebuild_team_id,
+            write_faiss=args.rebuild_local_db_write_faiss,
+        )
+        print(f"[REINDEX] cmd={cmd_str}")
+        print(f"[REINDEX] returncode={rc}")
+        if rc != 0:
+            raise RuntimeError("local vector DB rebuild failed")
 
 
 def _cmd_materialize(args) -> None:
@@ -611,6 +668,27 @@ def build_parser() -> argparse.ArgumentParser:
         help="target root for reconstructed synced files",
     )
     p_pull.add_argument("--materialize-allow-incomplete", action="store_true")
+    p_pull.add_argument(
+        "--rebuild-local-db",
+        action="store_true",
+        help="rebuild local vector DB after pull/materialize",
+    )
+    p_pull.add_argument(
+        "--rebuild-local-db-team-id",
+        default=None,
+        help="team id for local_vector_db output (default: same as pull team_id)",
+    )
+    p_pull.add_argument(
+        "--rebuild-local-db-approved-root",
+        default=None,
+        help="approved root for index rebuild (default: materialize target when --materialize is used)",
+    )
+    p_pull.add_argument(
+        "--rebuild-local-db-output-root",
+        default="preprocessing/local_vector_db",
+        help="output root for local vector DB artifacts",
+    )
+    p_pull.add_argument("--rebuild-local-db-write-faiss", action="store_true")
     p_pull.add_argument("--timeout", type=float, default=20.0)
     p_pull.set_defaults(func=_cmd_pull)
 

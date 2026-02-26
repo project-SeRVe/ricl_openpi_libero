@@ -179,4 +179,7 @@ third_party/
 # preprocessed data
 preprocessing/libero_collected_demos_training/
 preprocessing/libero_collected_demos/
-
+preprocessing/runtime_demos/
+preprocessing/local_vector_db/
+preprocessing/.sync_state/
+preprocessing/.synced_chunks/

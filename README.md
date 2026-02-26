@@ -2,6 +2,8 @@
 
 다음과 같은 명령어와 순서로 데이터 전처리, 정규화 통계 생성, training, serving, evaluation을 수행할 수 있음.
 
+운영(배포/추론) 경로를 로컬 벡터DB + O/X 승인 + 동기화 기준으로 분리한 설계 문서는 `docs/libero_train_infer_split_pipeline.md` 참고.
+
 ```shell
  ---                                                                                                                                                                                                                                                                                              
   수정된 LIBERO 명령어 정리                                                                                                                                                                                                                                                                                             

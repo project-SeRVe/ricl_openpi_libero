@@ -45,6 +45,9 @@ dependencies = [
 [project.urls]
 Repository = "https://github.com/Physical-Intelligence/openpi"
 
+[project.scripts]
+data = "openpi.tools.data_sync_cli:main"
+
 [dependency-groups]
 dev = [
     "pytest>=8.3.4",

@@ -14,12 +14,13 @@ from typing_extensions import override
 from openpi import transforms as _transforms
 from openpi.models import model as _model
 from openpi.models import pi0_fast_ricl as _pi0_fast_ricl
+from openpi.policies.retrieval_store import build_libero_retrieval_store
 from openpi.shared import array_typing as at
 from openpi.shared import nnx_utils
-from openpi.policies.utils import embed, embed_with_batches, load_dinov2, EMBED_DIM
+from openpi.policies.utils import EMBED_DIM
+from openpi.policies.utils import embed
+from openpi.policies.utils import load_dinov2
 import os
-from autofaiss import build_index
-import logging
 from datetime import datetime
 import json
 from PIL import Image
@@ -149,6 +150,13 @@ class RiclPolicy(BasePolicy):
         self._knn_k = self._model.num_retrieved_observations
         print()
         logger.info(f"building retrieval index...")
+        try:
+            from autofaiss import build_index
+        except Exception as exc:
+            raise RuntimeError(
+                "RiclPolicy requires autofaiss for retrieval index build. "
+                "Install autofaiss to use droid RICL policy."
+            ) from exc
         self._knn_index, knn_index_infos = build_index(
             embeddings=_all_embeddings,  # Note: embeddings have to be float to avoid errors in autofaiss / embedding_reader!
             save_on_disk=False,
@@ -320,38 +328,9 @@ class RiclLiberoPolicy(BasePolicy):
         self._use_action_interpolation = use_action_interpolation
         self._lamda = lamda
         self._action_horizon = action_horizon
-        # setup demos for retrieval
-        print()
-        logger.info(f"loading demos from {demos_dir}...")
-        self._demos = {
-            demo_idx: np.load(f"{demos_dir}/{folder}/processed_demo.npz")
-            for demo_idx, folder in enumerate(os.listdir(demos_dir))
-            if os.path.isdir(f"{demos_dir}/{folder}")
-        }
-        self._all_indices = np.array(
-            [
-                (ep_idx, step_idx)
-                for ep_idx in list(self._demos.keys())
-                for step_idx in range(self._demos[ep_idx]["actions"].shape[0])
-            ]
-        )
-        _all_embeddings = np.concatenate(
-            [self._demos[ep_idx]["base_image_embeddings"] for ep_idx in list(self._demos.keys())]
-        )
-        assert _all_embeddings.shape == (len(self._all_indices), EMBED_DIM), f"{_all_embeddings.shape=}"
         self._knn_k = self._model.num_retrieved_observations
-        print()
-        logger.info(f"building retrieval index...")
-        self._knn_index, knn_index_infos = build_index(
-            embeddings=_all_embeddings,
-            save_on_disk=False,
-            min_nearest_neighbors_to_retrieve=self._knn_k + 5,
-            max_index_query_time_ms=10,
-            max_index_memory_usage="25G",
-            current_memory_available="50G",
-            metric_type="l2",
-            nb_cores=8,
-        )
+        logger.info("initializing retrieval store from %s", demos_dir)
+        self._retrieval_store = build_libero_retrieval_store(demos_dir=demos_dir, knn_k=self._knn_k)
         # setup the dinov2 model for embedding only
         logger.info("loading dinov2 for image embedding...")
         self._dinov2 = load_dinov2()
@@ -363,26 +342,22 @@ class RiclLiberoPolicy(BasePolicy):
         # embed using base_image (LIBERO uses base_image for retrieval)
         query_embedding = embed(obs["query_base_image"], self._dinov2)
         assert query_embedding.shape == (1, EMBED_DIM), f"{query_embedding.shape=}"
-        # retrieve
-        topk_distance, topk_indices = self._knn_index.search(query_embedding, self._knn_k)
-        retrieved_indices = self._all_indices[topk_indices]
-        assert retrieved_indices.shape == (1, self._knn_k, 2), f"{retrieved_indices.shape=}"
+        hits = self._retrieval_store.search(query_embedding, self._knn_k)
+        if len(hits) < self._knn_k:
+            raise RuntimeError(f"retrieval returned only {len(hits)} hits for k={self._knn_k}")
         # collect retrieved info
-        for ct, (ep_idx, step_idx) in enumerate(retrieved_indices[0]):
+        for ct, hit in enumerate(hits):
+            ctx = self._retrieval_store.get_context(hit, self._action_horizon)
             for key in ["state", "wrist_image", "base_image"]:
-                more_obs[f"retrieved_{ct}_{key}"] = self._demos[ep_idx][key][step_idx]
-            more_obs[f"retrieved_{ct}_actions"] = get_action_chunk_at_inference_time_libero(
-                self._demos[ep_idx]["actions"], step_idx, self._action_horizon
-            )
-            more_obs[f"retrieved_{ct}_prompt"] = self._demos[ep_idx]["prompt"].item()
+                more_obs[f"retrieved_{ct}_{key}"] = ctx[key]
+            more_obs[f"retrieved_{ct}_actions"] = ctx["actions"]
+            more_obs[f"retrieved_{ct}_prompt"] = ctx["prompt"]
         # Compute exp_lamda_distances if use_action_interpolation
         if self._use_action_interpolation:
-            first_embedding = self._demos[retrieved_indices[0, 0, 0]]["base_image_embeddings"][
-                retrieved_indices[0, 0, 1]
-            ]
+            first_embedding = self._retrieval_store.get_embedding(hits[0]).reshape(1, -1)
             distances = [0.0] + [
-                np.linalg.norm(self._demos[ep_idx]["base_image_embeddings"][step_idx : step_idx + 1] - first_embedding)
-                for ep_idx, step_idx in retrieved_indices[0, 1:]
+                np.linalg.norm(self._retrieval_store.get_embedding(hit).reshape(1, -1) - first_embedding)
+                for hit in hits[1:]
             ]
             distances.append(np.linalg.norm(query_embedding - first_embedding))
             distances = np.clip(np.array(distances), 0, self._max_dist) / self._max_dist

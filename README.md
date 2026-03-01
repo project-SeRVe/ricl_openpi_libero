@@ -2,103 +2,78 @@
 
 다음과 같은 명령어와 순서로 데이터 전처리, 정규화 통계 생성, training, serving, evaluation을 수행할 수 있음.
 
-```shell
- ---                                                                                                                                                                                                                                                                                              
-  수정된 LIBERO 명령어 정리                                                                                                                                                                                                                                                                                             
-  모든 명령어는 프로젝트 루트 /home/wnsx0000/jhun/capstone/ricl_openpi_edited에서 시작합니다.                                                                                                                                                                                                      
-                                                                                                                                                                                                                                                                                                   
-  ---                                                                                                                                                                                                                                                                                              
-  1. 데이터 전처리
+```shell                            
+1. 데이터 전처리
 
-  cd preprocessing
+cd preprocessing
 
-  # 학습용 데이터 처리 (LeRobot HF 데이터셋 → processed_demo.npz)
-  uv run process_libero_demos.py --output_dir=libero_collected_demos_training
+# 학습용 데이터 처리 (LeRobot HF 데이터셋 → processed_demo.npz)
+uv run process_libero_demos.py --output_dir=libero_collected_demos_training
 
-  # 학습용 retrieval 인덱스 생성 (indices_and_distances_base_image.npz)
-  uv run retrieve_within_collected_demo_groups.py \
-    --folder_name=libero_collected_demos_training \
-    --embedding_type=base_image
+# 학습용 retrieval 인덱스 생성 (indices_and_distances_base_image.npz)
+uv run retrieve_within_collected_demo_groups.py \
+  --folder_name=libero_collected_demos_training \
+  --embedding_type=base_image
 
-  # 서빙용 데이터 처리 (retrieval 단계 불필요 — 서빙 시 on-the-fly로 처리). 학습용 데이터 처리와 동일한데 디렉토리만 다른 것임. 필요하면 학습용 데이터 중 일부 활용 가능
-  uv run process_libero_demos.py --output_dir=libero_collected_demos
+# 서빙용 데이터 처리 (retrieval 단계 불필요 — 서빙 시 on-the-fly로 처리). 학습용 데이터 처리와 동일한데 디렉토리만 다른 것임. 필요하면 학습용 데이터 중 일부 활용 가능
+uv run process_libero_demos.py --output_dir=libero_collected_demos
 
-  ---
-  2. 정규화 통계 생성 (프로젝트 루트에서)
+---
+2. 정규화 통계 생성 (프로젝트 루트에서)
 
-  cd ..  # 프로젝트 루트로 복귀
+cd ..  # 프로젝트 루트로 복귀
 
-  uv run scripts/setup_norm_states_for_ricl.py --env=libero --embedding_type=base_image
+uv run scripts/setup_norm_states_for_ricl.py --env=libero --embedding_type=base_image
 
-  출력 파일:
-  - assets/norm_stats_simple_libero.json
-  - assets/max_distance_libero.json  ← 서빙 시 RiclLiberoPolicy가 직접 참조
-  - assets/libero/norm_stats.json    ← 학습 시 사용
+출력 파일:
+- assets/norm_stats_simple_libero.json
+- assets/max_distance_libero.json  ← 서빙 시 RiclLiberoPolicy가 직접 참조
+- assets/libero/norm_stats.json    ← 학습 시 사용
 
-  ---
-  3. Training
+---
+3. Training
 
-  uv run scripts/train_pi0_fast_ricl.py pi0_fast_libero_ricl \
-    --exp-name=<EXPERIMENT_NAME> \
-    --overwrite
+uv run scripts/train_pi0_fast_ricl.py pi0_fast_libero_ricl \
+  --exp-name=<EXPERIMENT_NAME> \
+  --overwrite
 
-  파인튜닝이 필요한 경우:
-  uv run scripts/train_pi0_fast_ricl.py pi0_fast_libero_ricl___finetune_on_new_task \
-    --exp-name=<EXPERIMENT_NAME> \
-    --overwrite
+파인튜닝이 필요한 경우:
+uv run scripts/train_pi0_fast_ricl.py pi0_fast_libero_ricl___finetune_on_new_task \
+  --exp-name=<EXPERIMENT_NAME> \
+  --overwrite
 
-  ---
-  4. Serving
-  
-  이 코드에서는 serving하는 프로세스 하나와, evaluation이 돌아가는 프로세스(로봇에 해당) 하나가 사용된다.
+---
+4. Serving
 
-  uv run scripts/serve_policy_ricl.py policy:checkpoint \
-    --policy.config=pi0_fast_libero_ricl \
-    --policy.dir=checkpoints/pi0_fast_libero_ricl/<EXPERIMENT_NAME>/<STEP> \
-    --policy.demos_dir=preprocessing/libero_collected_demos/<YYYY-MM-DD>_<task_prompt> \
-    --policy.ricl_env=libero \
-    --port=8000
+이 코드에서는 serving하는 프로세스 하나와, evaluation이 돌아가는 프로세스(로봇에 해당) 하나가 사용된다.
 
-  ---
-  5. Evaluation
+uv run scripts/serve_policy_ricl.py policy:checkpoint \
+  --policy.config=pi0_fast_libero_ricl \
+  --policy.dir=checkpoints/pi0_fast_libero_ricl/<EXPERIMENT_NAME>/<STEP> \
+  --policy.demos_dir=preprocessing/libero_collected_demos/<YYYY-MM-DD>_<task_prompt> \
+  --policy.ricl_env=libero \
+  --port=8000
 
-  cd examples/libero
-  uv run main_ricl.py \
-    --host=0.0.0.0 \
-    --port=8000 \
-    --task-suite-name=libero_spatial \
-    --num-trials-per-task=50 \
-    --video-out-path=data/libero_ricl/videos
+---
+5. Evaluation
 
-  --task-suite-name 옵션: libero_spatial, libero_object, libero_goal, libero_10, libero_90
+cd examples/libero
+uv run main_ricl.py \
+  --host=0.0.0.0 \
+  --port=8000 \
+  --task-suite-name=libero_spatial \
+  --num-trials-per-task=50 \
+  --video-out-path=data/libero_ricl/videos
 
-  ---
-  전체 실행 순서 요약
-
-  ┌──────┬────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┬────────────────────────────────┐
-  │ 순서 │                                                       명령어                                                        │           실행 위치             │
-  ├──────┼────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┼────────────────────────────────┤
-  │ 1    │ process_libero_demos.py --output_dir=libero_collected_demos_training                                               │ preprocessing/                 │
-  ├──────┼────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┼────────────────────────────────┤
-  │ 2    │ retrieve_within_collected_demo_groups.py --folder_name=libero_collected_demos_training --embedding_type=base_image │ preprocessing/ ← 누락됐던 단계  │
-  ├──────┼────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┼────────────────────────────────┤
-  │ 3    │ process_libero_demos.py --output_dir=libero_collected_demos                                                        │ preprocessing/                 │
-  ├──────┼────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┼────────────────────────────────┤
-  │ 4    │ setup_norm_states_for_ricl.py --env=libero --embedding_type=base_image                                             │ 프로젝트 루트                   │
-  ├──────┼────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┼────────────────────────────────┤
-  │ 5    │ train_pi0_fast_ricl.py pi0_fast_libero_ricl                                                                        │ 프로젝트 루트                   │
-  ├──────┼────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┼────────────────────────────────┤
-  │ 6    │ serve_policy_ricl.py policy:checkpoint ...                                                                         │ 프로젝트 루트                   │
-  ├──────┼────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┼────────────────────────────────┤
-  │ 7    │ main_ricl.py ...                                                                                                   │ examples/libero/               │
-  └──────┴────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┴────────────────────────────────┘
+--task-suite-name 옵션: libero_spatial, libero_object, libero_goal, libero_10, libero_90
 ```
 
-# LIBERO 구현 관려 세팅 방법
+# LIBERO 구현 관련 세팅 방법
 
 1. 아래에 나와있는 installation 가이드를 따라 세팅한다.
-2. third_party/libero/libero에 빈 __init__.py 파일을 생성한다.
-3. 다음 명령어로 xformers와 CUDA 12.8을 위한 pytorch를 설치한다. (만약 CUDA 버전이 다른 경우에는 CUDA 12.8 대신 적절하게 버전을 맞춰 줘야 한다.)
+2. git submodule init, git submodule update를 실행한다. (libero를 third party로추가)
+3. third_party/libero/libero에 빈 __init__.py 파일을 생성한다.
+4. 다음 명령어로 xformers와 CUDA 12.8을 위한 pytorch를 설치한다. (만약 CUDA 버전이 다른 경우에는 CUDA 12.8 대신 적절하게 버전을 맞춰 줘야 한다.)
 
 ```shell
 uv pip install -U xformers --index-url [https://download.pytorch.org/whl/cu128](https://download.pytorch.org/whl/cu128)

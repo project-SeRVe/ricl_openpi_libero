@@ -94,9 +94,29 @@
   └──────┴────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┴────────────────────────────────┘
 ```
 
+# LIBERO 구현 관려 세팅 방법
 
+1. 아래에 나와있는 installation 가이드를 따라 세팅한다.
+2. third_party/libero/libero에 빈 __init__.py 파일을 생성한다.
+3. 다음 명령어로 xformers와 CUDA 12.8을 위한 pytorch를 설치한다. (만약 CUDA 버전이 다른 경우에는 CUDA 12.8 대신 적절하게 버전을 맞춰 줘야 한다.)
 
+```shell
+uv pip install -U xformers --index-url [https://download.pytorch.org/whl/cu128](https://download.pytorch.org/whl/cu128)
+```
 
+만약 세팅을 다 해도 libero를 import하는 코드에 module 인식이 안 된다는 경고가 뜨면 .vscode/settings.json에 다음 항목을 추가한다.
+
+```json
+{
+    "python.analysis.extraPaths": [
+            "~/jhun/capstone/ricl_openpi_edited/third_party/libero"
+        ]
+}
+```
+
+참고로 third_party/libero와 examples/libero에도 세팅 방법이 나와 있지만, RICL 세팅과 함께 적용할 경우 버전 충돌이 나므로 위의 방법만 따라하자.
+
+---
 
 # RICL: Re-training (a VLA) for In-Context Learning
 A RICL version of the openpi repository focused on RICL-Pi0-FAST-DROID.

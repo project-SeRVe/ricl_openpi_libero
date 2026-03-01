@@ -178,9 +178,20 @@ if __name__ == "__main__":
 	parser = argparse.ArgumentParser()
 	parser.add_argument("--nb_cores_autofaiss", type=int, default=8)
 	parser.add_argument("--knn_k", type=int, default=100, help="number of nearest neighbors to retrieve")
-	parser.add_argument("--embedding_type", type=str, default="top_image", choices=EMBED_TYPES + ["both"])
+	parser.add_argument(
+		"--embedding_type",
+		type=str,
+		default=None,
+		help='Embedding type. If omitted, defaults to "base_image" for LIBERO folders and "top_image" otherwise.',
+	)
 	parser.add_argument("--folder_name", type=str, default="collected_demos_training")
 	args = parser.parse_args()
+
+	embedding_type = args.embedding_type
+	if embedding_type is None:
+		embedding_type = "base_image" if "libero" in args.folder_name else "top_image"
+	if embedding_type not in EMBED_TYPES + ["both"]:
+		raise ValueError(f"Invalid embedding_type={embedding_type}. Expected one of {EMBED_TYPES + ['both']}.")
 
 	if args.folder_name in ("collected_demos_training", "libero_collected_demos_training"):
 		# setup - training data has task groups as subdirectories
@@ -192,7 +203,7 @@ if __name__ == "__main__":
 								ep_idxs_to_fol=mappings['ep_idxs_to_fol'],
 								nb_cores_autofaiss=args.nb_cores_autofaiss,
 								knn_k=args.knn_k,
-								embedding_type=args.embedding_type)
+								embedding_type=embedding_type)
 		print(f'done!')
 	elif args.folder_name in ("collected_demos", "libero_collected_demos"):
 		# setup - inference data has single task groups
@@ -209,6 +220,6 @@ if __name__ == "__main__":
 									ep_idxs_to_fol=mappings['ep_idxs_to_fol'],
 									nb_cores_autofaiss=args.nb_cores_autofaiss,
 									knn_k=args.knn_k,
-									embedding_type=args.embedding_type)
+									embedding_type=embedding_type)
 			print(f'done for {ds_name=}! [fol count {fol_count}/{len(all_groups_in_folder)}]')
 		print(f'done!')

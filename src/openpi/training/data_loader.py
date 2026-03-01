@@ -389,13 +389,31 @@ def get_action_chunk_libero(actions, step_idx, action_horizon):
     return action_chunk
 
 
+def _resolve_existing_path(path: str) -> str:
+    """Resolve dataset paths robustly across root/preprocessing working directories."""
+    candidates = [path]
+    if not os.path.isabs(path):
+        candidates.append(os.path.join("preprocessing", path))
+        if path.startswith("preprocessing/"):
+            candidates.append(path[len("preprocessing/") :])
+
+    seen = set()
+    for cand in candidates:
+        if cand in seen:
+            continue
+        seen.add(cand)
+        if os.path.exists(cand):
+            return cand
+    return path
+
+
 class RiclLiberoDataset(Dataset):
     def __init__(self, model_config: _pi0_fast_ricl.Pi0FASTRiclConfig, finetuning_collected_demos_dir: str | None, embedding_type: str = "base_image"):
         # setup
         num_retrieved_observations = model_config.num_retrieved_observations
         knn_k = 100
         assert num_retrieved_observations <= knn_k
-        outer_dir = (
+        outer_dir = _resolve_existing_path(
             "preprocessing/libero_collected_demos_training"
             if finetuning_collected_demos_dir is None
             else finetuning_collected_demos_dir
@@ -414,7 +432,7 @@ class RiclLiberoDataset(Dataset):
         indices_files = []
         for group_name, ep_fols in collected_demos_infos["groups_to_ep_fols"].items():
             for ep_fol in ep_fols:
-                indices_files.append(f"{ep_fol}/indices_and_distances_{embedding_type}.npz")
+                indices_files.append(_resolve_existing_path(f"{ep_fol}/indices_and_distances_{embedding_type}.npz"))
 
         # actual loading...
         count_collected_demos = 0
@@ -470,7 +488,7 @@ class RiclLiberoDataset(Dataset):
         # load all data paths
         all_ep_idxs = list(np.unique(all_retrieved_indices[:, :, 0])) + list(np.unique(all_query_indices[:, 0]))
         all_ep_data_paths = {
-            ep_idx: f"{collected_demos_infos['ep_idxs_to_fol'][str(ep_idx)]}/processed_demo.npz"
+            ep_idx: _resolve_existing_path(f"{collected_demos_infos['ep_idxs_to_fol'][str(ep_idx)]}/processed_demo.npz")
             for ep_idx in all_ep_idxs
         }
         all_ep_prompts = {

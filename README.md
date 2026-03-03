@@ -7,16 +7,20 @@
 
 cd preprocessing
 
-# 학습용 데이터 처리 (LeRobot HF 데이터셋 → processed_demo.npz)
-uv run --no-sync process_libero_demos.py --output_dir=libero_collected_demos_training
+# 전체 LIBERO 데이터 처리 (LeRobot HF 데이터셋 → processed_demo.npz)
+uv run --no-sync process_libero_demos.py --output_dir=libero_collected_demos
 
-# 학습용 retrieval 인덱스 생성 (indices_and_distances_base_image.npz)
+# 학습용으로 사용할 task 개수만큼 폴더 이동 (source: libero_collected_demos -> target: libero_collected_demos_training)
+# 전체 task는 40개인 점을 고려해서 숫자를 지정하자
+uv run --no-sync select_libero_train_tasks.py --num_tasks=32
+
+# 학습용 retrieval 인덱스 생성 (indices_and_distances_base_image.npz, libero_collected_demos_training 기준)
 uv run --no-sync retrieve_within_collected_demo_groups.py \
   --folder_name=libero_collected_demos_training \
   --embedding_type=base_image
 
-# 서빙용 데이터 처리 (retrieval 단계 불필요 — 서빙 시 on-the-fly로 처리). 학습용 데이터 처리와 동일한데 디렉토리만 다른 것임. 필요하면 학습용 데이터 중 일부 활용 가능
-uv run --no-sync process_libero_demos.py --output_dir=libero_collected_demos
+# (선택) task 선택 순서를 랜덤으로 섞고 싶으면 --shuffle --seed=<SEED> 사용 가능
+# uv run --no-sync select_libero_train_tasks.py --num_tasks=<TRAIN_TASK_COUNT> --shuffle --seed=42
 
 ---
 2. 정규화 통계 생성 (프로젝트 루트에서)

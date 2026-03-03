@@ -8,22 +8,22 @@
 cd preprocessing
 
 # 학습용 데이터 처리 (LeRobot HF 데이터셋 → processed_demo.npz)
-uv run process_libero_demos.py --output_dir=libero_collected_demos_training
+uv run --no-sync process_libero_demos.py --output_dir=libero_collected_demos_training
 
 # 학습용 retrieval 인덱스 생성 (indices_and_distances_base_image.npz)
-uv run retrieve_within_collected_demo_groups.py \
+uv run --no-sync retrieve_within_collected_demo_groups.py \
   --folder_name=libero_collected_demos_training \
   --embedding_type=base_image
 
 # 서빙용 데이터 처리 (retrieval 단계 불필요 — 서빙 시 on-the-fly로 처리). 학습용 데이터 처리와 동일한데 디렉토리만 다른 것임. 필요하면 학습용 데이터 중 일부 활용 가능
-uv run process_libero_demos.py --output_dir=libero_collected_demos
+uv run --no-sync process_libero_demos.py --output_dir=libero_collected_demos
 
 ---
 2. 정규화 통계 생성 (프로젝트 루트에서)
 
 cd ..  # 프로젝트 루트로 복귀
 
-uv run scripts/setup_norm_states_for_ricl.py --env=libero --embedding_type=base_image
+uv run --no-sync scripts/setup_norm_states_for_ricl.py --env=libero --embedding_type=base_image
 
 출력 파일:
 - assets/norm_stats_simple_libero.json
@@ -33,12 +33,12 @@ uv run scripts/setup_norm_states_for_ricl.py --env=libero --embedding_type=base_
 ---
 3. Training
 
-uv run scripts/train_pi0_fast_ricl.py pi0_fast_libero_ricl \
+uv run --no-sync scripts/train_pi0_fast_ricl.py pi0_fast_libero_ricl \
   --exp-name=<EXPERIMENT_NAME> \
   --overwrite
 
 파인튜닝이 필요한 경우:
-uv run scripts/train_pi0_fast_ricl.py pi0_fast_libero_ricl___finetune_on_new_task \
+uv run --no-sync scripts/train_pi0_fast_ricl.py pi0_fast_libero_ricl___finetune_on_new_task \
   --exp-name=<EXPERIMENT_NAME> \
   --overwrite
 
@@ -47,7 +47,7 @@ uv run scripts/train_pi0_fast_ricl.py pi0_fast_libero_ricl___finetune_on_new_tas
 
 이 코드에서는 serving하는 프로세스 하나와, evaluation이 돌아가는 프로세스(로봇에 해당) 하나가 사용된다.
 
-uv run scripts/serve_policy_ricl.py policy:checkpoint \
+uv run --no-sync scripts/serve_policy_ricl.py policy:checkpoint \
   --policy.config=pi0_fast_libero_ricl \
   --policy.dir=checkpoints/pi0_fast_libero_ricl/<EXPERIMENT_NAME>/<STEP> \
   --policy.demos_dir=preprocessing/libero_collected_demos/<YYYY-MM-DD>_<task_prompt> \
@@ -58,7 +58,7 @@ uv run scripts/serve_policy_ricl.py policy:checkpoint \
 5. Evaluation
 
 cd examples/libero
-uv run main_ricl.py \
+uv run --no-sync main_ricl.py \
   --host=0.0.0.0 \
   --port=8000 \
   --task-suite-name=libero_spatial \
@@ -76,7 +76,17 @@ uv run main_ricl.py \
 4. 다음 명령어로 xformers와 CUDA 12.8을 위한 pytorch를 설치한다. (만약 CUDA 버전이 다른 경우에는 CUDA 12.8 대신 적절하게 버전을 맞춰 줘야 한다.)
 
 ```shell
-uv pip install -U xformers --index-url [https://download.pytorch.org/whl/cu128](https://download.pytorch.org/whl/cu128)
+uv pip install -U xformers --index-url https://download.pytorch.org/whl/cu128
+```
+
+하지만 GPU를 P4를 사용하는 경우(옛날 GPU라 호환이 안됨), xformers는 사용하지 말고, 다음 명령어로 CUDA 11.8을 위한 pytorch를 설치해 사용한다.
+
+```shell
+# torch, xformers 삭제
+uv pip uninstall torch torchvision torchaudio xformers
+
+# CUDA 11.8 pytorch 설치
+pip install torch==2.7.1 torchvision==0.22.1 torchaudio==2.7.1 --index-url https://download.pytorch.org/whl/cu118
 ```
 
 만약 세팅을 다 해도 libero를 import하는 코드에 module 인식이 안 된다는 경고가 뜨면 .vscode/settings.json에 다음 항목을 추가한다.

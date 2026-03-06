@@ -14,9 +14,12 @@ uv run --no-sync process_libero_demos.py --output_dir=libero_collected_demos --c
 # 학습용으로 사용할 task 개수만큼 폴더 이동 (source: libero_collected_demos -> target: libero_collected_demos_training)
 # 전체 task는 40개인 점을 고려해서 숫자를 지정하자
 uv run --no-sync select_libero_train_tasks.py --num_tasks=32
+# (선택) task 선택 순서를 랜덤으로 섞고 싶으면 대신 다음 명령어 실행
+uv run --no-sync select_libero_train_tasks.py --num_tasks=32 --shuffle --seed=31
 
-# (선택) task 선택 순서를 랜덤으로 섞고 싶으면 --shuffle --seed=<SEED> 사용 가능
-# uv run --no-sync select_libero_train_tasks.py --num_tasks=<TRAIN_TASK_COUNT> --shuffle --seed=42
+# 위 이동을 되돌리고 싶을 때 (source: libero_collected_demos_training -> target: libero_collected_demos)
+uv run --no-sync unselect_libero_train_tasks.py --num_tasks=32
+
 
 # 학습용 retrieval 인덱스 생성 (indices_and_distances_base_image.npz, libero_collected_demos_training 기준)
 uv run --no-sync retrieve_within_collected_demo_groups.py \

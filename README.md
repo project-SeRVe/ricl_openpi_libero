@@ -8,7 +8,8 @@
 cd preprocessing
 
 # 전체 LIBERO 데이터 처리 (LeRobot HF 데이터셋 → processed_demo.npz)
-uv run --no-sync process_libero_demos.py --output_dir=libero_collected_demos
+# 압축된 버전으로 .npz 파일 저장
+uv run --no-sync process_libero_demos.py --output_dir=libero_collected_demos --compressed
 
 # 학습용으로 사용할 task 개수만큼 폴더 이동 (source: libero_collected_demos -> target: libero_collected_demos_training)
 # 전체 task는 40개인 점을 고려해서 숫자를 지정하자

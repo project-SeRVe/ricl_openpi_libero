@@ -1,3 +1,43 @@
+# LIBERO RICL 세팅 방법
+
+1. 다음 명령어를 실행한다. (RICL installation 명령어)
+
+```shell
+GIT_LFS_SKIP_SMUDGE=1 uv sync
+source .venv/bin/activate
+uv pip install tensorflow-datasets tensorflow-cpu autofaiss google-genai openai
+```
+
+2. git submodule init, git submodule update를 실행한다. (libero를 third party로추가)
+3. third_party/libero/libero에 빈 __init__.py 파일을 생성한다.
+4. 다음 명령어로 xformers와 CUDA 12.8을 위한 pytorch를 설치한다. (만약 CUDA 버전이 다른 경우에는 CUDA 12.8 대신 적절하게 버전을 맞춰 줘야 한다.)
+
+```shell
+uv pip install -U xformers --index-url https://download.pytorch.org/whl/cu128
+```
+
+하지만 GPU를 P4를 사용하는 경우(옛날 GPU라 호환이 안됨), xformers는 사용하지 말고, 다음 명령어로 CUDA 11.8을 위한 pytorch를 설치해 사용한다.
+
+```shell
+# torch, xformers 삭제
+uv pip uninstall torch torchvision torchaudio xformers
+
+# CUDA 11.8 pytorch 설치
+pip install torch==2.7.1 torchvision==0.22.1 torchaudio==2.7.1 --index-url https://download.pytorch.org/whl/cu118
+```
+
+만약 세팅을 다 해도 libero를 import하는 코드에 module 인식이 안 된다는 경고가 뜨면 (vscode 문제) .vscode/settings.json에 다음 항목을 추가한다.
+
+```json
+{
+    "python.analysis.extraPaths": [
+            "~/jhun/capstone/ricl_openpi_edited/third_party/libero"
+        ]
+}
+```
+
+참고로 third_party/libero와 examples/libero에도 세팅 방법이 나와 있지만, RICL 세팅과 함께 적용할 경우 버전 충돌이 나므로 위의 방법만 따라하자.
+
 # LIBERO 구현 이후 명령어
 
 다음과 같은 명령어와 순서로 데이터 전처리, 정규화 통계 생성, training, serving, evaluation을 수행할 수 있음.
@@ -75,39 +115,6 @@ uv run --no-sync main_ricl.py \
 
 --task-suite-name 옵션: libero_spatial, libero_object, libero_goal, libero_10, libero_90
 ```
-
-# LIBERO 구현 관련 세팅 방법
-
-1. 아래에 나와있는 installation 가이드를 따라 세팅한다.
-2. git submodule init, git submodule update를 실행한다. (libero를 third party로추가)
-3. third_party/libero/libero에 빈 __init__.py 파일을 생성한다.
-4. 다음 명령어로 xformers와 CUDA 12.8을 위한 pytorch를 설치한다. (만약 CUDA 버전이 다른 경우에는 CUDA 12.8 대신 적절하게 버전을 맞춰 줘야 한다.)
-
-```shell
-uv pip install -U xformers --index-url https://download.pytorch.org/whl/cu128
-```
-
-하지만 GPU를 P4를 사용하는 경우(옛날 GPU라 호환이 안됨), xformers는 사용하지 말고, 다음 명령어로 CUDA 11.8을 위한 pytorch를 설치해 사용한다.
-
-```shell
-# torch, xformers 삭제
-uv pip uninstall torch torchvision torchaudio xformers
-
-# CUDA 11.8 pytorch 설치
-pip install torch==2.7.1 torchvision==0.22.1 torchaudio==2.7.1 --index-url https://download.pytorch.org/whl/cu118
-```
-
-만약 세팅을 다 해도 libero를 import하는 코드에 module 인식이 안 된다는 경고가 뜨면 .vscode/settings.json에 다음 항목을 추가한다.
-
-```json
-{
-    "python.analysis.extraPaths": [
-            "~/jhun/capstone/ricl_openpi_edited/third_party/libero"
-        ]
-}
-```
-
-참고로 third_party/libero와 examples/libero에도 세팅 방법이 나와 있지만, RICL 세팅과 함께 적용할 경우 버전 충돌이 나므로 위의 방법만 따라하자.
 
 ---
 

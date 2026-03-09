@@ -99,7 +99,7 @@ uv run --no-sync scripts/setup_norm_states_for_ricl.py --env=libero --embedding_
 # wandb 버전 수정
 uv pip install "wandb>=0.22.3"
 
-# cannot open the shared object file 오류가 나는 경우 필요한 의존성 설치
+# cannot open the shared object file 오류가 나는 경우 다음 의존성 설치
 sudo apt-get update
 sudo apt-get install -y libx11-6 libglib2.0-0 libsm6 libxext6 libxrender1 libgl1
 

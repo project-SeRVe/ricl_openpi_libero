@@ -2,6 +2,7 @@ import numpy as np
 from collections import defaultdict
 import json
 from openpi.policies.utils import myprint, embed, load_dinov2, embed_with_batches, EMBED_DIM
+from openpi.shared.runtime_env import configure_project_cache_env
 import os
 import argparse
 from autofaiss import build_index
@@ -175,6 +176,7 @@ def retrieval_preprocessing(groups_to_ep_idxs, ep_idxs_to_fol, nb_cores_autofais
 	myprint(f'[retrieval_preprocessing] done for {embedding_type=}!')
 
 if __name__ == "__main__":
+	configure_project_cache_env()
 	parser = argparse.ArgumentParser()
 	parser.add_argument("--nb_cores_autofaiss", type=int, default=8)
 	parser.add_argument("--knn_k", type=int, default=100, help="number of nearest neighbors to retrieve")

@@ -9,6 +9,7 @@ from openpi_client.image_tools import resize_with_pad
 from openpi.policies.utils import EMBED_DIM
 from openpi.policies.utils import embed_with_batches
 from openpi.policies.utils import load_dinov2
+from openpi.shared.runtime_env import configure_project_cache_env
 
 logging.basicConfig(level=logging.INFO, force=True)
 logger = logging.getLogger(__name__)
@@ -190,6 +191,7 @@ def process_libero_demos(output_dir: str, compressed: bool = False):
 
 
 if __name__ == "__main__":
+    configure_project_cache_env()
     parser = argparse.ArgumentParser()
     parser.add_argument(
         "--output_dir",

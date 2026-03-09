@@ -81,11 +81,15 @@ uv run --no-sync scripts/setup_norm_states_for_ricl.py --env=libero --embedding_
 ---
 3. Training
 
+# wandb 버전 수정
+uv pip install "wandb>=0.22.3"
+
+# 학습(priming) 스크립트
 uv run --no-sync scripts/train_pi0_fast_ricl.py pi0_fast_libero_ricl \
   --exp-name=<EXPERIMENT_NAME> \
   --overwrite
 
-파인튜닝이 필요한 경우:
+# fine-tuning 스크립트 (우리 프로젝트에선 x)
 uv run --no-sync scripts/train_pi0_fast_ricl.py pi0_fast_libero_ricl___finetune_on_new_task \
   --exp-name=<EXPERIMENT_NAME> \
   --overwrite

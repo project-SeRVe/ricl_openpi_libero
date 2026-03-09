@@ -1,5 +1,7 @@
 # LIBERO RICL 세팅 방법
 
+## 초기 세팅
+
 1. 다음 명령어를 실행한다. (RICL installation 명령어)
 
 ```shell
@@ -37,6 +39,19 @@ pip install torch==2.7.1 torchvision==0.22.1 torchaudio==2.7.1 --index-url https
 ```
 
 참고로 third_party/libero와 examples/libero에도 세팅 방법이 나와 있지만, RICL 세팅과 함께 적용할 경우 버전 충돌이 나므로 위의 방법만 따라하자.
+
+## GCP 인스턴스를 껐다가 킨 경우의 세팅
+
+1. GCP 인스턴스를 껐다가 연결할 때 외부 IP 주소가 변경되므로, 변경된 값으로 ssh config 파일을 수정해야 한다.
+2. 외부 디스크를 다시 mount해줘야 한다.
+
+```bash
+# 디스크 이름 확인
+lsblk
+
+# mount (첫 번째 인자에 디스크 이름 지정)
+sudo mount /dev/sdb /mnt/disks/sdb
+```
 
 # LIBERO 구현 이후 명령어
 
@@ -83,6 +98,10 @@ uv run --no-sync scripts/setup_norm_states_for_ricl.py --env=libero --embedding_
 
 # wandb 버전 수정
 uv pip install "wandb>=0.22.3"
+
+# cannot open the shared object file 오류가 나는 경우 필요한 의존성 설치
+sudo apt-get update
+sudo apt-get install -y libx11-6 libglib2.0-0 libsm6 libxext6 libxrender1 libgl1
 
 # 학습(priming) 스크립트
 uv run --no-sync scripts/train_pi0_fast_ricl.py pi0_fast_libero_ricl \

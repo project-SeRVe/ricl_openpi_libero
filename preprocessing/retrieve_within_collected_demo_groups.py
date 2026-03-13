@@ -92,10 +92,22 @@ def retrieval_preprocessing(groups_to_ep_idxs, ep_idxs_to_fol, nb_cores_autofais
 			all_indices.extend([[ep_idx, stp_idx] for stp_idx in range(num_steps)])
 		all_embeddings = np.concatenate(all_embeddings, axis=0)
 		all_indices = np.array(all_indices)
+		all_episode_ids = all_indices[:, 0]
 		embedding_dim = all_embeddings.shape[1]
 		num_total = len(all_embeddings)
 		myprint(f'[retrieval_preprocessing] concatenated all embeddings and indices for {total_episodes_in_grouping} episodes for {chosen_id} [chosen_id count {chosen_id_count}/{num_groupings}]')
 		myprint(f'[retrieval_preprocessing] we have {num_total=} {embedding_dim=}')
+
+		# Build a single index for the whole group, then filter out the current episode per query.
+		knn_index, knn_index_infos = build_index(embeddings=all_embeddings, # Note: embeddings have to be float to avoid errors in autofaiss / embedding_reader!
+                                        save_on_disk=False,
+                                        min_nearest_neighbors_to_retrieve=knn_k + 5, # default: 20
+                                        max_index_query_time_ms=10, # default: 10
+                                        max_index_memory_usage="25G", # default: "16G"
+                                        current_memory_available="50G", # default: "32G"
+                                        metric_type='l2',
+                                        nb_cores=nb_cores_autofaiss, # default: None # "The number of cores to use, by default will use all cores" as seen in https://criteo.github.io/autofaiss/getting_started/quantization.html#the-build-index-command
+                                        )
 
 		# for each episode, retrieve from all other embeddings
 		for ep_count, ep_idx in enumerate(ep_idxs):
@@ -104,9 +116,9 @@ def retrieval_preprocessing(groups_to_ep_idxs, ep_idxs_to_fol, nb_cores_autofais
 				continue
 
 			all_other_episodes_mask = np.array([True if ep_idx_other != ep_idx else False for (ep_idx_other, stp_idx_other) in all_indices])
-			num_retrieval = np.sum(all_other_episodes_mask)
+			num_retrieval = int(np.sum(all_other_episodes_mask))
 			this_episode_mask = np.array([True if ep_idx_other == ep_idx else False for (ep_idx_other, stp_idx_other) in all_indices])
-			num_query = np.sum(this_episode_mask)
+			num_query = int(np.sum(this_episode_mask))
 			assert num_retrieval + num_query == num_total
 			print(f'[retrieval_preprocessing] for episode {ep_idx} [episode count {ep_count}/{total_episodes_in_grouping}], we have {num_retrieval=} {num_query=}')
 
@@ -119,33 +131,29 @@ def retrieval_preprocessing(groups_to_ep_idxs, ep_idxs_to_fol, nb_cores_autofais
 			assert this_episode_embeddings.shape == (num_query, embedding_dim) and this_episode_indices.shape == (num_query, 2)
 			assert this_episode_indices.dtype == np.int64 and all_other_episodes_indices.dtype == np.int64
 
-			# create index with all_other_episodes_embeddings
-			knn_index, knn_index_infos = build_index(embeddings=all_other_episodes_embeddings, # Note: embeddings have to be float to avoid errors in autofaiss / embedding_reader!
-                                            save_on_disk=False,
-                                            min_nearest_neighbors_to_retrieve=knn_k + 5, # default: 20
-                                            max_index_query_time_ms=10, # default: 10
-                                            max_index_memory_usage="25G", # default: "16G"
-                                            current_memory_available="50G", # default: "32G"
-                                            metric_type='l2',
-                                            nb_cores=nb_cores_autofaiss, # default: None # "The number of cores to use, by default will use all cores" as seen in https://criteo.github.io/autofaiss/getting_started/quantization.html#the-build-index-command
-                                            )
+			# Retrieve against the full-group index, then filter out same-episode hits.
+			search_k = int(min(num_total, max(2 * knn_k, knn_k + num_query)))
+			while True:
+				topk_distances, topk_indices = knn_index.search(this_episode_embeddings, search_k)
+				filtered_topk_indices = []
+				for indices in topk_indices:
+					valid_indices = [idx for idx in indices if idx != -1 and all_episode_ids[idx] != ep_idx]
+					filtered_topk_indices.append(valid_indices[:knn_k])
+				if all(len(indices) == knn_k for indices in filtered_topk_indices) or search_k == num_total:
+					break
+				search_k = int(min(num_total, search_k * 2))
 
-			# do retrieval from index for this_episode_embeddings
-			topk_distances, topk_indices = knn_index.search(this_episode_embeddings, 2 * knn_k)
-
-			# remove -1s and crop to knn_k
 			try:
-				topk_indices = np.array([[idx for idx in indices if idx != -1][:knn_k] for indices in topk_indices])
+				topk_indices = np.array(filtered_topk_indices)
 			except:
 				print(f'---------------------------------------------------Too many -1s from topk_indices ----------------------------------------------------')
-				temp_topk_indices = [[idx for idx in indices if idx != -1][:knn_k] for indices in topk_indices]
-				print(f'after -1s, min len: {min([len(indices) for indices in temp_topk_indices])}, max len {max([len(indices) for indices in temp_topk_indices])}')
+				print(f'after same-episode filtering, min len: {min([len(indices) for indices in filtered_topk_indices])}, max len {max([len(indices) for indices in filtered_topk_indices])}')
 				print(f'-------------------------------------------------------------------------------------------------------------------------------------------')
 				print(f'Leaving some -1s in topk_indices and continuing')
-				topk_indices = np.array([row+[-1 for _ in range(knn_k-len(row))] for row in temp_topk_indices])
+				topk_indices = np.array([row+[-1 for _ in range(knn_k-len(row))] for row in filtered_topk_indices])
 			
 			# convert topk_indices to ep_idxs and stp_idxs
-			retrieved_indices = all_other_episodes_indices[topk_indices]
+			retrieved_indices = all_indices[topk_indices]
 			assert retrieved_indices.shape == (num_query, knn_k, 2) and retrieved_indices.dtype == np.int64
 
 			# convert to int32

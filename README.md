@@ -105,14 +105,20 @@ uv pip install "wandb>=0.22.3"
 sudo apt-get update
 sudo apt-get install -y libx11-6 libglib2.0-0 libsm6 libxext6 libxrender1 libgl1
 
+# 학습 전에 jax 환경변수 지정하기
+printf '\nexport XLA_PYTHON_CLIENT_PREALLOCATE=false\nexport XLA_PYTHON_CLIENT_ALLOCATOR=platform\n' >> ~/.bashrc
+source ~/.bashrc
+echo $XLA_PYTHON_CLIENT_PREALLOCATE
+echo $XLA_PYTHON_CLIENT_ALLOCATOR
+
 # 학습(priming) 스크립트
 uv run --no-sync scripts/train_pi0_fast_ricl.py pi0_fast_libero_ricl \
-  --exp-name=<EXPERIMENT_NAME> \
+  --exp-name=priming \
   --overwrite
 
 # fine-tuning 스크립트 (우리 프로젝트에선 x)
 uv run --no-sync scripts/train_pi0_fast_ricl.py pi0_fast_libero_ricl___finetune_on_new_task \
-  --exp-name=<EXPERIMENT_NAME> \
+  --exp-name=finetuning \
   --overwrite
 
 ---

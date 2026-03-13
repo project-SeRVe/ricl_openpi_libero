@@ -18,14 +18,14 @@ uv pip install tensorflow-datasets tensorflow-cpu autofaiss google-genai openai
 uv pip install -U xformers --index-url https://download.pytorch.org/whl/cu128
 ```
 
-하지만 GPU를 P4를 사용하는 경우(옛날 GPU라 호환이 안됨), xformers는 사용하지 말고, 다음 명령어로 CUDA 11.8을 위한 pytorch를 설치해 사용한다.
+하지만 GPU를 P4를 사용하는 경우(옛날 GPU라 호환이 안됨), xformers는 사용하지 말고, 다음 명령어로 CUDA 11.8을 위한 pytorch를 설치해 사용한다. elice를 사용하는 경우 CUDA 12.4가 default이므로 이 경우에도 CUDA 11.8을 위한 pytorch를 쓰자.
 
 ```shell
 # torch, xformers 삭제
 uv pip uninstall torch torchvision torchaudio xformers
 
 # CUDA 11.8 pytorch 설치
-pip install torch==2.7.1 torchvision==0.22.1 torchaudio==2.7.1 --index-url https://download.pytorch.org/whl/cu118
+uv pip install torch==2.7.1 torchvision==0.22.1 torchaudio==2.7.1 --index-url https://download.pytorch.org/whl/cu118
 ```
 
 만약 세팅을 다 해도 libero를 import하는 코드에 module 인식이 안 된다는 경고가 뜨면 (vscode 문제) .vscode/settings.json에 다음 항목을 추가한다.
@@ -41,6 +41,8 @@ pip install torch==2.7.1 torchvision==0.22.1 torchaudio==2.7.1 --index-url https
 참고로 third_party/libero와 examples/libero에도 세팅 방법이 나와 있지만, RICL 세팅과 함께 적용할 경우 버전 충돌이 나므로 위의 방법만 따라하자.
 
 ## GCP 인스턴스를 껐다가 킨 경우의 세팅
+
+(elice 등 다른 platform을 사용하는 경우 무시하자)
 
 1. GCP 인스턴스를 껐다가 연결할 때 외부 IP 주소가 변경되므로, 변경된 값으로 ssh config 파일을 수정해야 한다.
 2. 외부 디스크를 다시 mount해줘야 한다.

@@ -2,34 +2,45 @@ import os
 from pathlib import Path
 
 
-CAPSTONE_CACHE_ROOT = Path("/mnt/disks/sdb/capstone")
-
-_CACHE_ENV_DEFAULTS = {
-    "OPENPI_DATA_HOME": CAPSTONE_CACHE_ROOT / "openpi_cache",
-    "HF_HOME": CAPSTONE_CACHE_ROOT / "hf_cache",
-    "HF_DATASETS_CACHE": CAPSTONE_CACHE_ROOT / "hf_cache" / "datasets",
-    "TRANSFORMERS_CACHE": CAPSTONE_CACHE_ROOT / "hf_cache",
-    "HUGGINGFACE_HUB_CACHE": CAPSTONE_CACHE_ROOT / "hf_cache",
-    "TORCH_HOME": CAPSTONE_CACHE_ROOT / "torch_cache",
-    "LEROBOT_HOME": CAPSTONE_CACHE_ROOT / "hf_cache" / "lerobot",
-    "JAX_COMPILATION_CACHE_DIR": CAPSTONE_CACHE_ROOT / "jax_cache",
-}
+REPO_ROOT = Path(__file__).resolve().parents[3]
+DEFAULT_CACHE_ROOT = REPO_ROOT / ".cache" / "capstone"
 
 
-def _should_replace_with_capstone_path(current_value: str | None) -> bool:
+def _get_cache_root() -> Path:
+    cache_root = os.environ.get("OPENPI_PROJECT_CACHE_ROOT")
+    if cache_root:
+        return Path(cache_root).expanduser().resolve()
+    return DEFAULT_CACHE_ROOT
+
+
+def _cache_env_defaults(cache_root: Path) -> dict[str, Path]:
+    return {
+        "OPENPI_DATA_HOME": cache_root / "openpi_cache",
+        "HF_HOME": cache_root / "hf_cache",
+        "HF_DATASETS_CACHE": cache_root / "hf_cache" / "datasets",
+        "TRANSFORMERS_CACHE": cache_root / "hf_cache",
+        "HUGGINGFACE_HUB_CACHE": cache_root / "hf_cache",
+        "TORCH_HOME": cache_root / "torch_cache",
+        "LEROBOT_HOME": cache_root / "hf_cache" / "lerobot",
+        "JAX_COMPILATION_CACHE_DIR": cache_root / "jax_cache",
+    }
+
+
+def _should_replace_with_project_cache_path(current_value: str | None, cache_root: Path) -> bool:
     if not current_value:
         return True
 
     current_path = Path(current_value).expanduser()
-    return str(current_path).startswith("/mnt/disks/sdb/") and not str(current_path).startswith(
-        f"{CAPSTONE_CACHE_ROOT}/"
-    )
+    current_path_str = str(current_path)
+    legacy_prefix = "/mnt/disks/sdb/"
+    return current_path_str.startswith(legacy_prefix) and not current_path_str.startswith(f"{cache_root}/")
 
 
 def configure_project_cache_env() -> None:
-    """Apply cache defaults for local capstone runs and replace legacy non-capstone paths."""
-    for env_name, path in _CACHE_ENV_DEFAULTS.items():
-        if _should_replace_with_capstone_path(os.environ.get(env_name)):
+    """Apply cache defaults under the repository and replace legacy external paths."""
+    cache_root = _get_cache_root()
+    for env_name, path in _cache_env_defaults(cache_root).items():
+        if _should_replace_with_project_cache_path(os.environ.get(env_name), cache_root):
             os.environ[env_name] = str(path)
         else:
             os.environ[env_name] = str(Path(os.environ[env_name]).expanduser())

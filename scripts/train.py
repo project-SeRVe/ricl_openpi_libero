@@ -5,6 +5,10 @@ import os
 import platform
 from typing import Any
 
+import openpi.shared.runtime_env as runtime_env
+
+runtime_env.configure_jax_cuda_compat_env()
+
 import etils.epath as epath
 import flax.nnx as nnx
 from flax.training import common_utils
@@ -19,7 +23,6 @@ import wandb
 import openpi.models.model as _model
 import openpi.shared.array_typing as at
 import openpi.shared.nnx_utils as nnx_utils
-import openpi.shared.runtime_env as runtime_env
 import openpi.training.checkpoints as _checkpoints
 import openpi.training.config as _config
 import openpi.training.data_loader as _data_loader

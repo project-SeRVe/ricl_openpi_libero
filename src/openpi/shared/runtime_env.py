@@ -45,3 +45,16 @@ def configure_project_cache_env() -> None:
         else:
             os.environ[env_name] = str(Path(os.environ[env_name]).expanduser())
         Path(os.environ[env_name]).mkdir(parents=True, exist_ok=True)
+
+
+def configure_jax_cuda_compat_env() -> None:
+    """Disable XLA command buffers when the runtime cannot support CUDA graph capture."""
+    xla_flags = os.environ.get("XLA_FLAGS", "")
+    existing_flags = xla_flags.split()
+    if any(flag.startswith("--xla_gpu_enable_command_buffer") for flag in existing_flags):
+        return
+    if any(flag.startswith("--xla_gpu_graph_level") for flag in existing_flags):
+        return
+
+    compat_flags = ["--xla_gpu_enable_command_buffer=", "--xla_gpu_graph_level=0"]
+    os.environ["XLA_FLAGS"] = " ".join([*existing_flags, *compat_flags]).strip()

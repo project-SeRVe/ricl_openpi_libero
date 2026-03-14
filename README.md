@@ -122,31 +122,16 @@ uv run --no-sync scripts/train_pi0_fast_ricl.py pi0_fast_libero_ricl___finetune_
   --overwrite
 
 ---
-4. Serving
+4. Serving/Evaluation
 
-이 코드에서는 serving하는 프로세스 하나와, evaluation이 돌아가는 프로세스(로봇에 해당) 하나가 사용된다.
+이 스크립트는 serving하는 프로세스와, evaluation이 돌아가는 프로세스(로봇에 해당)를 모두 돌리며 평가한다.
 
-uv run --no-sync scripts/serve_policy_ricl.py policy:checkpoint \
-  --policy.config=pi0_fast_libero_ricl \
-  --policy.dir=checkpoints/pi0_fast_libero_ricl/<EXPERIMENT_NAME>/<STEP> \
-  --policy.demos_dir=preprocessing/libero_collected_demos/<YYYY-MM-DD>_<task_prompt> \
-  --policy.ricl_env=libero \
-  --port=8000
-
----
-5. Evaluation
-
-cd examples/libero
-uv run --no-sync main_ricl.py \
-  --host=0.0.0.0 \
-  --port=8000 \
-  --task-suite-name=libero_spatial \
-  --num-trials-per-task=50 \
-  --video-out-path=data/libero_ricl/videos
-
---task-suite-name 옵션: libero_spatial, libero_object, libero_goal, libero_10, libero_90
-```
-
+# policy.demos_dir의 모든 task를 돌리는 스크립트
+uv run --no-sync scripts/run_libero_ricl_servers.py \
+--demos-root=preprocessing/libero_collected_demos \
+--checkpoint-dir=checkpoints/pi0_fast_libero_ricl/priming/3600 \
+--num-trials-per-task=10 \
+--video-out-root=examples/libero/data/libero_ricl/batch_eval
 ---
 
 # RICL: Re-training (a VLA) for In-Context Learning

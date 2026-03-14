@@ -7,9 +7,12 @@ retrieval of query_actions from the RICL policy server.
 
 import collections
 import dataclasses
+from datetime import datetime
+import json
 import logging
 import math
 import pathlib
+import re
 
 import imageio
 from libero.libero import benchmark
@@ -38,9 +41,7 @@ class Args:
     #################################################################################################################
     # LIBERO environment-specific parameters
     #################################################################################################################
-    task_suite_name: str = (
-        "libero_spatial"  # Task suite. Options: libero_spatial, libero_object, libero_goal, libero_10, libero_90
-    )
+    task_name: str = ""  # Required single-task target; accepts spaces or underscores.
     num_steps_wait: int = 10  # Number of steps to wait for objects to stabilize in sim
     num_trials_per_task: int = 50  # Number of rollouts per task
 
@@ -55,38 +56,29 @@ class Args:
 def eval_libero_ricl(args: Args) -> None:
     # Set random seed
     np.random.seed(args.seed)
+    run_timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
 
-    # Initialize LIBERO task suite
+    if not args.task_name.strip():
+        raise ValueError("--task-name must be provided.")
+
+    # Initialize LIBERO task
     benchmark_dict = benchmark.get_benchmark_dict()
-    task_suite = benchmark_dict[args.task_suite_name]()
-    num_tasks_in_suite = task_suite.n_tasks
-    logging.info(f"Task suite: {args.task_suite_name}")
-
     pathlib.Path(args.video_out_path).mkdir(parents=True, exist_ok=True)
-
-    if args.task_suite_name == "libero_spatial":
-        max_steps = 220  # longest training demo has 193 steps
-    elif args.task_suite_name == "libero_object":
-        max_steps = 280  # longest training demo has 254 steps
-    elif args.task_suite_name == "libero_goal":
-        max_steps = 300  # longest training demo has 270 steps
-    elif args.task_suite_name == "libero_10":
-        max_steps = 520  # longest training demo has 505 steps
-    elif args.task_suite_name == "libero_90":
-        max_steps = 400  # longest training demo has 373 steps
-    else:
-        raise ValueError(f"Unknown task suite: {args.task_suite_name}")
+    selected_tasks = [_resolve_single_task(benchmark_dict, args.task_name)]
+    logging.info("Evaluating task: %s", selected_tasks[0]["task"].language)
 
     client = _websocket_client_policy.WebsocketClientPolicy(args.host, args.port)
 
     # Start evaluation
     total_episodes, total_successes = 0, 0
-    for task_id in tqdm.tqdm(range(num_tasks_in_suite)):
-        # Get task
-        task = task_suite.get_task(task_id)
-
-        # Get default LIBERO initial states
+    task_results = []
+    for selected_task in tqdm.tqdm(selected_tasks):
+        suite_name = selected_task["suite_name"]
+        task_id = selected_task["task_id"]
+        task_suite = selected_task["task_suite"]
+        task = selected_task["task"]
         initial_states = task_suite.get_task_init_states(task_id)
+        max_steps = _max_steps_for_suite(suite_name)
 
         # Initialize LIBERO environment and task description
         env, task_description = _get_libero_env(task, LIBERO_ENV_RESOLUTION, args.seed)
@@ -189,11 +181,91 @@ def eval_libero_ricl(args: Args) -> None:
             logging.info(f"# successes: {total_successes} ({total_successes / total_episodes * 100:.1f}%)")
 
         # Log final results
-        logging.info(f"Current task success rate: {float(task_successes) / float(task_episodes)}")
-        logging.info(f"Current total success rate: {float(total_successes) / float(total_episodes)}")
+        task_success_rate = float(task_successes) / float(task_episodes)
+        total_success_rate = float(total_successes) / float(total_episodes)
+        logging.info(f"Current task success rate: {task_success_rate}")
+        logging.info(f"Current total success rate: {total_success_rate}")
+        task_results.append(
+            {
+                "task_id": task_id,
+                "task_description": task_description,
+                "episodes": task_episodes,
+                "successes": task_successes,
+                "success_rate": task_success_rate,
+            }
+        )
 
-    logging.info(f"Total success rate: {float(total_successes) / float(total_episodes)}")
+    total_success_rate = float(total_successes) / float(total_episodes)
+    logging.info(f"Total success rate: {total_success_rate}")
     logging.info(f"Total episodes: {total_episodes}")
+
+    results = {
+        "run_timestamp": run_timestamp,
+        "task_name": args.task_name,
+        "num_trials_per_task": args.num_trials_per_task,
+        "seed": args.seed,
+        "total_episodes": total_episodes,
+        "total_successes": total_successes,
+        "total_success_rate": total_success_rate,
+        "tasks": task_results,
+    }
+    results_path = pathlib.Path(args.video_out_path) / f"results_{run_timestamp}.json"
+    with open(results_path, "w") as f:
+        json.dump(results, f, indent=2)
+    logging.info(f"Saved evaluation results to {results_path}")
+
+
+def _normalize_task_name(task_name: str) -> str:
+    return re.sub(r"[\s_]+", "_", task_name.strip().lower())
+
+
+def _max_steps_for_suite(task_suite_name: str) -> int:
+    if task_suite_name == "libero_spatial":
+        return 220
+    if task_suite_name == "libero_object":
+        return 280
+    if task_suite_name == "libero_goal":
+        return 300
+    if task_suite_name == "libero_10":
+        return 520
+    if task_suite_name == "libero_90":
+        return 400
+    raise ValueError(f"Unknown task suite: {task_suite_name}")
+
+
+def _resolve_single_task(benchmark_dict, task_name: str) -> dict:
+    candidate_suites = [
+        "libero_spatial",
+        "libero_object",
+        "libero_goal",
+        "libero_10",
+        "libero_90",
+    ]
+    normalized_target = _normalize_task_name(task_name)
+    matches = []
+    for suite_name in candidate_suites:
+        task_suite = benchmark_dict[suite_name]()
+        for task_id in range(task_suite.n_tasks):
+            task = task_suite.get_task(task_id)
+            if _normalize_task_name(task.language) == normalized_target:
+                matches.append(
+                    {
+                        "suite_name": suite_name,
+                        "task_id": task_id,
+                        "task_suite": task_suite,
+                        "task": task,
+                    }
+                )
+
+    if not matches:
+        raise ValueError(f"Task {task_name!r} was not found in LIBERO.")
+    if len(matches) > 1:
+        raise ValueError(
+            f"Task {task_name!r} matched multiple LIBERO tasks: "
+            f"{[(match['suite_name'], match['task'].language) for match in matches]}. "
+            "Disambiguate by renaming the task target more specifically in the evaluator."
+        )
+    return matches[0]
 
 
 def _get_libero_env(task, resolution, seed):

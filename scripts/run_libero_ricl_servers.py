@@ -7,6 +7,7 @@ import socket
 import subprocess
 import sys
 import time
+import os
 
 
 REPO_ROOT = pathlib.Path(__file__).resolve().parents[1]
@@ -33,12 +34,12 @@ def _build_server_command(
         "run",
         "--no-sync",
         "scripts/serve_policy_ricl.py",
+        f"--port={port}",
         "policy:checkpoint",
         f"--policy.config={policy_config}",
         f"--policy.dir={checkpoint_dir}",
-        f"--policy.demos_dir={task_dir}",
-        f"--policy.ricl_env={ricl_env}",
-        f"--port={port}",
+        f"--policy.demos-dir={task_dir}",
+        f"--policy.ricl-env={ricl_env}",
     ]
 
 
@@ -54,13 +55,52 @@ def _build_eval_command(
         "uv",
         "run",
         "--no-sync",
-        "main_ricl.py",
+        "examples/libero/main_ricl.py",
         f"--host={host}",
         f"--port={port}",
         f"--task-name={task_name}",
         f"--num-trials-per-task={num_trials_per_task}",
         f"--video-out-path={video_out_path}",
     ]
+
+
+def _build_eval_env() -> dict[str, str]:
+    env = os.environ.copy()
+    pythonpath_entries = [
+        str(REPO_ROOT),
+        str(REPO_ROOT / "packages/openpi-client/src"),
+        str(REPO_ROOT / "third_party/libero"),
+    ]
+    existing_pythonpath = env.get("PYTHONPATH")
+    if existing_pythonpath:
+        pythonpath_entries.append(existing_pythonpath)
+    env["PYTHONPATH"] = os.pathsep.join(pythonpath_entries)
+    env["LIBERO_CONFIG_PATH"] = str(_ensure_libero_config_dir())
+    return env
+
+
+def _ensure_libero_config_dir() -> pathlib.Path:
+    config_dir = REPO_ROOT / ".libero"
+    config_dir.mkdir(parents=True, exist_ok=True)
+
+    benchmark_root = REPO_ROOT / "third_party/libero/libero/libero"
+    datasets_root = REPO_ROOT / "third_party/libero/libero/datasets"
+    config_path = config_dir / "config.yaml"
+
+    config_path.write_text(
+        "\n".join(
+            [
+                f"benchmark_root: {benchmark_root}",
+                f"bddl_files: {benchmark_root / 'bddl_files'}",
+                f"init_states: {benchmark_root / 'init_files'}",
+                f"datasets: {datasets_root}",
+                f"assets: {benchmark_root / 'assets'}",
+                "",
+            ]
+        ),
+        encoding="utf-8",
+    )
+    return config_dir
 
 
 def _wait_for_port(host: str, port: int, timeout_s: float) -> None:
@@ -89,7 +129,6 @@ def _run_for_task(
     *,
     task_dir: pathlib.Path,
     args: argparse.Namespace,
-    examples_libero_dir: pathlib.Path,
 ) -> dict[str, object]:
     task_name = task_dir.name
     video_out_path = (args.video_out_root / task_name).resolve()
@@ -126,7 +165,7 @@ def _run_for_task(
     server_process = subprocess.Popen(server_cmd, cwd=REPO_ROOT)
     try:
         _wait_for_port(args.host, args.port, args.server_startup_timeout)
-        eval_result = subprocess.run(eval_cmd, cwd=examples_libero_dir, check=False)
+        eval_result = subprocess.run(eval_cmd, cwd=REPO_ROOT, env=_build_eval_env(), check=False)
     finally:
         _terminate_process(server_process)
 
@@ -217,7 +256,6 @@ def main() -> int:
         if not task_dirs:
             raise ValueError(f"task {args.task!r} not found under {args.demos_root}")
 
-    examples_libero_dir = REPO_ROOT / "examples/libero"
     run_timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
     summary = {
         "run_timestamp": run_timestamp,
@@ -231,7 +269,6 @@ def main() -> int:
         result = _run_for_task(
             task_dir=task_dir,
             args=args,
-            examples_libero_dir=examples_libero_dir,
         )
         summary["tasks"].append(result)
 

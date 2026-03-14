@@ -180,3 +180,6 @@ third_party/
 preprocessing/libero_collected_demos_training/
 preprocessing/libero_collected_demos/
 
+# else
+obs_logs
+

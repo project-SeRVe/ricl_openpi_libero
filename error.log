@@ -4249,3 +4249,807 @@ I0000 00:00:1773409451.375607    5734 port.cc:153] oneDNN custom operations are 
 05:54:59.405 [I] [process=0][thread=save_finalize][step=4200] CheckpointManager Save Finalize is syncing with other hosts... (5344:checkpoint_manager.py:1890)
 05:54:59.405 [I] [process=0][thread=save_finalize][step=4200] CheckpointManager Save Finalize is done on all hosts. (5344:checkpoint_manager.py:1905)
 05:55:01.934 [I] Progress on: 4.20kit/10.0kit rate:14.8s/it remaining:23:53:37 elapsed:16:10:04 postfix:- (5344:tqdm_logging.py:145)
+05:55:20.449 [I] Progress on: 4.20kit/10.0kit rate:13.1s/it remaining:21:02:07 elapsed:16:10:23 postfix:- (5344:tqdm_logging.py:145)
+05:55:35.587 [I] Progress on: 4.20kit/10.0kit rate:13.9s/it remaining:22:24:06 elapsed:16:10:38 postfix:- (5344:tqdm_logging.py:145)
+05:55:54.341 [I] Progress on: 4.21kit/10.0kit rate:14.3s/it remaining:22:59:36 elapsed:16:10:57 postfix:- (5344:tqdm_logging.py:145)
+05:56:12.912 [I] Progress on: 4.21kit/10.0kit rate:12.7s/it remaining:20:25:15 elapsed:16:11:15 postfix:- (5344:tqdm_logging.py:145)
+05:56:28.354 [I] Progress on: 4.21kit/10.0kit rate:13.8s/it remaining:22:07:20 elapsed:16:11:31 postfix:- (5344:tqdm_logging.py:145)
+05:56:49.679 [I] Progress on: 4.21kit/10.0kit rate:15.0s/it remaining:24:05:16 elapsed:16:11:52 postfix:- (5344:tqdm_logging.py:145)
+05:57:08.212 [I] Progress on: 4.21kit/10.0kit rate:13.2s/it remaining:21:10:10 elapsed:16:12:11 postfix:- (5344:tqdm_logging.py:145)
+05:57:23.064 [I] Progress on: 4.21kit/10.0kit rate:13.9s/it remaining:22:20:35 elapsed:16:12:25 postfix:- (5344:tqdm_logging.py:145)
+05:57:39.359 [I] Progress on: 4.21kit/10.0kit rate:13.5s/it remaining:21:46:05 elapsed:16:12:42 postfix:- (5344:tqdm_logging.py:145)
+05:57:57.998 [I] Progress on: 4.21kit/10.0kit rate:12.2s/it remaining:19:35:15 elapsed:16:13:00 postfix:- (5344:tqdm_logging.py:145)
+05:58:16.433 [I] Progress on: 4.22kit/10.0kit rate:14.3s/it remaining:22:57:10 elapsed:16:13:19 postfix:- (5344:tqdm_logging.py:145)
+05:58:34.117 [I] Progress on: 4.22kit/10.0kit rate:14.2s/it remaining:22:43:51 elapsed:16:13:37 postfix:- (5344:tqdm_logging.py:145)
+05:58:52.817 [I] Progress on: 4.22kit/10.0kit rate:12.6s/it remaining:20:16:11 elapsed:16:13:55 postfix:- (5344:tqdm_logging.py:145)
+05:59:03.169 [I] Progress on: 4.22kit/10.0kit rate:14.8s/it remaining:23:49:11 elapsed:16:14:06 postfix:- (5344:tqdm_logging.py:145)
+05:59:21.803 [I] Progress on: 4.22kit/10.0kit rate:13.1s/it remaining:21:00:54 elapsed:16:14:24 postfix:- (5344:tqdm_logging.py:145)
+05:59:33.851 [I] Progress on: 4.22kit/10.0kit rate:13.0s/it remaining:20:51:20 elapsed:16:14:36 postfix:- (5344:tqdm_logging.py:145)
+05:59:44.430 [I] Progress on: 4.22kit/10.0kit rate:12.3s/it remaining:19:41:33 elapsed:16:14:47 postfix:- (5344:tqdm_logging.py:145)
+06:00:02.526 [I] Progress on: 4.22kit/10.0kit rate:14.0s/it remaining:22:30:47 elapsed:16:15:05 postfix:- (5344:tqdm_logging.py:145)
+06:00:13.733 [I] Progress on: 4.22kit/10.0kit rate:13.2s/it remaining:21:08:39 elapsed:16:15:16 postfix:- (5344:tqdm_logging.py:145)
+06:00:30.341 [I] Progress on: 4.23kit/10.0kit rate:14.2s/it remaining:22:47:54 elapsed:16:15:33 postfix:- (5344:tqdm_logging.py:145)
+06:00:49.490 [I] Progress on: 4.23kit/10.0kit rate:14.6s/it remaining:23:19:49 elapsed:16:15:52 postfix:- (5344:tqdm_logging.py:145)
+06:01:08.117 [I] Progress on: 4.23kit/10.0kit rate:12.9s/it remaining:20:39:59 elapsed:16:16:11 postfix:- (5344:tqdm_logging.py:145)
+06:01:24.415 [I] Progress on: 4.23kit/10.0kit rate:14.1s/it remaining:22:40:00 elapsed:16:16:27 postfix:- (5344:tqdm_logging.py:145)
+06:01:39.129 [I] Progress on: 4.23kit/10.0kit rate:13.2s/it remaining:21:07:41 elapsed:16:16:42 postfix:- (5344:tqdm_logging.py:145)
+06:01:50.867 [I] Progress on: 4.23kit/10.0kit rate:12.8s/it remaining:20:25:40 elapsed:16:16:53 postfix:- (5344:tqdm_logging.py:145)
+06:02:04.996 [I] Progress on: 4.23kit/10.0kit rate:13.2s/it remaining:21:05:11 elapsed:16:17:07 postfix:- (5344:tqdm_logging.py:145)
+06:02:23.600 [I] Progress on: 4.24kit/10.0kit rate:11.9s/it remaining:19:05:18 elapsed:16:17:26 postfix:- (5344:tqdm_logging.py:145)
+06:02:39.684 [I] Progress on: 4.24kit/10.0kit rate:13.4s/it remaining:21:26:19 elapsed:16:17:42 postfix:- (5344:tqdm_logging.py:145)
+06:03:02.321 [I] Progress on: 4.24kit/10.0kit rate:15.2s/it remaining:24:19:27 elapsed:16:18:05 postfix:- (5344:tqdm_logging.py:145)
+06:03:20.841 [I] Progress on: 4.24kit/10.0kit rate:13.3s/it remaining:21:19:48 elapsed:16:18:23 postfix:- (5344:tqdm_logging.py:145)
+06:03:37.954 [I] Progress on: 4.24kit/10.0kit rate:14.7s/it remaining:23:29:30 elapsed:16:18:40 postfix:- (5344:tqdm_logging.py:145)
+06:03:53.366 [I] Progress on: 4.24kit/10.0kit rate:13.7s/it remaining:21:50:24 elapsed:16:18:56 postfix:- (5344:tqdm_logging.py:145)
+06:04:11.959 [I] Progress on: 4.24kit/10.0kit rate:12.3s/it remaining:19:42:33 elapsed:16:19:14 postfix:- (5344:tqdm_logging.py:145)
+06:04:28.431 [I] Progress on: 4.24kit/10.0kit rate:13.7s/it remaining:21:57:12 elapsed:16:19:31 postfix:- (5344:tqdm_logging.py:145)
+06:04:50.494 [I] Progress on: 4.25kit/10.0kit rate:15.2s/it remaining:24:16:31 elapsed:16:19:53 postfix:- (5344:tqdm_logging.py:145)
+06:05:09.016 [I] Progress on: 4.25kit/10.0kit rate:13.3s/it remaining:21:16:27 elapsed:16:20:11 postfix:- (5344:tqdm_logging.py:145)
+06:05:24.983 [I] Progress on: 4.25kit/10.0kit rate:14.3s/it remaining:22:54:16 elapsed:16:20:27 postfix:- (5344:tqdm_logging.py:145)
+06:05:40.324 [I] Progress on: 4.25kit/10.0kit rate:13.5s/it remaining:21:30:25 elapsed:16:20:43 postfix:- (5344:tqdm_logging.py:145)
+06:05:58.859 [I] Progress on: 4.25kit/10.0kit rate:12.1s/it remaining:19:21:21 elapsed:16:21:01 postfix:- (5344:tqdm_logging.py:145)
+06:06:14.017 [I] Progress on: 4.25kit/10.0kit rate:13.3s/it remaining:21:09:26 elapsed:16:21:16 postfix:- (5344:tqdm_logging.py:145)
+06:06:32.247 [I] Progress on: 4.25kit/10.0kit rate:13.8s/it remaining:22:01:36 elapsed:16:21:35 postfix:- (5344:tqdm_logging.py:145)
+06:06:50.837 [I] Progress on: 4.25kit/10.0kit rate:12.4s/it remaining:19:44:00 elapsed:16:21:53 postfix:- (5344:tqdm_logging.py:145)
+06:07:05.296 [I] Progress on: 4.26kit/10.0kit rate:15.9s/it remaining:25:18:49 elapsed:16:22:08 postfix:- (5344:tqdm_logging.py:145)
+06:07:23.933 [I] Progress on: 4.26kit/10.0kit rate:13.8s/it remaining:22:01:55 elapsed:16:22:26 postfix:- (5344:tqdm_logging.py:145)
+06:07:41.537 [I] Progress on: 4.26kit/10.0kit rate:15.2s/it remaining:24:12:26 elapsed:16:22:44 postfix:- (5344:tqdm_logging.py:145)
+06:07:59.340 [I] Progress on: 4.26kit/10.0kit rate:14.6s/it remaining:23:17:08 elapsed:16:23:02 postfix:- (5344:tqdm_logging.py:145)
+06:08:17.994 [I] Progress on: 4.26kit/10.0kit rate:12.9s/it remaining:20:36:48 elapsed:16:23:20 postfix:- (5344:tqdm_logging.py:145)
+06:08:28.893 [I] Progress on: 4.26kit/10.0kit rate:15.2s/it remaining:24:14:32 elapsed:16:23:31 postfix:- (5344:tqdm_logging.py:145)
+06:08:47.565 [I] Progress on: 4.26kit/10.0kit rate:13.4s/it remaining:21:17:22 elapsed:16:23:50 postfix:- (5344:tqdm_logging.py:145)
+06:08:59.381 [I] Progress on: 4.26kit/10.0kit rate:15.8s/it remaining:25:09:05 elapsed:16:24:02 postfix:- (5344:tqdm_logging.py:145)
+06:09:18.036 [I] Progress on: 4.26kit/10.0kit rate:13.7s/it remaining:21:53:55 elapsed:16:24:20 postfix:- (5344:tqdm_logging.py:145)
+06:09:35.732 [I] Progress on: 4.27kit/10.0kit rate:15.2s/it remaining:24:09:24 elapsed:16:24:38 postfix:- (5344:tqdm_logging.py:145)
+06:09:52.814 [I] Progress on: 4.27kit/10.0kit rate:14.4s/it remaining:22:56:40 elapsed:16:24:55 postfix:- (5344:tqdm_logging.py:145)
+06:10:11.402 [I] Progress on: 4.27kit/10.0kit rate:12.8s/it remaining:20:20:27 elapsed:16:25:14 postfix:- (5344:tqdm_logging.py:145)
+06:10:28.545 [I] Progress on: 4.27kit/10.0kit rate:14.3s/it remaining:22:47:16 elapsed:16:25:31 postfix:- (5344:tqdm_logging.py:145)
+06:10:45.241 [I] Progress on: 4.27kit/10.0kit rate:13.9s/it remaining:22:04:21 elapsed:16:25:48 postfix:- (5344:tqdm_logging.py:145)
+06:11:03.865 [I] Progress on: 4.27kit/10.0kit rate:12.4s/it remaining:19:43:52 elapsed:16:26:06 postfix:- (5344:tqdm_logging.py:145)
+06:11:20.597 [I] Progress on: 4.27kit/10.0kit rate:13.9s/it remaining:22:08:52 elapsed:16:26:23 postfix:- (5344:tqdm_logging.py:145)
+06:11:33.720 [I] Progress on: 4.28kit/10.0kit rate:12.6s/it remaining:20:03:31 elapsed:16:26:36 postfix:- (5344:tqdm_logging.py:145)
+06:11:52.532 [I] Progress on: 4.28kit/10.0kit rate:11.6s/it remaining:18:22:40 elapsed:16:26:55 postfix:- (5344:tqdm_logging.py:145)
+06:12:03.910 [I] Progress on: 4.28kit/10.0kit rate:11.7s/it remaining:18:39:00 elapsed:16:27:06 postfix:- (5344:tqdm_logging.py:145)
+06:12:18.451 [I] Progress on: 4.28kit/10.0kit rate:12.6s/it remaining:19:59:54 elapsed:16:27:21 postfix:- (5344:tqdm_logging.py:145)
+06:12:28.880 [I] Progress on: 4.28kit/10.0kit rate:11.9s/it remaining:18:58:20 elapsed:16:27:31 postfix:- (5344:tqdm_logging.py:145)
+06:12:42.342 [I] Progress on: 4.28kit/10.0kit rate:12.4s/it remaining:19:41:43 elapsed:16:27:45 postfix:- (5344:tqdm_logging.py:145)
+06:12:57.853 [I] Progress on: 4.28kit/10.0kit rate:13.3s/it remaining:21:10:52 elapsed:16:28:00 postfix:- (5344:tqdm_logging.py:145)
+06:13:12.154 [I] Progress on: 4.28kit/10.0kit rate:12.7s/it remaining:20:07:44 elapsed:16:28:15 postfix:- (5344:tqdm_logging.py:145)
+06:13:30.810 [I] Progress on: 4.29kit/10.0kit rate:11.6s/it remaining:18:23:28 elapsed:16:28:33 postfix:- (5344:tqdm_logging.py:145)
+06:13:41.753 [I] Progress on: 4.29kit/10.0kit rate:11.6s/it remaining:18:25:33 elapsed:16:28:44 postfix:- (5344:tqdm_logging.py:145)
+06:13:54.643 [I] Progress on: 4.29kit/10.0kit rate:12.0s/it remaining:19:02:30 elapsed:16:28:57 postfix:- (5344:tqdm_logging.py:145)
+06:14:05.752 [I] Progress on: 4.29kit/10.0kit rate:11.7s/it remaining:18:37:07 elapsed:16:29:08 postfix:- (5344:tqdm_logging.py:145)
+06:14:17.614 [I] Progress on: 4.29kit/10.0kit rate:14.4s/it remaining:22:53:52 elapsed:16:29:20 postfix:- (5344:tqdm_logging.py:145)
+06:14:36.180 [I] Progress on: 4.29kit/10.0kit rate:12.8s/it remaining:20:18:15 elapsed:16:29:39 postfix:- (5344:tqdm_logging.py:145)
+06:14:47.343 [I] Progress on: 4.29kit/10.0kit rate:12.5s/it remaining:19:51:28 elapsed:16:29:50 postfix:- (5344:tqdm_logging.py:145)
+06:15:04.814 [I] Progress on: 4.29kit/10.0kit rate:13.1s/it remaining:20:50:12 elapsed:16:30:07 postfix:- (5344:tqdm_logging.py:145)
+06:15:23.351 [I] Progress on: 4.29kit/10.0kit rate:14.8s/it remaining:23:23:52 elapsed:16:30:26 postfix:- (5344:tqdm_logging.py:145)
+06:15:41.988 [I] Progress on: 4.29kit/10.0kit rate:13.0s/it remaining:20:39:44 elapsed:16:30:44 postfix:- (5344:tqdm_logging.py:145)
+06:15:59.619 [I] Progress on: 4.30kit/10.0kit rate:14.6s/it remaining:23:12:13 elapsed:16:31:02 postfix:- (5344:tqdm_logging.py:145)
+06:16:10.805 [I] Progress on: 4.30kit/10.0kit rate:13.6s/it remaining:21:32:31 elapsed:16:31:13 postfix:- (5344:tqdm_logging.py:145)
+06:16:28.256 [I] Progress on: 4.30kit/10.0kit rate:14.8s/it remaining:23:22:21 elapsed:16:31:31 postfix:- (5344:tqdm_logging.py:145)
+06:16:44.435 [I] Progress on: 4.30kit/10.0kit rate:15.2s/it remaining:24:02:44 elapsed:16:31:47 postfix:- (5344:tqdm_logging.py:145)
+06:16:55.085 [I] Progress on: 4.30kit/10.0kit rate:13.8s/it remaining:21:52:57 elapsed:16:31:58 postfix:- (5344:tqdm_logging.py:145)
+06:17:08.282 [I] Progress on: 4.30kit/10.0kit rate:13.6s/it remaining:21:34:39 elapsed:16:32:11 postfix:- (5344:tqdm_logging.py:145)
+06:17:20.115 [I] Progress on: 4.30kit/10.0kit rate:13.1s/it remaining:20:43:21 elapsed:16:32:23 postfix:- (5344:tqdm_logging.py:145)
+06:17:32.083 [I] Progress on: 4.30kit/10.0kit rate:12.8s/it remaining:20:10:47 elapsed:16:32:35 postfix:- (5344:tqdm_logging.py:145)
+06:17:42.593 [I] Progress on: 4.30kit/10.0kit rate:14.8s/it remaining:23:20:20 elapsed:16:32:45 postfix:- (5344:tqdm_logging.py:145)
+06:18:01.174 [I] Progress on: 4.30kit/10.0kit rate:13.0s/it remaining:20:36:10 elapsed:16:33:04 postfix:- (5344:tqdm_logging.py:145)
+06:18:16.352 [I] Progress on: 4.31kit/10.0kit rate:13.9s/it remaining:21:58:09 elapsed:16:33:19 postfix:- (5344:tqdm_logging.py:145)
+06:18:27.030 [I] Progress on: 4.31kit/10.0kit rate:12.9s/it remaining:20:26:13 elapsed:16:33:29 postfix:- (5344:tqdm_logging.py:145)
+06:18:42.854 [I] Progress on: 4.31kit/10.0kit rate:13.8s/it remaining:21:49:07 elapsed:16:33:45 postfix:- (5344:tqdm_logging.py:145)
+06:18:55.229 [I] Progress on: 4.31kit/10.0kit rate:13.4s/it remaining:21:08:05 elapsed:16:33:58 postfix:- (5344:tqdm_logging.py:145)
+06:19:15.448 [I] Progress on: 4.31kit/10.0kit rate:14.5s/it remaining:22:50:21 elapsed:16:34:18 postfix:- (5344:tqdm_logging.py:145)
+06:19:34.060 [I] Progress on: 4.31kit/10.0kit rate:12.8s/it remaining:20:15:46 elapsed:16:34:36 postfix:- (5344:tqdm_logging.py:145)
+06:19:47.842 [I] Progress on: 4.31kit/10.0kit rate:16.0s/it remaining:25:15:21 elapsed:16:34:50 postfix:- (5344:tqdm_logging.py:145)
+06:20:06.514 [I] Progress on: 4.31kit/10.0kit rate:13.9s/it remaining:21:57:16 elapsed:16:35:09 postfix:- (5344:tqdm_logging.py:145)
+06:20:17.270 [I] Progress on: 4.32kit/10.0kit rate:15.8s/it remaining:25:01:45 elapsed:16:35:20 postfix:- (5344:tqdm_logging.py:145)
+06:20:36.017 [I] Progress on: 4.32kit/10.0kit rate:13.8s/it remaining:21:48:47 elapsed:16:35:38 postfix:- (5344:tqdm_logging.py:145)
+06:20:48.600 [I] Progress on: 4.32kit/10.0kit rate:16.3s/it remaining:25:48:32 elapsed:16:35:51 postfix:- (5344:tqdm_logging.py:145)
+06:21:07.321 [I] Progress on: 4.32kit/10.0kit rate:14.2s/it remaining:22:21:19 elapsed:16:36:10 postfix:- (5344:tqdm_logging.py:145)
+06:21:26.028 [I] Progress on: 4.32kit/10.0kit rate:15.8s/it remaining:24:51:54 elapsed:16:36:28 postfix:- (5344:tqdm_logging.py:145)
+06:21:43.061 [I] Progress on: 4.32kit/10.0kit rate:14.7s/it remaining:23:09:50 elapsed:16:36:45 postfix:- (5344:tqdm_logging.py:145)
+06:22:01.780 [I] Progress on: 4.32kit/10.0kit rate:13.0s/it remaining:20:29:57 elapsed:16:37:04 postfix:- (5344:tqdm_logging.py:145)
+06:22:19.573 [I] Progress on: 4.32kit/10.0kit rate:14.7s/it remaining:23:07:14 elapsed:16:37:22 postfix:- (5344:tqdm_logging.py:145)
+06:22:36.250 [I] Progress on: 4.33kit/10.0kit rate:14.0s/it remaining:22:08:18 elapsed:16:37:39 postfix:- (5344:tqdm_logging.py:145)
+06:22:54.935 [I] Progress on: 4.33kit/10.0kit rate:12.5s/it remaining:19:46:29 elapsed:16:37:57 postfix:- (5344:tqdm_logging.py:145)
+06:23:11.003 [I] Progress on: 4.33kit/10.0kit rate:16.5s/it remaining:25:59:21 elapsed:16:38:13 postfix:- (5344:tqdm_logging.py:145)
+06:23:29.580 [I] Progress on: 4.33kit/10.0kit rate:14.2s/it remaining:22:25:34 elapsed:16:38:32 postfix:- (5344:tqdm_logging.py:145)
+06:23:40.600 [I] Progress on: 4.33kit/10.0kit rate:16.2s/it remaining:25:26:47 elapsed:16:38:43 postfix:- (5344:tqdm_logging.py:145)
+06:23:59.187 [I] Progress on: 4.33kit/10.0kit rate:14.0s/it remaining:22:02:46 elapsed:16:39:02 postfix:- (5344:tqdm_logging.py:145)
+06:24:15.260 [I] Progress on: 4.33kit/10.0kit rate:14.8s/it remaining:23:22:46 elapsed:16:39:18 postfix:- (5344:tqdm_logging.py:145)
+06:24:33.243 [I] Progress on: 4.33kit/10.0kit rate:14.5s/it remaining:22:51:23 elapsed:16:39:36 postfix:- (5344:tqdm_logging.py:145)
+06:24:51.918 [I] Progress on: 4.33kit/10.0kit rate:12.9s/it remaining:20:15:20 elapsed:16:39:54 postfix:- (5344:tqdm_logging.py:145)
+06:25:07.716 [I] Progress on: 4.33kit/10.0kit rate:14.0s/it remaining:21:59:40 elapsed:16:40:10 postfix:- (5344:tqdm_logging.py:145)
+06:25:24.184 [I] Progress on: 4.34kit/10.0kit rate:13.6s/it remaining:21:27:29 elapsed:16:40:27 postfix:- (5344:tqdm_logging.py:145)
+06:25:42.884 [I] Progress on: 4.34kit/10.0kit rate:12.3s/it remaining:19:17:19 elapsed:16:40:45 postfix:- (5344:tqdm_logging.py:145)
+06:25:57.607 [I] Progress on: 4.34kit/10.0kit rate:13.2s/it remaining:20:47:45 elapsed:16:41:00 postfix:- (5344:tqdm_logging.py:145)
+06:26:12.991 [I] Progress on: 4.34kit/10.0kit rate:13.0s/it remaining:20:21:30 elapsed:16:41:15 postfix:- (5344:tqdm_logging.py:145)
+06:26:31.691 [I] Progress on: 4.34kit/10.0kit rate:11.8s/it remaining:18:31:24 elapsed:16:41:34 postfix:- (5344:tqdm_logging.py:145)
+06:26:45.170 [I] Progress on: 4.34kit/10.0kit rate:12.5s/it remaining:19:40:04 elapsed:16:41:48 postfix:- (5344:tqdm_logging.py:145)
+06:27:03.087 [I] Progress on: 4.34kit/10.0kit rate:13.4s/it remaining:20:59:14 elapsed:16:42:06 postfix:- (5344:tqdm_logging.py:145)
+06:27:21.713 [I] Progress on: 4.35kit/10.0kit rate:12.1s/it remaining:18:56:30 elapsed:16:42:24 postfix:- (5344:tqdm_logging.py:145)
+06:27:32.477 [I] Progress on: 4.35kit/10.0kit rate:14.6s/it remaining:22:50:59 elapsed:16:42:35 postfix:- (5344:tqdm_logging.py:145)
+06:27:51.092 [I] Progress on: 4.35kit/10.0kit rate:12.9s/it remaining:20:13:54 elapsed:16:42:54 postfix:- (5344:tqdm_logging.py:145)
+06:28:07.885 [I] Progress on: 4.35kit/10.0kit rate:14.3s/it remaining:22:25:16 elapsed:16:43:10 postfix:- (5344:tqdm_logging.py:145)
+06:28:25.829 [I] Progress on: 4.35kit/10.0kit rate:14.1s/it remaining:22:11:43 elapsed:16:43:28 postfix:- (5344:tqdm_logging.py:145)
+06:28:44.510 [I] Progress on: 4.35kit/10.0kit rate:12.7s/it remaining:19:56:24 elapsed:16:43:47 postfix:- (5344:tqdm_logging.py:145)
+06:28:54.937 [I] Progress on: 4.35kit/10.0kit rate:14.8s/it remaining:23:14:52 elapsed:16:43:57 postfix:- (5344:tqdm_logging.py:145)
+06:29:13.614 [I] Progress on: 4.35kit/10.0kit rate:13.1s/it remaining:20:31:37 elapsed:16:44:16 postfix:- (5344:tqdm_logging.py:145)
+06:29:31.472 [I] Progress on: 4.36kit/10.0kit rate:14.7s/it remaining:23:06:37 elapsed:16:44:34 postfix:- (5344:tqdm_logging.py:145)
+06:29:48.375 [I] Progress on: 4.36kit/10.0kit rate:14.1s/it remaining:22:10:33 elapsed:16:44:51 postfix:- (5344:tqdm_logging.py:145)
+06:30:07.071 [I] Progress on: 4.36kit/10.0kit rate:12.6s/it remaining:19:46:34 elapsed:16:45:10 postfix:- (5344:tqdm_logging.py:145)
+06:30:24.583 [I] Progress on: 4.36kit/10.0kit rate:14.3s/it remaining:22:25:31 elapsed:16:45:27 postfix:- (5344:tqdm_logging.py:145)
+06:30:35.501 [I] Progress on: 4.36kit/10.0kit rate:13.3s/it remaining:20:49:05 elapsed:16:45:38 postfix:- (5344:tqdm_logging.py:145)
+06:30:51.409 [I] Progress on: 4.36kit/10.0kit rate:14.1s/it remaining:22:03:44 elapsed:16:45:54 postfix:- (5344:tqdm_logging.py:145)
+06:31:04.079 [I] Progress on: 4.36kit/10.0kit rate:13.7s/it remaining:21:23:39 elapsed:16:46:07 postfix:- (5344:tqdm_logging.py:145)
+06:31:22.640 [I] Progress on: 4.36kit/10.0kit rate:15.1s/it remaining:23:42:02 elapsed:16:46:25 postfix:- (5344:tqdm_logging.py:145)
+06:31:34.021 [I] Progress on: 4.36kit/10.0kit rate:14.0s/it remaining:21:56:09 elapsed:16:46:36 postfix:- (5344:tqdm_logging.py:145)
+06:31:50.278 [I] Progress on: 4.37kit/10.0kit rate:14.7s/it remaining:22:59:12 elapsed:16:46:53 postfix:- (5344:tqdm_logging.py:145)
+06:32:03.309 [I] Progress on: 4.37kit/10.0kit rate:14.2s/it remaining:22:12:18 elapsed:16:47:06 postfix:- (5344:tqdm_logging.py:145)
+06:32:15.879 [I] Progress on: 4.37kit/10.0kit rate:13.7s/it remaining:21:26:54 elapsed:16:47:18 postfix:- (5344:tqdm_logging.py:145)
+06:32:27.546 [I] Progress on: 4.37kit/10.0kit rate:13.1s/it remaining:20:28:49 elapsed:16:47:30 postfix:- (5344:tqdm_logging.py:145)
+06:32:38.009 [I] Progress on: 4.37kit/10.0kit rate:12.3s/it remaining:19:14:19 elapsed:16:47:40 postfix:- (5344:tqdm_logging.py:145)
+06:32:55.537 [I] Progress on: 4.37kit/10.0kit rate:13.9s/it remaining:21:41:42 elapsed:16:47:58 postfix:- (5344:tqdm_logging.py:145)
+06:33:07.027 [I] Progress on: 4.37kit/10.0kit rate:13.2s/it remaining:20:33:56 elapsed:16:48:09 postfix:- (5344:tqdm_logging.py:145)
+06:33:19.701 [I] Progress on: 4.37kit/10.0kit rate:13.0s/it remaining:20:19:53 elapsed:16:48:22 postfix:- (5344:tqdm_logging.py:145)
+06:33:31.197 [I] Progress on: 4.37kit/10.0kit rate:15.2s/it remaining:23:46:55 elapsed:16:48:34 postfix:- (5344:tqdm_logging.py:145)
+06:33:49.821 [I] Progress on: 4.37kit/10.0kit rate:13.4s/it remaining:20:52:26 elapsed:16:48:52 postfix:- (5344:tqdm_logging.py:145)
+06:34:04.556 [I] Progress on: 4.38kit/10.0kit rate:14.0s/it remaining:21:51:20 elapsed:16:49:07 postfix:- (5344:tqdm_logging.py:145)
+06:34:23.472 [I] Progress on: 4.38kit/10.0kit rate:14.4s/it remaining:22:27:25 elapsed:16:49:26 postfix:- (5344:tqdm_logging.py:145)
+06:34:42.150 [I] Progress on: 4.38kit/10.0kit rate:12.8s/it remaining:19:57:30 elapsed:16:49:45 postfix:- (5344:tqdm_logging.py:145)
+06:34:59.187 [I] Progress on: 4.38kit/10.0kit rate:14.3s/it remaining:22:17:31 elapsed:16:50:02 postfix:- (5344:tqdm_logging.py:145)
+06:35:22.747 [I] Progress on: 4.38kit/10.0kit rate:15.9s/it remaining:24:50:32 elapsed:16:50:25 postfix:- (5344:tqdm_logging.py:145)
+06:35:41.319 [I] Progress on: 4.38kit/10.0kit rate:13.8s/it remaining:21:34:45 elapsed:16:50:44 postfix:- (5344:tqdm_logging.py:145)
+06:35:52.041 [I] Progress on: 4.38kit/10.0kit rate:15.8s/it remaining:24:37:21 elapsed:16:50:54 postfix:- (5344:tqdm_logging.py:145)
+06:36:10.622 [I] Progress on: 4.38kit/10.0kit rate:13.7s/it remaining:21:25:44 elapsed:16:51:13 postfix:- (5344:tqdm_logging.py:145)
+06:36:21.790 [I] Progress on: 4.38kit/10.0kit rate:15.9s/it remaining:24:43:20 elapsed:16:51:24 postfix:- (5344:tqdm_logging.py:145)
+06:36:40.386 [I] Progress on: 4.39kit/10.0kit rate:13.8s/it remaining:21:29:37 elapsed:16:51:43 postfix:- (5344:tqdm_logging.py:145)
+06:36:58.367 [I] Progress on: 4.39kit/10.0kit rate:15.3s/it remaining:23:48:44 elapsed:16:52:01 postfix:- (5344:tqdm_logging.py:145)
+06:37:17.553 [I] Progress on: 4.39kit/10.0kit rate:15.1s/it remaining:23:31:16 elapsed:16:52:20 postfix:- (5344:tqdm_logging.py:145)
+06:37:36.238 [I] Progress on: 4.39kit/10.0kit rate:13.3s/it remaining:20:40:41 elapsed:16:52:39 postfix:- (5344:tqdm_logging.py:145)
+06:37:53.197 [I] Progress on: 4.39kit/10.0kit rate:14.6s/it remaining:22:45:46 elapsed:16:52:56 postfix:- (5344:tqdm_logging.py:145)
+06:38:09.355 [I] Progress on: 4.39kit/10.0kit rate:13.9s/it remaining:21:35:21 elapsed:16:53:12 postfix:- (5344:tqdm_logging.py:145)
+06:38:28.040 [I] Progress on: 4.39kit/10.0kit rate:12.4s/it remaining:19:19:09 elapsed:16:53:30 postfix:- (5344:tqdm_logging.py:145)
+06:38:42.326 [I] Progress on: 4.39kit/10.0kit rate:13.2s/it remaining:20:33:17 elapsed:16:53:45 postfix:- (5344:tqdm_logging.py:145)
+06:39:00.211 [I] Progress on: 4.40kit/10.0kit rate:13.7s/it remaining:21:18:40 elapsed:16:54:03 postfix:- (5344:tqdm_logging.py:145)
+06:39:18.822 [I] Progress on: 4.40kit/10.0kit rate:12.3s/it remaining:19:06:27 elapsed:16:54:21 postfix:- (5344:tqdm_logging.py:145)
+06:39:34.361 [I] Progress on: 4.40kit/10.0kit rate:13.5s/it remaining:20:59:49 elapsed:16:54:37 postfix:- (5344:tqdm_logging.py:145)
+06:39:53.073 [I] Progress on: 4.40kit/10.0kit rate:14.1s/it remaining:21:53:02 elapsed:16:54:56 postfix:- (5344:tqdm_logging.py:145)
+06:40:11.608 [I] Progress on: 4.40kit/10.0kit rate:12.5s/it remaining:19:29:25 elapsed:16:55:14 postfix:- (5344:tqdm_logging.py:145)
+06:40:26.308 [I] Progress on: 4.40kit/10.0kit rate:13.4s/it remaining:20:51:19 elapsed:16:55:29 postfix:- (5344:tqdm_logging.py:145)
+06:40:39.215 [I] Progress on: 4.41kit/10.0kit rate:12.3s/it remaining:19:05:39 elapsed:16:55:42 postfix:- (5344:tqdm_logging.py:145)
+06:40:57.742 [I] Progress on: 4.41kit/10.0kit rate:11.3s/it remaining:17:33:13 elapsed:16:56:00 postfix:- (5344:tqdm_logging.py:145)
+06:41:14.410 [I] Progress on: 4.41kit/10.0kit rate:13.1s/it remaining:20:23:35 elapsed:16:56:17 postfix:- (5344:tqdm_logging.py:145)
+06:41:29.104 [I] Progress on: 4.41kit/10.0kit rate:12.7s/it remaining:19:41:29 elapsed:16:56:32 postfix:- (5344:tqdm_logging.py:145)
+06:41:47.615 [I] Progress on: 4.41kit/10.0kit rate:11.6s/it remaining:17:56:23 elapsed:16:56:50 postfix:- (5344:tqdm_logging.py:145)
+06:42:04.507 [I] Progress on: 4.41kit/10.0kit rate:13.4s/it remaining:20:46:57 elapsed:16:57:07 postfix:- (5344:tqdm_logging.py:145)
+06:42:24.161 [I] Progress on: 4.41kit/10.0kit rate:14.3s/it remaining:22:11:07 elapsed:16:57:27 postfix:- (5344:tqdm_logging.py:145)
+06:42:42.670 [I] Progress on: 4.41kit/10.0kit rate:12.7s/it remaining:19:40:57 elapsed:16:57:45 postfix:- (5344:tqdm_logging.py:145)
+06:42:55.638 [I] Progress on: 4.42kit/10.0kit rate:15.6s/it remaining:24:16:12 elapsed:16:57:58 postfix:- (5344:tqdm_logging.py:145)
+06:43:14.157 [I] Progress on: 4.42kit/10.0kit rate:13.6s/it remaining:21:08:17 elapsed:16:58:17 postfix:- (5344:tqdm_logging.py:145)
+06:43:25.381 [I] Progress on: 4.42kit/10.0kit rate:15.8s/it remaining:24:28:51 elapsed:16:58:28 postfix:- (5344:tqdm_logging.py:145)
+06:43:43.996 [I] Progress on: 4.42kit/10.0kit rate:13.7s/it remaining:21:18:00 elapsed:16:58:46 postfix:- (5344:tqdm_logging.py:145)
+06:43:54.298 [I] Progress on: 4.42kit/10.0kit rate:15.6s/it remaining:24:11:24 elapsed:16:58:57 postfix:- (5344:tqdm_logging.py:145)
+06:44:13.018 [I] Progress on: 4.42kit/10.0kit rate:13.6s/it remaining:21:07:27 elapsed:16:59:15 postfix:- (5344:tqdm_logging.py:145)
+06:44:27.662 [I] Progress on: 4.42kit/10.0kit rate:14.2s/it remaining:21:57:33 elapsed:16:59:30 postfix:- (5344:tqdm_logging.py:145)
+06:44:47.560 [I] Progress on: 4.42kit/10.0kit rate:14.8s/it remaining:22:53:08 elapsed:16:59:50 postfix:- (5344:tqdm_logging.py:145)
+06:45:06.341 [I] Progress on: 4.42kit/10.0kit rate:13.0s/it remaining:20:12:24 elapsed:17:00:09 postfix:- (5344:tqdm_logging.py:145)
+06:45:23.163 [I] Progress on: 4.42kit/10.0kit rate:14.4s/it remaining:22:22:02 elapsed:17:00:26 postfix:- (5344:tqdm_logging.py:145)
+06:45:45.671 [I] Progress on: 4.43kit/10.0kit rate:15.7s/it remaining:24:16:44 elapsed:17:00:48 postfix:- (5344:tqdm_logging.py:145)
+06:46:04.337 [I] Progress on: 4.43kit/10.0kit rate:13.7s/it remaining:21:09:29 elapsed:17:01:07 postfix:- (5344:tqdm_logging.py:145)
+06:46:17.757 [I] Progress on: 4.43kit/10.0kit rate:16.5s/it remaining:25:32:20 elapsed:17:01:20 postfix:- (5344:tqdm_logging.py:145)
+06:46:36.448 [I] Progress on: 4.43kit/10.0kit rate:14.3s/it remaining:22:03:04 elapsed:17:01:39 postfix:- (5344:tqdm_logging.py:145)
+06:46:51.050 [I] Progress on: 4.43kit/10.0kit rate:14.6s/it remaining:22:34:51 elapsed:17:01:53 postfix:- (5344:tqdm_logging.py:145)
+06:47:08.394 [I] Progress on: 4.43kit/10.0kit rate:14.2s/it remaining:21:58:37 elapsed:17:02:11 postfix:- (5344:tqdm_logging.py:145)
+06:47:27.146 [I] Progress on: 4.43kit/10.0kit rate:12.7s/it remaining:19:34:02 elapsed:17:02:30 postfix:- (5344:tqdm_logging.py:145)
+06:47:41.842 [I] Progress on: 4.43kit/10.0kit rate:13.5s/it remaining:20:53:28 elapsed:17:02:44 postfix:- (5344:tqdm_logging.py:145)
+06:48:04.122 [I] Progress on: 4.44kit/10.0kit rate:15.2s/it remaining:23:26:02 elapsed:17:03:07 postfix:- (5344:tqdm_logging.py:145)
+06:48:22.810 [I] Progress on: 4.44kit/10.0kit rate:13.3s/it remaining:20:33:58 elapsed:17:03:25 postfix:- (5344:tqdm_logging.py:145)
+06:48:37.911 [I] Progress on: 4.44kit/10.0kit rate:14.1s/it remaining:21:46:26 elapsed:17:03:40 postfix:- (5344:tqdm_logging.py:145)
+06:49:00.100 [I] Progress on: 4.44kit/10.0kit rate:15.4s/it remaining:23:48:20 elapsed:17:04:03 postfix:- (5344:tqdm_logging.py:145)
+06:49:18.704 [I] Progress on: 4.44kit/10.0kit rate:13.5s/it remaining:20:48:20 elapsed:17:04:21 postfix:- (5344:tqdm_logging.py:145)
+06:49:29.434 [I] Progress on: 4.44kit/10.0kit rate:15.5s/it remaining:24:00:04 elapsed:17:04:32 postfix:- (5344:tqdm_logging.py:145)
+06:49:48.031 [I] Progress on: 4.44kit/10.0kit rate:13.6s/it remaining:20:56:42 elapsed:17:04:50 postfix:- (5344:tqdm_logging.py:145)
+06:50:00.099 [I] Progress on: 4.45kit/10.0kit rate:13.4s/it remaining:20:36:48 elapsed:17:05:03 postfix:- (5344:tqdm_logging.py:145)
+06:50:16.403 [I] Progress on: 4.45kit/10.0kit rate:13.3s/it remaining:20:29:23 elapsed:17:05:19 postfix:- (5344:tqdm_logging.py:145)
+06:50:35.030 [I] Progress on: 4.45kit/10.0kit rate:12.0s/it remaining:18:29:49 elapsed:17:05:37 postfix:- (5344:tqdm_logging.py:145)
+06:50:50.162 [I] Progress on: 4.45kit/10.0kit rate:13.2s/it remaining:20:17:37 elapsed:17:05:53 postfix:- (5344:tqdm_logging.py:145)
+06:51:11.793 [I] Progress on: 4.45kit/10.0kit rate:14.8s/it remaining:22:47:51 elapsed:17:06:14 postfix:- (5344:tqdm_logging.py:145)
+06:51:30.491 [I] Progress on: 4.45kit/10.0kit rate:13.1s/it remaining:20:06:52 elapsed:17:06:33 postfix:- (5344:tqdm_logging.py:145)
+06:51:44.675 [I] Progress on: 4.45kit/10.0kit rate:13.6s/it remaining:21:00:17 elapsed:17:06:47 postfix:- (5344:tqdm_logging.py:145)
+06:52:06.926 [I] Progress on: 4.46kit/10.0kit rate:15.2s/it remaining:23:25:29 elapsed:17:07:09 postfix:- (5344:tqdm_logging.py:145)
+06:52:25.587 [I] Progress on: 4.46kit/10.0kit rate:13.3s/it remaining:20:33:16 elapsed:17:07:28 postfix:- (5344:tqdm_logging.py:145)
+06:52:40.278 [I] Progress on: 4.46kit/10.0kit rate:16.6s/it remaining:25:37:55 elapsed:17:07:43 postfix:- (5344:tqdm_logging.py:145)
+06:52:58.903 [I] Progress on: 4.46kit/10.0kit rate:14.3s/it remaining:22:04:36 elapsed:17:08:01 postfix:- (5344:tqdm_logging.py:145)
+06:53:09.408 [I] Progress on: 4.46kit/10.0kit rate:16.1s/it remaining:24:45:54 elapsed:17:08:12 postfix:- (5344:tqdm_logging.py:145)
+06:53:28.056 [I] Progress on: 4.46kit/10.0kit rate:14.0s/it remaining:21:28:29 elapsed:17:08:30 postfix:- (5344:tqdm_logging.py:145)
+06:53:44.071 [I] Progress on: 4.46kit/10.0kit rate:14.8s/it remaining:22:46:58 elapsed:17:08:47 postfix:- (5344:tqdm_logging.py:145)
+06:54:05.410 [I] Progress on: 4.46kit/10.0kit rate:15.5s/it remaining:23:51:29 elapsed:17:09:08 postfix:- (5344:tqdm_logging.py:145)
+06:54:24.126 [I] Progress on: 4.46kit/10.0kit rate:13.6s/it remaining:20:50:58 elapsed:17:09:27 postfix:- (5344:tqdm_logging.py:145)
+06:54:42.371 [I] Progress on: 4.46kit/10.0kit rate:15.2s/it remaining:23:24:13 elapsed:17:09:45 postfix:- (5344:tqdm_logging.py:145)
+06:55:00.750 [I] Progress on: 4.47kit/10.0kit rate:14.8s/it remaining:22:46:45 elapsed:17:10:03 postfix:- (5344:tqdm_logging.py:145)
+06:55:19.379 [I] Progress on: 4.47kit/10.0kit rate:13.1s/it remaining:20:05:34 elapsed:17:10:22 postfix:- (5344:tqdm_logging.py:145)
+06:55:34.167 [I] Progress on: 4.47kit/10.0kit rate:13.8s/it remaining:21:13:51 elapsed:17:10:37 postfix:- (5344:tqdm_logging.py:145)
+06:55:50.829 [I] Progress on: 4.47kit/10.0kit rate:13.6s/it remaining:20:55:01 elapsed:17:10:53 postfix:- (5344:tqdm_logging.py:145)
+06:56:09.489 [I] Progress on: 4.47kit/10.0kit rate:12.2s/it remaining:18:46:55 elapsed:17:11:12 postfix:- (5344:tqdm_logging.py:145)
+06:56:28.160 [I] Progress on: 4.47kit/10.0kit rate:14.4s/it remaining:22:07:32 elapsed:17:11:31 postfix:- (5344:tqdm_logging.py:145)
+06:56:47.113 [I] Progress on: 4.47kit/10.0kit rate:14.6s/it remaining:22:23:24 elapsed:17:11:50 postfix:- (5344:tqdm_logging.py:145)
+06:57:05.738 [I] Progress on: 4.48kit/10.0kit rate:12.9s/it remaining:19:47:34 elapsed:17:12:08 postfix:- (5344:tqdm_logging.py:145)
+06:57:19.042 [I] Progress on: 4.48kit/10.0kit rate:13.3s/it remaining:20:20:30 elapsed:17:12:21 postfix:- (5344:tqdm_logging.py:145)
+06:57:40.810 [I] Progress on: 4.48kit/10.0kit rate:14.9s/it remaining:22:48:50 elapsed:17:12:43 postfix:- (5344:tqdm_logging.py:145)
+06:57:59.475 [I] Progress on: 4.48kit/10.0kit rate:13.1s/it remaining:20:07:15 elapsed:17:13:02 postfix:- (5344:tqdm_logging.py:145)
+06:58:17.287 [I] Progress on: 4.48kit/10.0kit rate:14.8s/it remaining:22:37:00 elapsed:17:13:20 postfix:- (5344:tqdm_logging.py:145)
+06:58:38.753 [I] Progress on: 4.48kit/10.0kit rate:15.5s/it remaining:23:47:27 elapsed:17:13:41 postfix:- (5344:tqdm_logging.py:145)
+06:58:57.479 [I] Progress on: 4.48kit/10.0kit rate:13.6s/it remaining:20:47:46 elapsed:17:14:00 postfix:- (5344:tqdm_logging.py:145)
+06:59:12.314 [I] Progress on: 4.49kit/10.0kit rate:16.9s/it remaining:25:50:01 elapsed:17:14:15 postfix:- (5344:tqdm_logging.py:145)
+06:59:31.120 [I] Progress on: 4.49kit/10.0kit rate:14.5s/it remaining:22:14:34 elapsed:17:14:34 postfix:- (5344:tqdm_logging.py:145)
+06:59:49.802 [I] Progress on: 4.49kit/10.0kit rate:15.8s/it remaining:24:15:51 elapsed:17:14:52 postfix:- (5344:tqdm_logging.py:145)
+06:59:59.962 [I] Progress on: 4.49kit/10.0kit rate:14.0s/it remaining:21:24:11 elapsed:17:15:02 postfix:- (5344:tqdm_logging.py:145)
+07:00:11.927 [I] Progress on: 4.49kit/10.0kit rate:16.4s/it remaining:25:04:56 elapsed:17:15:14 postfix:- (5344:tqdm_logging.py:145)
+07:00:22.460 [I] Progress on: 4.49kit/10.0kit rate:16.4s/it remaining:25:04:56 elapsed:17:15:25 postfix:- (5344:tqdm_logging.py:145)
+07:00:33.807 [I] Progress on: 4.49kit/10.0kit rate:14.7s/it remaining:22:28:29 elapsed:17:15:36 postfix:- (5344:tqdm_logging.py:145)
+07:00:49.968 [I] Progress on: 4.49kit/10.0kit rate:14.9s/it remaining:22:52:37 elapsed:17:15:52 postfix:- (5344:tqdm_logging.py:145)
+07:01:02.436 [I] Progress on: 4.49kit/10.0kit rate:14.0s/it remaining:21:27:48 elapsed:17:16:05 postfix:- (5344:tqdm_logging.py:145)
+07:01:18.519 [I] Progress on: 4.49kit/10.0kit rate:14.9s/it remaining:22:48:00 elapsed:17:16:21 postfix:- (5344:tqdm_logging.py:145)
+07:01:30.563 [I] Progress on: 4.49kit/10.0kit rate:13.9s/it remaining:21:16:48 elapsed:17:16:33 postfix:- (5344:tqdm_logging.py:145)
+07:01:42.843 [I] Progress on: 4.50kit/10.0kit rate:13.8s/it remaining:21:01:33 elapsed:17:16:45 postfix:- (5344:tqdm_logging.py:145)
+07:01:54.707 [I] Progress on: 4.50kit/10.0kit rate:12.9s/it remaining:19:44:28 elapsed:17:16:57 postfix:- (5344:tqdm_logging.py:145)
+07:02:07.474 [I] Progress on: 4.50kit/10.0kit rate:13.0s/it remaining:19:56:01 elapsed:17:17:10 postfix:- (5344:tqdm_logging.py:145)
+07:02:19.527 [I] Progress on: 4.50kit/10.0kit rate:12.5s/it remaining:19:08:53 elapsed:17:17:22 postfix:- (5344:tqdm_logging.py:145)
+07:02:32.659 [I] Progress on: 4.50kit/10.0kit rate:13.0s/it remaining:19:56:18 elapsed:17:17:35 postfix:- (5344:tqdm_logging.py:145)
+07:02:44.393 [I] Progress on: 4.50kit/10.0kit rate:12.4s/it remaining:18:58:02 elapsed:17:17:47 postfix:- (5344:tqdm_logging.py:145)
+07:02:46.464 [I] [process=0][thread=MainThread][wait_until_finished] Initiating wait for Save Finalize thread. (5344:checkpoint_manager.py:1759)
+07:02:46.464 [I] [process=0][thread=MainThread][step=4200][wait_until_finished] Waiting for Save Finalize thread (save_finalize) to complete. (5344:checkpoint_manager.py:1777)
+07:02:46.465 [I] [process=0][thread=MainThread][step=4200][wait_until_finished] Done waiting for Save Finalize thread (save_finalize) running at step=4200. (5344:checkpoint_manager.py:1786)
+07:02:46.465 [I] [process=0][thread=MainThread][step=4200][wait_until_finished] Resetting Save Finalize thread (save_finalize) running at step=4200, also errors if any. (5344:checkpoint_manager.py:1817)
+07:02:46.465 [I] [process=0] Saving checkpoint at step 4500                                       (5344:checkpoint_manager.py:1286)
+07:02:46.466 [I] [process=0] Started async saving checkpoint to /home/elicer/capstone/ricl_openpi_libero/checkpoints/pi0_fast_libero_ricl/priming/4500. (5344:async_checkpointer.py:358)
+07:02:46.468 [I] [process=0][thread=MainThread] Skipping global process sync, barrier name: create_tmp_directory:pre (5344:multihost.py:293)
+07:02:46.469 [I] Creating tmp directory /home/elicer/capstone/ricl_openpi_libero/checkpoints/pi0_fast_libero_ricl/priming/4500.orbax-checkpoint-tmp-42 (5344:atomicity.py:144)
+07:02:46.470 [I] [process=0][thread=MainThread] Skipping global process sync, barrier name: create_tmp_directory:post (5344:multihost.py:293)
+07:02:46.470 [I] [process=0][thread=MainThread] Skipping global process sync, barrier name: create_tmp_directory:pre (5344:multihost.py:293)
+07:02:46.471 [I] Creating tmp directory /home/elicer/capstone/ricl_openpi_libero/checkpoints/pi0_fast_libero_ricl/priming/4500.orbax-checkpoint-tmp-42/params.orbax-checkpoint-tmp-44 (5344:atomicity.py:144)
+07:02:46.471 [I] Creating tmp directory /home/elicer/capstone/ricl_openpi_libero/checkpoints/pi0_fast_libero_ricl/priming/4500.orbax-checkpoint-tmp-42/assets.orbax-checkpoint-tmp-43 (5344:atomicity.py:144)
+07:02:46.472 [I] [process=0][thread=MainThread] Skipping global process sync, barrier name: create_tmp_directory:post (5344:multihost.py:293)
+07:02:46.476 [I] Transferring arrays to host memory with options: use_replica_parallel=False, enable_pinned_host_transfer=False (5344:replica_slices.py:419)
+07:02:49.807 [I] [process=0] /jax/checkpoint/write/blocking_bytes_per_sec: 3.0 GiB/s (total bytes: 10.1 GiB) (time elapsed: 3 seconds) (per-host) (5344:base_pytree_checkpoint_handler.py:113)
+07:02:49.808 [I] Array name: 'params.PaliGemma.llm.layers.mlp.gating_einsum.value', global shape: (18, 2, 2048, 16384), write shape: (18, 2, 2048, 16384), chosen chunk shape: (18, 2, 2048, 4096) (5344:tensorstore_utils.py:371)
+07:02:49.809 [I] [process=0][thread=async_save] Background save thread started.                   (5344:async_checkpointer.py:121)
+07:02:49.810 [I] Array name: 'params.PaliGemma.llm.layers.mlp.linear.value', global shape: (18, 16384, 2048), write shape: (18, 16384, 2048), chosen chunk shape: (18, 8192, 2048) (5344:tensorstore_utils.py:371)
+07:02:49.811 [I] Preserving Checkpoint[step=300 | time=2026-03-13 14:55:18.504691+00:00 | is_locked=None]: (Reason: on keep_period=300). (5344:checkpoint_manager.py:1734)
+07:02:49.815 [I] Preserving Checkpoint[step=600 | time=2026-03-13 16:03:55.273348+00:00 | is_locked=None]: (Reason: on keep_period=300). (5344:checkpoint_manager.py:1734)
+07:02:49.817 [I] Preserving Checkpoint[step=900 | time=2026-03-13 17:19:14.810701+00:00 | is_locked=None]: (Reason: on keep_period=300). (5344:checkpoint_manager.py:1734)
+07:02:49.818 [I] Preserving Checkpoint[step=1200 | time=2026-03-13 18:27:43.891039+00:00 | is_locked=None]: (Reason: on keep_period=300). (5344:checkpoint_manager.py:1734)
+07:02:49.818 [I] Preserving Checkpoint[step=1500 | time=2026-03-13 19:35:55.991718+00:00 | is_locked=None]: (Reason: on keep_period=300). (5344:checkpoint_manager.py:1734)
+07:02:49.818 [I] Preserving Checkpoint[step=1800 | time=2026-03-13 20:45:47.384159+00:00 | is_locked=None]: (Reason: on keep_period=300). (5344:checkpoint_manager.py:1734)
+07:02:49.819 [I] Preserving Checkpoint[step=2100 | time=2026-03-13 21:56:48.036710+00:00 | is_locked=None]: (Reason: on keep_period=300). (5344:checkpoint_manager.py:1734)
+07:02:49.819 [I] Preserving Checkpoint[step=2400 | time=2026-03-13 23:04:52.181604+00:00 | is_locked=None]: (Reason: on keep_period=300). (5344:checkpoint_manager.py:1734)
+07:02:49.819 [I] Preserving Checkpoint[step=2700 | time=2026-03-14 00:12:14.127106+00:00 | is_locked=None]: (Reason: on keep_period=300). (5344:checkpoint_manager.py:1734)
+07:02:49.820 [I] Preserving Checkpoint[step=3000 | time=2026-03-14 01:20:47.498725+00:00 | is_locked=None]: (Reason: on keep_period=300). (5344:checkpoint_manager.py:1734)
+07:02:49.820 [I] Preserving Checkpoint[step=3300 | time=2026-03-14 02:28:56.843623+00:00 | is_locked=None]: (Reason: on keep_period=300). (5344:checkpoint_manager.py:1734)
+07:02:49.820 [I] Preserving Checkpoint[step=3600 | time=2026-03-14 03:37:03.812859+00:00 | is_locked=None]: (Reason: on keep_period=300). (5344:checkpoint_manager.py:1734)
+07:02:49.820 [I] Preserving Checkpoint[step=3900 | time=2026-03-14 04:46:51.519179+00:00 | is_locked=None]: (Reason: on keep_period=300). (5344:checkpoint_manager.py:1734)
+07:02:49.821 [I] Preserving Checkpoint[step=4200 | time=2026-03-14 05:54:42.990998+00:00 | is_locked=None]: (Reason: on keep_period=300). (5344:checkpoint_manager.py:1734)
+07:02:49.821 [I] [process=0][thread=MainThread] Skipping global process sync, barrier name: CheckpointManager:old_steps_to_remove (5344:multihost.py:293)
+07:02:49.821 [I] [process=0][thread=MainThread][step=4500] Starting CheckpointManager Save Finalize thread=save_finalize (5344:checkpoint_manager.py:1328)
+07:02:49.821 [I] [process=0][thread=save_finalize] Waiting for background save thread=async_save. (5344:async_checkpointer.py:231)
+07:02:49.822 [I] {'step': 4500, 'event_type': 'save', 'directory': '/home/elicer/capstone/ricl_openpi_libero/checkpoints/pi0_fast_libero_ricl/priming', 'reached_preemption': False, 'preemption_received_at': None, 'synchronous': False, 'wait_for_prev_start_time': 1773471766.4645607, 'wait_for_prev_duration_secs': 0.000946044921875, 'checkpointer_blocking_start_time': 1773471766.465993, 'checkpointer_blocking_duration_secs': 3.3452770709991455, 'get_old_steps_start_time': 1773471769.811288, 'get_old_steps_duration_secs': 0.00986027717590332, 'checkpoint_manager_blocking_start_time': 1773471766.4644153, 'checkpoint_manager_blocking_duration_secs': 3.357600450515747} (5344:standard_logger.py:34)
+07:03:00.603 [I] Progress on: 4.50kit/10.0kit rate:13.8s/it remaining:21:03:26 elapsed:17:18:03 postfix:- (5344:tqdm_logging.py:145)
+07:03:06.054 [I] ChainedFuture completed 1/1 futures in 16.24 seconds.                            (5344:future.py:137)
+07:03:06.054 [I] [process=0] /jax/checkpoint/write/bytes_per_sec: 529.1 MiB/s (total bytes: 10.1 GiB) (time elapsed: 19 seconds) (per-host) (5344:base_pytree_checkpoint_handler.py:113)
+07:03:06.055 [I] [process=0][thread=async_save] 2 Handler Commit operations completed.            (5344:async_checkpointer.py:131)
+07:03:06.056 [I] [process=0][thread=async_save] Async Save Callback [1/3]: Finalizing Handler: <orbax.checkpoint._src.handlers.composite_checkpoint_handler.CompositeCheckpointHandler object at 0x7fad2c2e2a90> on /home/elicer/capstone/ricl_openpi_libero/checkpoints/pi0_fast_libero_ricl/priming/4500.orbax-checkpoint-tmp-42 (5344:async_checkpointer.py:406)
+07:03:06.056 [I] Renaming /home/elicer/capstone/ricl_openpi_libero/checkpoints/pi0_fast_libero_ricl/priming/4500.orbax-checkpoint-tmp-42/assets.orbax-checkpoint-tmp-43 to /home/elicer/capstone/ricl_openpi_libero/checkpoints/pi0_fast_libero_ricl/priming/4500.orbax-checkpoint-tmp-42/assets (5344:atomicity.py:287)
+07:03:06.064 [I] Renaming /home/elicer/capstone/ricl_openpi_libero/checkpoints/pi0_fast_libero_ricl/priming/4500.orbax-checkpoint-tmp-42/params.orbax-checkpoint-tmp-44 to /home/elicer/capstone/ricl_openpi_libero/checkpoints/pi0_fast_libero_ricl/priming/4500.orbax-checkpoint-tmp-42/params (5344:atomicity.py:287)
+07:03:06.064 [I] [process=0][thread=async_save] Async Save Callback [2/3]: Running post_finalization_callback: None on /home/elicer/capstone/ricl_openpi_libero/checkpoints/pi0_fast_libero_ricl/priming/4500 (5344:async_checkpointer.py:416)
+07:03:06.064 [I] [process=0][thread=async_save] Async Save Callback [3/3]: Finalizing checkpoint directory: /home/elicer/capstone/ricl_openpi_libero/checkpoints/pi0_fast_libero_ricl/priming/4500.orbax-checkpoint-tmp-42 (5344:async_checkpointer.py:426)
+07:03:06.064 [I] Renaming /home/elicer/capstone/ricl_openpi_libero/checkpoints/pi0_fast_libero_ricl/priming/4500.orbax-checkpoint-tmp-42 to /home/elicer/capstone/ricl_openpi_libero/checkpoints/pi0_fast_libero_ricl/priming/4500 (5344:atomicity.py:287)
+07:03:06.065 [I] [process=0][thread=async_save] Finished saving checkpoint (finalized tmp dir) to `/home/elicer/capstone/ricl_openpi_libero/checkpoints/pi0_fast_libero_ricl/priming/4500`. (5344:atomicity.py:548)
+07:03:06.065 [I] [process=0][thread=async_save] Background save thread done.                      (5344:async_checkpointer.py:183)
+07:03:06.595 [I] [process=0][thread=save_finalize] Done with waiting for background save thread=async_save. (5344:async_checkpointer.py:239)
+07:03:06.595 [I] [process=0][thread=save_finalize] No errors found in background save thread=async_save. (5344:async_checkpointer.py:249)
+07:03:06.595 [I] [process=0][thread=save_finalize][step=4500] CheckpointManager Save Finalize is syncing with other hosts... (5344:checkpoint_manager.py:1890)
+07:03:06.596 [I] [process=0][thread=save_finalize][step=4500] CheckpointManager Save Finalize is done on all hosts. (5344:checkpoint_manager.py:1905)
+07:03:12.344 [I] Progress on: 4.50kit/10.0kit rate:12.9s/it remaining:19:44:01 elapsed:17:18:15 postfix:- (5344:tqdm_logging.py:145)
+07:03:28.960 [I] Progress on: 4.50kit/10.0kit rate:14.3s/it remaining:21:49:50 elapsed:17:18:31 postfix:- (5344:tqdm_logging.py:145)
+07:03:40.672 [I] Progress on: 4.50kit/10.0kit rate:13.3s/it remaining:20:17:49 elapsed:17:18:43 postfix:- (5344:tqdm_logging.py:145)
+07:03:56.104 [I] Progress on: 4.50kit/10.0kit rate:14.1s/it remaining:21:35:29 elapsed:17:18:59 postfix:- (5344:tqdm_logging.py:145)
+07:04:08.421 [I] Progress on: 4.51kit/10.0kit rate:13.2s/it remaining:20:07:22 elapsed:17:19:11 postfix:- (5344:tqdm_logging.py:145)
+07:04:20.118 [I] Progress on: 4.51kit/10.0kit rate:13.1s/it remaining:20:02:35 elapsed:17:19:23 postfix:- (5344:tqdm_logging.py:145)
+07:04:32.146 [I] Progress on: 4.51kit/10.0kit rate:12.5s/it remaining:19:03:35 elapsed:17:19:35 postfix:- (5344:tqdm_logging.py:145)
+07:04:48.837 [I] Progress on: 4.51kit/10.0kit rate:14.0s/it remaining:21:19:03 elapsed:17:19:51 postfix:- (5344:tqdm_logging.py:145)
+07:05:00.924 [I] Progress on: 4.51kit/10.0kit rate:13.2s/it remaining:20:05:36 elapsed:17:20:03 postfix:- (5344:tqdm_logging.py:145)
+07:05:16.455 [I] Progress on: 4.51kit/10.0kit rate:14.1s/it remaining:21:31:32 elapsed:17:20:19 postfix:- (5344:tqdm_logging.py:145)
+07:05:27.681 [I] Progress on: 4.51kit/10.0kit rate:13.6s/it remaining:20:43:34 elapsed:17:20:30 postfix:- (5344:tqdm_logging.py:145)
+07:05:43.904 [I] Progress on: 4.51kit/10.0kit rate:14.2s/it remaining:21:35:03 elapsed:17:20:46 postfix:- (5344:tqdm_logging.py:145)
+07:05:55.606 [I] Progress on: 4.51kit/10.0kit rate:13.2s/it remaining:20:04:54 elapsed:17:20:58 postfix:- (5344:tqdm_logging.py:145)
+07:06:11.904 [I] Progress on: 4.51kit/10.0kit rate:14.2s/it remaining:21:33:58 elapsed:17:21:14 postfix:- (5344:tqdm_logging.py:145)
+07:06:23.752 [I] Progress on: 4.52kit/10.0kit rate:13.4s/it remaining:20:22:39 elapsed:17:21:26 postfix:- (5344:tqdm_logging.py:145)
+07:06:38.142 [I] Progress on: 4.52kit/10.0kit rate:13.8s/it remaining:21:04:23 elapsed:17:21:41 postfix:- (5344:tqdm_logging.py:145)
+07:06:51.291 [I] Progress on: 4.52kit/10.0kit rate:13.5s/it remaining:20:37:52 elapsed:17:21:54 postfix:- (5344:tqdm_logging.py:145)
+07:07:03.125 [I] Progress on: 4.52kit/10.0kit rate:13.3s/it remaining:20:11:28 elapsed:17:22:06 postfix:- (5344:tqdm_logging.py:145)
+07:07:19.300 [I] Progress on: 4.52kit/10.0kit rate:14.1s/it remaining:21:24:09 elapsed:17:22:22 postfix:- (5344:tqdm_logging.py:145)
+07:07:34.822 [I] Progress on: 4.52kit/10.0kit rate:14.5s/it remaining:22:05:52 elapsed:17:22:37 postfix:- (5344:tqdm_logging.py:145)
+07:07:47.769 [I] Progress on: 4.52kit/10.0kit rate:13.8s/it remaining:20:58:15 elapsed:17:22:50 postfix:- (5344:tqdm_logging.py:145)
+07:08:01.490 [I] Progress on: 4.52kit/10.0kit rate:14.0s/it remaining:21:18:05 elapsed:17:23:04 postfix:- (5344:tqdm_logging.py:145)
+07:08:16.686 [I] Progress on: 4.52kit/10.0kit rate:14.2s/it remaining:21:38:52 elapsed:17:23:19 postfix:- (5344:tqdm_logging.py:145)
+07:08:28.290 [I] Progress on: 4.53kit/10.0kit rate:13.4s/it remaining:20:24:21 elapsed:17:23:31 postfix:- (5344:tqdm_logging.py:145)
+07:08:44.437 [I] Progress on: 4.53kit/10.0kit rate:14.5s/it remaining:22:05:12 elapsed:17:23:47 postfix:- (5344:tqdm_logging.py:145)
+07:08:56.125 [I] Progress on: 4.53kit/10.0kit rate:13.4s/it remaining:20:19:11 elapsed:17:23:59 postfix:- (5344:tqdm_logging.py:145)
+07:09:12.453 [I] Progress on: 4.53kit/10.0kit rate:14.6s/it remaining:22:07:31 elapsed:17:24:15 postfix:- (5344:tqdm_logging.py:145)
+07:09:24.472 [I] Progress on: 4.53kit/10.0kit rate:13.8s/it remaining:20:58:50 elapsed:17:24:27 postfix:- (5344:tqdm_logging.py:145)
+07:09:36.312 [I] Progress on: 4.53kit/10.0kit rate:13.0s/it remaining:19:46:47 elapsed:17:24:39 postfix:- (5344:tqdm_logging.py:145)
+07:09:48.905 [I] Progress on: 4.53kit/10.0kit rate:13.1s/it remaining:19:52:43 elapsed:17:24:51 postfix:- (5344:tqdm_logging.py:145)
+07:10:06.082 [I] Progress on: 4.53kit/10.0kit rate:14.3s/it remaining:21:44:05 elapsed:17:25:09 postfix:- (5344:tqdm_logging.py:145)
+07:10:17.493 [I] Progress on: 4.53kit/10.0kit rate:13.2s/it remaining:20:03:46 elapsed:17:25:20 postfix:- (5344:tqdm_logging.py:145)
+07:10:34.378 [I] Progress on: 4.53kit/10.0kit rate:14.4s/it remaining:21:49:38 elapsed:17:25:37 postfix:- (5344:tqdm_logging.py:145)
+07:10:46.589 [I] Progress on: 4.54kit/10.0kit rate:14.0s/it remaining:21:13:58 elapsed:17:25:49 postfix:- (5344:tqdm_logging.py:145)
+07:11:02.355 [I] Progress on: 4.54kit/10.0kit rate:14.5s/it remaining:22:00:49 elapsed:17:26:05 postfix:- (5344:tqdm_logging.py:145)
+07:11:14.510 [I] Progress on: 4.54kit/10.0kit rate:13.4s/it remaining:20:19:20 elapsed:17:26:17 postfix:- (5344:tqdm_logging.py:145)
+07:11:29.145 [I] Progress on: 4.54kit/10.0kit rate:13.8s/it remaining:20:56:25 elapsed:17:26:32 postfix:- (5344:tqdm_logging.py:145)
+07:11:41.597 [I] Progress on: 4.54kit/10.0kit rate:13.2s/it remaining:19:58:12 elapsed:17:26:44 postfix:- (5344:tqdm_logging.py:145)
+07:11:53.728 [I] Progress on: 4.54kit/10.0kit rate:13.2s/it remaining:19:59:27 elapsed:17:26:56 postfix:- (5344:tqdm_logging.py:145)
+07:12:07.789 [I] Progress on: 4.54kit/10.0kit rate:13.3s/it remaining:20:08:34 elapsed:17:27:10 postfix:- (5344:tqdm_logging.py:145)
+07:12:20.397 [I] Progress on: 4.54kit/10.0kit rate:12.9s/it remaining:19:30:11 elapsed:17:27:23 postfix:- (5344:tqdm_logging.py:145)
+07:12:33.286 [I] Progress on: 4.54kit/10.0kit rate:13.2s/it remaining:19:57:47 elapsed:17:27:36 postfix:- (5344:tqdm_logging.py:145)
+07:12:45.591 [I] Progress on: 4.54kit/10.0kit rate:12.7s/it remaining:19:14:47 elapsed:17:27:48 postfix:- (5344:tqdm_logging.py:145)
+07:12:59.091 [I] Progress on: 4.54kit/10.0kit rate:16.6s/it remaining:25:07:22 elapsed:17:28:02 postfix:- (5344:tqdm_logging.py:145)
+07:13:10.744 [I] Progress on: 4.54kit/10.0kit rate:16.6s/it remaining:25:07:22 elapsed:17:28:13 postfix:- (5344:tqdm_logging.py:145)
+07:13:23.158 [I] Progress on: 4.55kit/10.0kit rate:15.1s/it remaining:22:56:07 elapsed:17:28:26 postfix:- (5344:tqdm_logging.py:145)
+07:13:37.767 [I] Progress on: 4.55kit/10.0kit rate:15.3s/it remaining:23:10:59 elapsed:17:28:40 postfix:- (5344:tqdm_logging.py:145)
+07:13:49.889 [I] Progress on: 4.55kit/10.0kit rate:14.1s/it remaining:21:25:29 elapsed:17:28:52 postfix:- (5344:tqdm_logging.py:145)
+07:14:08.352 [I] Progress on: 4.55kit/10.0kit rate:15.5s/it remaining:23:32:03 elapsed:17:29:11 postfix:- (5344:tqdm_logging.py:145)
+07:14:20.935 [I] Progress on: 4.55kit/10.0kit rate:14.4s/it remaining:21:47:09 elapsed:17:29:23 postfix:- (5344:tqdm_logging.py:145)
+07:14:33.211 [I] Progress on: 4.55kit/10.0kit rate:13.9s/it remaining:20:58:06 elapsed:17:29:36 postfix:- (5344:tqdm_logging.py:145)
+07:14:45.568 [I] Progress on: 4.55kit/10.0kit rate:13.4s/it remaining:20:15:11 elapsed:17:29:48 postfix:- (5344:tqdm_logging.py:145)
+07:15:03.088 [I] Progress on: 4.55kit/10.0kit rate:15.0s/it remaining:22:37:50 elapsed:17:30:06 postfix:- (5344:tqdm_logging.py:145)
+07:15:22.384 [I] Progress on: 4.55kit/10.0kit rate:15.4s/it remaining:23:19:36 elapsed:17:30:25 postfix:- (5344:tqdm_logging.py:145)
+07:15:41.012 [I] Progress on: 4.56kit/10.0kit rate:13.5s/it remaining:20:23:40 elapsed:17:30:43 postfix:- (5344:tqdm_logging.py:145)
+07:15:57.433 [I] Progress on: 4.56kit/10.0kit rate:14.6s/it remaining:22:05:17 elapsed:17:31:00 postfix:- (5344:tqdm_logging.py:145)
+07:16:17.576 [I] Progress on: 4.56kit/10.0kit rate:15.0s/it remaining:22:44:42 elapsed:17:31:20 postfix:- (5344:tqdm_logging.py:145)
+07:16:36.220 [I] Progress on: 4.56kit/10.0kit rate:13.2s/it remaining:19:58:55 elapsed:17:31:39 postfix:- (5344:tqdm_logging.py:145)
+07:16:51.903 [I] Progress on: 4.56kit/10.0kit rate:14.2s/it remaining:21:27:30 elapsed:17:31:54 postfix:- (5344:tqdm_logging.py:145)
+07:17:06.412 [I] Progress on: 4.56kit/10.0kit rate:13.2s/it remaining:19:52:57 elapsed:17:32:09 postfix:- (5344:tqdm_logging.py:145)
+07:17:25.125 [I] Progress on: 4.56kit/10.0kit rate:11.9s/it remaining:18:01:14 elapsed:17:32:28 postfix:- (5344:tqdm_logging.py:145)
+07:17:38.994 [I] Progress on: 4.57kit/10.0kit rate:12.7s/it remaining:19:14:18 elapsed:17:32:41 postfix:- (5344:tqdm_logging.py:145)
+07:17:57.596 [I] Progress on: 4.57kit/10.0kit rate:13.7s/it remaining:20:38:27 elapsed:17:33:00 postfix:- (5344:tqdm_logging.py:145)
+07:18:16.223 [I] Progress on: 4.57kit/10.0kit rate:12.3s/it remaining:18:31:40 elapsed:17:33:19 postfix:- (5344:tqdm_logging.py:145)
+07:18:34.244 [I] Progress on: 4.57kit/10.0kit rate:14.2s/it remaining:21:27:42 elapsed:17:33:37 postfix:- (5344:tqdm_logging.py:145)
+07:18:49.805 [I] Progress on: 4.57kit/10.0kit rate:13.5s/it remaining:20:20:16 elapsed:17:33:52 postfix:- (5344:tqdm_logging.py:145)
+07:19:02.048 [I] Progress on: 4.57kit/10.0kit rate:13.1s/it remaining:19:46:19 elapsed:17:34:04 postfix:- (5344:tqdm_logging.py:145)
+07:19:14.586 [I] Progress on: 4.57kit/10.0kit rate:12.9s/it remaining:19:30:28 elapsed:17:34:17 postfix:- (5344:tqdm_logging.py:145)
+07:19:33.397 [I] Progress on: 4.57kit/10.0kit rate:12.0s/it remaining:18:08:10 elapsed:17:34:36 postfix:- (5344:tqdm_logging.py:145)
+07:19:50.080 [I] Progress on: 4.58kit/10.0kit rate:13.4s/it remaining:20:14:29 elapsed:17:34:53 postfix:- (5344:tqdm_logging.py:145)
+07:20:02.587 [I] Progress on: 4.58kit/10.0kit rate:13.2s/it remaining:19:49:05 elapsed:17:35:05 postfix:- (5344:tqdm_logging.py:145)
+07:20:15.027 [I] Progress on: 4.58kit/10.0kit rate:12.9s/it remaining:19:29:10 elapsed:17:35:17 postfix:- (5344:tqdm_logging.py:145)
+07:20:30.252 [I] Progress on: 4.58kit/10.0kit rate:13.6s/it remaining:20:31:06 elapsed:17:35:33 postfix:- (5344:tqdm_logging.py:145)
+07:20:42.800 [I] Progress on: 4.58kit/10.0kit rate:13.3s/it remaining:20:02:03 elapsed:17:35:45 postfix:- (5344:tqdm_logging.py:145)
+07:20:54.592 [I] Progress on: 4.58kit/10.0kit rate:12.8s/it remaining:19:20:31 elapsed:17:35:57 postfix:- (5344:tqdm_logging.py:145)
+07:21:10.661 [I] Progress on: 4.58kit/10.0kit rate:13.8s/it remaining:20:48:04 elapsed:17:36:13 postfix:- (5344:tqdm_logging.py:145)
+07:21:21.459 [I] Progress on: 4.58kit/10.0kit rate:12.9s/it remaining:19:25:40 elapsed:17:36:24 postfix:- (5344:tqdm_logging.py:145)
+07:21:33.527 [I] Progress on: 4.58kit/10.0kit rate:15.3s/it remaining:23:03:27 elapsed:17:36:36 postfix:- (5344:tqdm_logging.py:145)
+07:21:52.163 [I] Progress on: 4.58kit/10.0kit rate:13.4s/it remaining:20:11:37 elapsed:17:36:55 postfix:- (5344:tqdm_logging.py:145)
+07:22:08.315 [I] Progress on: 4.58kit/10.0kit rate:14.5s/it remaining:21:46:48 elapsed:17:37:11 postfix:- (5344:tqdm_logging.py:145)
+07:22:25.908 [I] Progress on: 4.59kit/10.0kit rate:14.2s/it remaining:21:22:37 elapsed:17:37:28 postfix:- (5344:tqdm_logging.py:145)
+07:22:44.550 [I] Progress on: 4.59kit/10.0kit rate:12.8s/it remaining:19:18:04 elapsed:17:37:47 postfix:- (5344:tqdm_logging.py:145)
+07:23:03.210 [I] Progress on: 4.59kit/10.0kit rate:14.6s/it remaining:21:59:22 elapsed:17:38:06 postfix:- (5344:tqdm_logging.py:145)
+07:23:24.187 [I] Progress on: 4.59kit/10.0kit rate:15.3s/it remaining:23:00:10 elapsed:17:38:27 postfix:- (5344:tqdm_logging.py:145)
+07:23:42.879 [I] Progress on: 4.59kit/10.0kit rate:13.4s/it remaining:20:09:57 elapsed:17:38:45 postfix:- (5344:tqdm_logging.py:145)
+07:23:59.132 [I] Progress on: 4.59kit/10.0kit rate:14.5s/it remaining:21:47:30 elapsed:17:39:02 postfix:- (5344:tqdm_logging.py:145)
+07:24:18.120 [I] Progress on: 4.59kit/10.0kit rate:14.7s/it remaining:22:00:24 elapsed:17:39:21 postfix:- (5344:tqdm_logging.py:145)
+07:24:36.826 [I] Progress on: 4.60kit/10.0kit rate:13.0s/it remaining:19:28:34 elapsed:17:39:39 postfix:- (5344:tqdm_logging.py:145)
+07:24:50.585 [I] Progress on: 4.60kit/10.0kit rate:13.4s/it remaining:20:10:26 elapsed:17:39:53 postfix:- (5344:tqdm_logging.py:145)
+07:25:03.753 [I] Progress on: 4.60kit/10.0kit rate:12.4s/it remaining:18:35:17 elapsed:17:40:06 postfix:- (5344:tqdm_logging.py:145)
+07:25:22.418 [I] Progress on: 4.60kit/10.0kit rate:11.4s/it remaining:17:03:52 elapsed:17:40:25 postfix:- (5344:tqdm_logging.py:145)
+07:25:41.256 [I] Progress on: 4.60kit/10.0kit rate:13.9s/it remaining:20:46:49 elapsed:17:40:44 postfix:- (5344:tqdm_logging.py:145)
+07:26:00.122 [I] Progress on: 4.60kit/10.0kit rate:14.3s/it remaining:21:25:41 elapsed:17:41:03 postfix:- (5344:tqdm_logging.py:145)
+07:26:15.563 [I] Progress on: 4.60kit/10.0kit rate:14.6s/it remaining:21:56:25 elapsed:17:41:18 postfix:- (5344:tqdm_logging.py:145)
+07:26:34.771 [I] Progress on: 4.61kit/10.0kit rate:16.0s/it remaining:23:59:26 elapsed:17:41:37 postfix:- (5344:tqdm_logging.py:145)
+07:26:53.408 [I] Progress on: 4.61kit/10.0kit rate:13.9s/it remaining:20:50:18 elapsed:17:41:56 postfix:- (5344:tqdm_logging.py:145)
+07:27:09.864 [I] Progress on: 4.61kit/10.0kit rate:14.9s/it remaining:22:19:17 elapsed:17:42:12 postfix:- (5344:tqdm_logging.py:145)
+07:27:28.130 [I] Progress on: 4.61kit/10.0kit rate:14.6s/it remaining:21:54:34 elapsed:17:42:31 postfix:- (5344:tqdm_logging.py:145)
+07:27:46.887 [I] Progress on: 4.61kit/10.0kit rate:13.0s/it remaining:19:24:07 elapsed:17:42:49 postfix:- (5344:tqdm_logging.py:145)
+07:27:57.713 [I] Progress on: 4.61kit/10.0kit rate:15.2s/it remaining:22:47:47 elapsed:17:43:00 postfix:- (5344:tqdm_logging.py:145)
+07:28:16.444 [I] Progress on: 4.61kit/10.0kit rate:13.4s/it remaining:20:01:44 elapsed:17:43:19 postfix:- (5344:tqdm_logging.py:145)
+07:28:31.384 [I] Progress on: 4.61kit/10.0kit rate:14.1s/it remaining:21:04:07 elapsed:17:43:34 postfix:- (5344:tqdm_logging.py:145)
+07:28:47.292 [I] Progress on: 4.62kit/10.0kit rate:13.5s/it remaining:20:13:50 elapsed:17:43:50 postfix:- (5344:tqdm_logging.py:145)
+07:28:59.564 [I] Progress on: 4.62kit/10.0kit rate:13.1s/it remaining:19:39:53 elapsed:17:44:02 postfix:- (5344:tqdm_logging.py:145)
+07:29:13.129 [I] Progress on: 4.62kit/10.0kit rate:13.3s/it remaining:19:50:52 elapsed:17:44:16 postfix:- (5344:tqdm_logging.py:145)
+07:29:23.515 [I] Progress on: 4.62kit/10.0kit rate:12.4s/it remaining:18:32:56 elapsed:17:44:26 postfix:- (5344:tqdm_logging.py:145)
+07:29:41.452 [I] Progress on: 4.62kit/10.0kit rate:14.1s/it remaining:21:01:31 elapsed:17:44:44 postfix:- (5344:tqdm_logging.py:145)
+07:29:52.155 [I] Progress on: 4.62kit/10.0kit rate:13.1s/it remaining:19:30:47 elapsed:17:44:55 postfix:- (5344:tqdm_logging.py:145)
+07:30:07.681 [I] Progress on: 4.62kit/10.0kit rate:13.8s/it remaining:20:36:59 elapsed:17:45:10 postfix:- (5344:tqdm_logging.py:145)
+07:30:21.478 [I] Progress on: 4.62kit/10.0kit rate:13.8s/it remaining:20:36:44 elapsed:17:45:24 postfix:- (5344:tqdm_logging.py:145)
+07:30:34.537 [I] Progress on: 4.62kit/10.0kit rate:13.6s/it remaining:20:16:37 elapsed:17:45:37 postfix:- (5344:tqdm_logging.py:145)
+07:30:44.968 [I] Progress on: 4.62kit/10.0kit rate:12.6s/it remaining:18:51:52 elapsed:17:45:47 postfix:- (5344:tqdm_logging.py:145)
+07:30:56.030 [I] Progress on: 4.62kit/10.0kit rate:12.2s/it remaining:18:09:26 elapsed:17:45:58 postfix:- (5344:tqdm_logging.py:145)
+07:31:10.320 [I] Progress on: 4.63kit/10.0kit rate:12.8s/it remaining:19:06:26 elapsed:17:46:13 postfix:- (5344:tqdm_logging.py:145)
+07:31:23.289 [I] Progress on: 4.63kit/10.0kit rate:12.9s/it remaining:19:10:46 elapsed:17:46:26 postfix:- (5344:tqdm_logging.py:145)
+07:31:39.944 [I] Progress on: 4.63kit/10.0kit rate:14.0s/it remaining:20:52:45 elapsed:17:46:42 postfix:- (5344:tqdm_logging.py:145)
+07:31:58.606 [I] Progress on: 4.63kit/10.0kit rate:12.5s/it remaining:18:38:58 elapsed:17:47:01 postfix:- (5344:tqdm_logging.py:145)
+07:32:16.731 [I] Progress on: 4.63kit/10.0kit rate:14.4s/it remaining:21:30:58 elapsed:17:47:19 postfix:- (5344:tqdm_logging.py:145)
+07:32:37.300 [I] Progress on: 4.63kit/10.0kit rate:15.1s/it remaining:22:29:19 elapsed:17:47:40 postfix:- (5344:tqdm_logging.py:145)
+07:32:55.992 [I] Progress on: 4.63kit/10.0kit rate:13.3s/it remaining:19:46:58 elapsed:17:47:58 postfix:- (5344:tqdm_logging.py:145)
+07:33:09.792 [I] Progress on: 4.63kit/10.0kit rate:13.7s/it remaining:20:21:14 elapsed:17:48:12 postfix:- (5344:tqdm_logging.py:145)
+07:33:27.572 [I] Progress on: 4.64kit/10.0kit rate:13.9s/it remaining:20:40:45 elapsed:17:48:30 postfix:- (5344:tqdm_logging.py:145)
+07:33:46.265 [I] Progress on: 4.64kit/10.0kit rate:12.4s/it remaining:18:30:44 elapsed:17:48:49 postfix:- (5344:tqdm_logging.py:145)
+07:33:59.540 [I] Progress on: 4.64kit/10.0kit rate:15.6s/it remaining:23:12:05 elapsed:17:49:02 postfix:- (5344:tqdm_logging.py:145)
+07:34:18.205 [I] Progress on: 4.64kit/10.0kit rate:13.6s/it remaining:20:16:28 elapsed:17:49:21 postfix:- (5344:tqdm_logging.py:145)
+07:34:33.704 [I] Progress on: 4.64kit/10.0kit rate:14.4s/it remaining:21:26:48 elapsed:17:49:36 postfix:- (5344:tqdm_logging.py:145)
+07:34:54.134 [I] Progress on: 4.64kit/10.0kit rate:15.0s/it remaining:22:22:52 elapsed:17:49:57 postfix:- (5344:tqdm_logging.py:145)
+07:35:12.880 [I] Progress on: 4.64kit/10.0kit rate:13.2s/it remaining:19:41:29 elapsed:17:50:15 postfix:- (5344:tqdm_logging.py:145)
+07:35:26.961 [I] Progress on: 4.64kit/10.0kit rate:16.4s/it remaining:24:24:22 elapsed:17:50:29 postfix:- (5344:tqdm_logging.py:145)
+07:35:45.681 [I] Progress on: 4.64kit/10.0kit rate:14.2s/it remaining:21:06:14 elapsed:17:50:48 postfix:- (5344:tqdm_logging.py:145)
+07:36:01.424 [I] Progress on: 4.65kit/10.0kit rate:14.9s/it remaining:22:09:12 elapsed:17:51:04 postfix:- (5344:tqdm_logging.py:145)
+07:36:19.970 [I] Progress on: 4.65kit/10.0kit rate:14.7s/it remaining:21:53:05 elapsed:17:51:22 postfix:- (5344:tqdm_logging.py:145)
+07:36:38.712 [I] Progress on: 4.65kit/10.0kit rate:13.0s/it remaining:19:21:20 elapsed:17:51:41 postfix:- (5344:tqdm_logging.py:145)
+07:36:53.759 [I] Progress on: 4.65kit/10.0kit rate:13.9s/it remaining:20:35:56 elapsed:17:51:56 postfix:- (5344:tqdm_logging.py:145)
+07:37:10.885 [I] Progress on: 4.65kit/10.0kit rate:13.8s/it remaining:20:29:08 elapsed:17:52:13 postfix:- (5344:tqdm_logging.py:145)
+07:37:29.610 [I] Progress on: 4.65kit/10.0kit rate:12.4s/it remaining:18:21:22 elapsed:17:52:32 postfix:- (5344:tqdm_logging.py:145)
+07:37:44.014 [I] Progress on: 4.65kit/10.0kit rate:15.9s/it remaining:23:35:14 elapsed:17:52:46 postfix:- (5344:tqdm_logging.py:145)
+07:38:02.704 [I] Progress on: 4.66kit/10.0kit rate:13.8s/it remaining:20:30:48 elapsed:17:53:05 postfix:- (5344:tqdm_logging.py:145)
+07:38:16.908 [I] Progress on: 4.66kit/10.0kit rate:14.2s/it remaining:21:02:13 elapsed:17:53:19 postfix:- (5344:tqdm_logging.py:145)
+07:38:35.328 [I] Progress on: 4.66kit/10.0kit rate:14.3s/it remaining:21:15:41 elapsed:17:53:38 postfix:- (5344:tqdm_logging.py:145)
+07:38:54.018 [I] Progress on: 4.66kit/10.0kit rate:12.7s/it remaining:18:53:40 elapsed:17:53:56 postfix:- (5344:tqdm_logging.py:145)
+07:39:05.346 [I] Progress on: 4.66kit/10.0kit rate:15.2s/it remaining:22:34:04 elapsed:17:54:08 postfix:- (5344:tqdm_logging.py:145)
+07:39:23.979 [I] Progress on: 4.66kit/10.0kit rate:13.3s/it remaining:19:47:01 elapsed:17:54:26 postfix:- (5344:tqdm_logging.py:145)
+07:39:42.631 [I] Progress on: 4.66kit/10.0kit rate:15.2s/it remaining:22:30:26 elapsed:17:54:45 postfix:- (5344:tqdm_logging.py:145)
+07:39:59.956 [I] Progress on: 4.66kit/10.0kit rate:14.5s/it remaining:21:27:57 elapsed:17:55:02 postfix:- (5344:tqdm_logging.py:145)
+07:40:18.588 [I] Progress on: 4.67kit/10.0kit rate:12.8s/it remaining:19:00:25 elapsed:17:55:21 postfix:- (5344:tqdm_logging.py:145)
+07:40:35.117 [I] Progress on: 4.67kit/10.0kit rate:14.2s/it remaining:21:00:48 elapsed:17:55:38 postfix:- (5344:tqdm_logging.py:145)
+07:40:56.759 [I] Progress on: 4.67kit/10.0kit rate:15.3s/it remaining:22:38:43 elapsed:17:55:59 postfix:- (5344:tqdm_logging.py:145)
+07:41:15.396 [I] Progress on: 4.67kit/10.0kit rate:13.4s/it remaining:19:49:59 elapsed:17:56:18 postfix:- (5344:tqdm_logging.py:145)
+07:41:26.208 [I] Progress on: 4.67kit/10.0kit rate:15.5s/it remaining:22:58:38 elapsed:17:56:29 postfix:- (5344:tqdm_logging.py:145)
+07:41:44.910 [I] Progress on: 4.67kit/10.0kit rate:13.6s/it remaining:20:04:23 elapsed:17:56:47 postfix:- (5344:tqdm_logging.py:145)
+07:42:00.561 [I] Progress on: 4.67kit/10.0kit rate:14.4s/it remaining:21:21:48 elapsed:17:57:03 postfix:- (5344:tqdm_logging.py:145)
+07:42:13.654 [I] Progress on: 4.67kit/10.0kit rate:12.9s/it remaining:19:01:12 elapsed:17:57:16 postfix:- (5344:tqdm_logging.py:145)
+07:42:32.355 [I] Progress on: 4.67kit/10.0kit rate:11.7s/it remaining:17:18:29 elapsed:17:57:35 postfix:- (5344:tqdm_logging.py:145)
+07:42:49.677 [I] Progress on: 4.68kit/10.0kit rate:13.6s/it remaining:20:10:46 elapsed:17:57:52 postfix:- (5344:tqdm_logging.py:145)
+07:43:07.583 [I] Progress on: 4.68kit/10.0kit rate:13.9s/it remaining:20:32:42 elapsed:17:58:10 postfix:- (5344:tqdm_logging.py:145)
+07:43:26.236 [I] Progress on: 4.68kit/10.0kit rate:12.4s/it remaining:18:21:22 elapsed:17:58:29 postfix:- (5344:tqdm_logging.py:145)
+07:43:41.614 [I] Progress on: 4.68kit/10.0kit rate:13.6s/it remaining:20:01:27 elapsed:17:58:44 postfix:- (5344:tqdm_logging.py:145)
+07:44:02.200 [I] Progress on: 4.68kit/10.0kit rate:14.7s/it remaining:21:40:00 elapsed:17:59:05 postfix:- (5344:tqdm_logging.py:145)
+07:44:20.939 [I] Progress on: 4.68kit/10.0kit rate:13.0s/it remaining:19:09:33 elapsed:17:59:23 postfix:- (5344:tqdm_logging.py:145)
+07:44:36.481 [I] Progress on: 4.68kit/10.0kit rate:14.0s/it remaining:20:39:16 elapsed:17:59:39 postfix:- (5344:tqdm_logging.py:145)
+07:44:54.184 [I] Progress on: 4.69kit/10.0kit rate:14.0s/it remaining:20:42:02 elapsed:17:59:57 postfix:- (5344:tqdm_logging.py:145)
+07:45:12.883 [I] Progress on: 4.69kit/10.0kit rate:12.5s/it remaining:18:28:37 elapsed:18:00:15 postfix:- (5344:tqdm_logging.py:145)
+07:45:26.716 [I] Progress on: 4.69kit/10.0kit rate:15.8s/it remaining:23:20:38 elapsed:18:00:29 postfix:- (5344:tqdm_logging.py:145)
+07:45:45.339 [I] Progress on: 4.69kit/10.0kit rate:13.8s/it remaining:20:18:19 elapsed:18:00:48 postfix:- (5344:tqdm_logging.py:145)
+07:45:59.927 [I] Progress on: 4.69kit/10.0kit rate:14.3s/it remaining:21:01:22 elapsed:18:01:02 postfix:- (5344:tqdm_logging.py:145)
+07:46:14.986 [I] Progress on: 4.69kit/10.0kit rate:13.3s/it remaining:19:40:38 elapsed:18:01:17 postfix:- (5344:tqdm_logging.py:145)
+07:46:33.648 [I] Progress on: 4.69kit/10.0kit rate:12.1s/it remaining:17:46:35 elapsed:18:01:36 postfix:- (5344:tqdm_logging.py:145)
+07:46:44.140 [I] Progress on: 4.69kit/10.0kit rate:14.5s/it remaining:21:19:40 elapsed:18:01:47 postfix:- (5344:tqdm_logging.py:145)
+07:47:02.779 [I] Progress on: 4.70kit/10.0kit rate:12.8s/it remaining:18:53:45 elapsed:18:02:05 postfix:- (5344:tqdm_logging.py:145)
+07:47:20.010 [I] Progress on: 4.70kit/10.0kit rate:14.4s/it remaining:21:11:39 elapsed:18:02:22 postfix:- (5344:tqdm_logging.py:145)
+07:47:40.662 [I] Progress on: 4.70kit/10.0kit rate:15.1s/it remaining:22:13:38 elapsed:18:02:43 postfix:- (5344:tqdm_logging.py:145)
+07:47:59.358 [I] Progress on: 4.70kit/10.0kit rate:13.3s/it remaining:19:32:07 elapsed:18:03:02 postfix:- (5344:tqdm_logging.py:145)
+07:48:17.924 [I] Progress on: 4.70kit/10.0kit rate:15.1s/it remaining:22:13:43 elapsed:18:03:20 postfix:- (5344:tqdm_logging.py:145)
+07:48:36.368 [I] Progress on: 4.70kit/10.0kit rate:14.8s/it remaining:21:45:19 elapsed:18:03:39 postfix:- (5344:tqdm_logging.py:145)
+07:48:55.111 [I] Progress on: 4.70kit/10.0kit rate:13.1s/it remaining:19:13:26 elapsed:18:03:58 postfix:- (5344:tqdm_logging.py:145)
+07:49:13.276 [I] Progress on: 4.70kit/10.0kit rate:14.8s/it remaining:21:49:44 elapsed:18:04:16 postfix:- (5344:tqdm_logging.py:145)
+07:49:33.940 [I] Progress on: 4.71kit/10.0kit rate:15.3s/it remaining:22:31:39 elapsed:18:04:36 postfix:- (5344:tqdm_logging.py:145)
+07:49:52.611 [I] Progress on: 4.71kit/10.0kit rate:13.4s/it remaining:19:43:56 elapsed:18:04:55 postfix:- (5344:tqdm_logging.py:145)
+07:50:06.199 [I] Progress on: 4.71kit/10.0kit rate:13.7s/it remaining:20:09:15 elapsed:18:05:09 postfix:- (5344:tqdm_logging.py:145)
+07:50:21.943 [I] Progress on: 4.71kit/10.0kit rate:13.3s/it remaining:19:31:46 elapsed:18:05:24 postfix:- (5344:tqdm_logging.py:145)
+07:50:35.441 [I] Progress on: 4.71kit/10.0kit rate:13.4s/it remaining:19:37:02 elapsed:18:05:38 postfix:- (5344:tqdm_logging.py:145)
+07:50:54.050 [I] Progress on: 4.71kit/10.0kit rate:12.0s/it remaining:17:42:00 elapsed:18:05:56 postfix:- (5344:tqdm_logging.py:145)
+07:51:10.563 [I] Progress on: 4.71kit/10.0kit rate:13.6s/it remaining:20:00:25 elapsed:18:06:13 postfix:- (5344:tqdm_logging.py:145)
+07:51:31.723 [I] Progress on: 4.71kit/10.0kit rate:14.9s/it remaining:21:49:02 elapsed:18:06:34 postfix:- (5344:tqdm_logging.py:145)
+07:51:50.256 [I] Progress on: 4.72kit/10.0kit rate:13.1s/it remaining:19:11:38 elapsed:18:06:53 postfix:- (5344:tqdm_logging.py:145)
+07:52:06.595 [I] Progress on: 4.72kit/10.0kit rate:14.3s/it remaining:20:59:22 elapsed:18:07:09 postfix:- (5344:tqdm_logging.py:145)
+07:52:23.547 [I] Progress on: 4.72kit/10.0kit rate:13.9s/it remaining:20:25:30 elapsed:18:07:26 postfix:- (5344:tqdm_logging.py:145)
+07:52:42.085 [I] Progress on: 4.72kit/10.0kit rate:12.4s/it remaining:18:14:38 elapsed:18:07:45 postfix:- (5344:tqdm_logging.py:145)
+07:52:58.123 [I] Progress on: 4.72kit/10.0kit rate:13.7s/it remaining:20:09:38 elapsed:18:08:01 postfix:- (5344:tqdm_logging.py:145)
+07:53:15.717 [I] Progress on: 4.72kit/10.0kit rate:13.9s/it remaining:20:18:11 elapsed:18:08:18 postfix:- (5344:tqdm_logging.py:145)
+07:53:34.264 [I] Progress on: 4.72kit/10.0kit rate:12.4s/it remaining:18:07:51 elapsed:18:08:37 postfix:- (5344:tqdm_logging.py:145)
+07:53:51.682 [I] Progress on: 4.72kit/10.0kit rate:14.1s/it remaining:20:42:04 elapsed:18:08:54 postfix:- (5344:tqdm_logging.py:145)
+07:54:13.402 [I] Progress on: 4.73kit/10.0kit rate:15.3s/it remaining:22:22:50 elapsed:18:09:16 postfix:- (5344:tqdm_logging.py:145)
+07:54:31.998 [I] Progress on: 4.73kit/10.0kit rate:13.4s/it remaining:19:35:29 elapsed:18:09:34 postfix:- (5344:tqdm_logging.py:145)
+07:54:45.485 [I] Progress on: 4.73kit/10.0kit rate:16.3s/it remaining:23:52:35 elapsed:18:09:48 postfix:- (5344:tqdm_logging.py:145)
+07:55:04.121 [I] Progress on: 4.73kit/10.0kit rate:14.1s/it remaining:20:38:43 elapsed:18:10:07 postfix:- (5344:tqdm_logging.py:145)
+07:55:16.758 [I] Progress on: 4.73kit/10.0kit rate:16.6s/it remaining:24:14:46 elapsed:18:10:19 postfix:- (5344:tqdm_logging.py:145)
+07:55:35.466 [I] Progress on: 4.73kit/10.0kit rate:14.3s/it remaining:20:55:02 elapsed:18:10:38 postfix:- (5344:tqdm_logging.py:145)
+07:55:48.593 [I] Progress on: 4.73kit/10.0kit rate:14.2s/it remaining:20:44:55 elapsed:18:10:51 postfix:- (5344:tqdm_logging.py:145)
+07:56:01.187 [I] Progress on: 4.74kit/10.0kit rate:12.6s/it remaining:18:24:44 elapsed:18:11:04 postfix:- (5344:tqdm_logging.py:145)
+07:56:20.014 [I] Progress on: 4.74kit/10.0kit rate:11.5s/it remaining:16:51:37 elapsed:18:11:22 postfix:- (5344:tqdm_logging.py:145)
+07:56:36.743 [I] Progress on: 4.74kit/10.0kit rate:13.3s/it remaining:19:30:31 elapsed:18:11:39 postfix:- (5344:tqdm_logging.py:145)
+07:56:55.548 [I] Progress on: 4.74kit/10.0kit rate:14.0s/it remaining:20:31:17 elapsed:18:11:58 postfix:- (5344:tqdm_logging.py:145)
+07:57:14.267 [I] Progress on: 4.74kit/10.0kit rate:12.5s/it remaining:18:18:35 elapsed:18:12:17 postfix:- (5344:tqdm_logging.py:145)
+07:57:24.996 [I] Progress on: 4.74kit/10.0kit rate:14.9s/it remaining:21:46:23 elapsed:18:12:27 postfix:- (5344:tqdm_logging.py:145)
+07:57:43.627 [I] Progress on: 4.74kit/10.0kit rate:13.1s/it remaining:19:10:19 elapsed:18:12:46 postfix:- (5344:tqdm_logging.py:145)
+07:57:59.289 [I] Progress on: 4.74kit/10.0kit rate:14.1s/it remaining:20:37:42 elapsed:18:13:02 postfix:- (5344:tqdm_logging.py:145)
+07:58:18.471 [I] Progress on: 4.75kit/10.0kit rate:14.5s/it remaining:21:12:10 elapsed:18:13:21 postfix:- (5344:tqdm_logging.py:145)
+07:58:37.055 [I] Progress on: 4.75kit/10.0kit rate:12.8s/it remaining:18:45:13 elapsed:18:13:39 postfix:- (5344:tqdm_logging.py:145)
+07:58:54.563 [I] Progress on: 4.75kit/10.0kit rate:14.5s/it remaining:21:08:37 elapsed:18:13:57 postfix:- (5344:tqdm_logging.py:145)
+07:59:12.958 [I] Progress on: 4.75kit/10.0kit rate:14.5s/it remaining:21:05:42 elapsed:18:14:15 postfix:- (5344:tqdm_logging.py:145)
+07:59:31.555 [I] Progress on: 4.75kit/10.0kit rate:12.8s/it remaining:18:41:40 elapsed:18:14:34 postfix:- (5344:tqdm_logging.py:145)
+07:59:45.011 [I] Progress on: 4.75kit/10.0kit rate:13.2s/it remaining:19:18:07 elapsed:18:14:47 postfix:- (5344:tqdm_logging.py:145)
+08:00:02.328 [I] Progress on: 4.75kit/10.0kit rate:13.5s/it remaining:19:43:10 elapsed:18:15:05 postfix:- (5344:tqdm_logging.py:145)
+08:00:20.953 [I] Progress on: 4.75kit/10.0kit rate:12.2s/it remaining:17:43:07 elapsed:18:15:23 postfix:- (5344:tqdm_logging.py:145)
+08:00:35.496 [I] Progress on: 4.75kit/10.0kit rate:13.1s/it remaining:19:06:20 elapsed:18:15:38 postfix:- (5344:tqdm_logging.py:145)
+08:00:58.110 [I] Progress on: 4.76kit/10.0kit rate:15.1s/it remaining:21:56:03 elapsed:18:16:01 postfix:- (5344:tqdm_logging.py:145)
+08:01:16.776 [I] Progress on: 4.76kit/10.0kit rate:13.2s/it remaining:19:16:21 elapsed:18:16:19 postfix:- (5344:tqdm_logging.py:145)
+08:01:34.920 [I] Progress on: 4.76kit/10.0kit rate:15.0s/it remaining:21:46:02 elapsed:18:16:37 postfix:- (5344:tqdm_logging.py:145)
+08:01:51.598 [I] Progress on: 4.76kit/10.0kit rate:14.2s/it remaining:20:38:22 elapsed:18:16:54 postfix:- (5344:tqdm_logging.py:145)
+08:02:10.282 [I] Progress on: 4.76kit/10.0kit rate:12.7s/it remaining:18:24:34 elapsed:18:17:13 postfix:- (5344:tqdm_logging.py:145)
+08:02:28.262 [I] Progress on: 4.76kit/10.0kit rate:14.5s/it remaining:21:03:12 elapsed:18:17:31 postfix:- (5344:tqdm_logging.py:145)
+08:02:46.560 [I] Progress on: 4.76kit/10.0kit rate:14.4s/it remaining:20:58:28 elapsed:18:17:49 postfix:- (5344:tqdm_logging.py:145)
+08:03:05.252 [I] Progress on: 4.77kit/10.0kit rate:12.8s/it remaining:18:37:42 elapsed:18:18:08 postfix:- (5344:tqdm_logging.py:145)
+08:03:16.611 [I] Progress on: 4.77kit/10.0kit rate:12.6s/it remaining:18:19:09 elapsed:18:18:19 postfix:- (5344:tqdm_logging.py:145)
+08:03:34.204 [I] Progress on: 4.77kit/10.0kit rate:13.3s/it remaining:19:19:47 elapsed:18:18:37 postfix:- (5344:tqdm_logging.py:145)
+08:03:52.913 [I] Progress on: 4.77kit/10.0kit rate:12.0s/it remaining:17:28:38 elapsed:18:18:55 postfix:- (5344:tqdm_logging.py:145)
+08:04:05.203 [I] Progress on: 4.77kit/10.0kit rate:15.0s/it remaining:21:47:28 elapsed:18:19:08 postfix:- (5344:tqdm_logging.py:145)
+08:04:23.873 [I] Progress on: 4.77kit/10.0kit rate:13.2s/it remaining:19:10:24 elapsed:18:19:26 postfix:- (5344:tqdm_logging.py:145)
+08:04:38.983 [I] Progress on: 4.77kit/10.0kit rate:14.0s/it remaining:20:19:42 elapsed:18:19:41 postfix:- (5344:tqdm_logging.py:145)
+08:05:00.196 [I] Progress on: 4.78kit/10.0kit rate:15.1s/it remaining:21:53:18 elapsed:18:20:03 postfix:- (5344:tqdm_logging.py:145)
+08:05:18.987 [I] Progress on: 4.78kit/10.0kit rate:13.3s/it remaining:19:15:30 elapsed:18:20:21 postfix:- (5344:tqdm_logging.py:145)
+08:05:32.702 [I] Progress on: 4.78kit/10.0kit rate:16.3s/it remaining:23:41:15 elapsed:18:20:35 postfix:- (5344:tqdm_logging.py:145)
+08:05:51.447 [I] Progress on: 4.78kit/10.0kit rate:14.1s/it remaining:20:30:34 elapsed:18:20:54 postfix:- (5344:tqdm_logging.py:145)
+08:06:04.426 [I] Progress on: 4.78kit/10.0kit rate:16.7s/it remaining:24:13:33 elapsed:18:21:07 postfix:- (5344:tqdm_logging.py:145)
+08:06:23.168 [I] Progress on: 4.78kit/10.0kit rate:14.4s/it remaining:20:52:50 elapsed:18:21:26 postfix:- (5344:tqdm_logging.py:145)
+08:06:37.229 [I] Progress on: 4.78kit/10.0kit rate:14.5s/it remaining:21:04:41 elapsed:18:21:40 postfix:- (5344:tqdm_logging.py:145)
+08:06:55.239 [I] Progress on: 4.78kit/10.0kit rate:14.4s/it remaining:20:51:02 elapsed:18:21:58 postfix:- (5344:tqdm_logging.py:145)
+08:07:14.010 [I] Progress on: 4.78kit/10.0kit rate:12.8s/it remaining:18:31:08 elapsed:18:22:16 postfix:- (5344:tqdm_logging.py:145)
+08:07:26.764 [I] Progress on: 4.79kit/10.0kit rate:13.0s/it remaining:18:51:46 elapsed:18:22:29 postfix:- (5344:tqdm_logging.py:145)
+08:07:43.736 [I] Progress on: 4.79kit/10.0kit rate:13.3s/it remaining:19:18:21 elapsed:18:22:46 postfix:- (5344:tqdm_logging.py:145)
+08:08:02.461 [I] Progress on: 4.79kit/10.0kit rate:12.1s/it remaining:17:26:54 elapsed:18:23:05 postfix:- (5344:tqdm_logging.py:145)
+08:08:17.465 [I] Progress on: 4.79kit/10.0kit rate:13.2s/it remaining:19:04:13 elapsed:18:23:20 postfix:- (5344:tqdm_logging.py:145)
+08:08:36.783 [I] Progress on: 4.79kit/10.0kit rate:14.1s/it remaining:20:23:54 elapsed:18:23:39 postfix:- (5344:tqdm_logging.py:145)
+08:08:55.394 [I] Progress on: 4.79kit/10.0kit rate:12.6s/it remaining:18:10:45 elapsed:18:23:58 postfix:- (5344:tqdm_logging.py:145)
+08:09:11.442 [I] Progress on: 4.79kit/10.0kit rate:13.8s/it remaining:20:01:19 elapsed:18:24:14 postfix:- (5344:tqdm_logging.py:145)
+08:09:33.807 [I] Progress on: 4.79kit/10.0kit rate:15.3s/it remaining:22:10:22 elapsed:18:24:36 postfix:- (5344:tqdm_logging.py:145)
+08:09:52.388 [I] Progress on: 4.80kit/10.0kit rate:13.4s/it remaining:19:23:42 elapsed:18:24:55 postfix:- (5344:tqdm_logging.py:145)
+08:10:03.495 [I] Progress on: 4.80kit/10.0kit rate:15.6s/it remaining:22:34:11 elapsed:18:25:06 postfix:- (5344:tqdm_logging.py:145)
+08:10:22.087 [I] Progress on: 4.80kit/10.0kit rate:13.6s/it remaining:19:40:30 elapsed:18:25:25 postfix:- (5344:tqdm_logging.py:145)
+08:10:38.171 [I] Progress on: 4.80kit/10.0kit rate:14.6s/it remaining:21:05:00 elapsed:18:25:41 postfix:- (5344:tqdm_logging.py:145)
+08:10:57.327 [I] [process=0][thread=MainThread][wait_until_finished] Initiating wait for Save Finalize thread. (5344:checkpoint_manager.py:1759)
+08:10:57.327 [I] [process=0][thread=MainThread][step=4500][wait_until_finished] Waiting for Save Finalize thread (save_finalize) to complete. (5344:checkpoint_manager.py:1777)
+08:10:57.327 [I] [process=0][thread=MainThread][step=4500][wait_until_finished] Done waiting for Save Finalize thread (save_finalize) running at step=4500. (5344:checkpoint_manager.py:1786)
+08:10:57.328 [I] [process=0][thread=MainThread][step=4500][wait_until_finished] Resetting Save Finalize thread (save_finalize) running at step=4500, also errors if any. (5344:checkpoint_manager.py:1817)
+08:10:57.328 [I] [process=0] Saving checkpoint at step 4800                                       (5344:checkpoint_manager.py:1286)
+08:10:57.329 [I] [process=0] Started async saving checkpoint to /home/elicer/capstone/ricl_openpi_libero/checkpoints/pi0_fast_libero_ricl/priming/4800. (5344:async_checkpointer.py:358)
+08:10:57.330 [I] [process=0][thread=MainThread] Skipping global process sync, barrier name: create_tmp_directory:pre (5344:multihost.py:293)
+08:10:57.331 [I] Creating tmp directory /home/elicer/capstone/ricl_openpi_libero/checkpoints/pi0_fast_libero_ricl/priming/4800.orbax-checkpoint-tmp-45 (5344:atomicity.py:144)
+08:10:57.332 [I] [process=0][thread=MainThread] Skipping global process sync, barrier name: create_tmp_directory:post (5344:multihost.py:293)
+08:10:57.332 [I] [process=0][thread=MainThread] Skipping global process sync, barrier name: create_tmp_directory:pre (5344:multihost.py:293)
+08:10:57.333 [I] Creating tmp directory /home/elicer/capstone/ricl_openpi_libero/checkpoints/pi0_fast_libero_ricl/priming/4800.orbax-checkpoint-tmp-45/assets.orbax-checkpoint-tmp-46 (5344:atomicity.py:144)
+08:10:57.333 [I] Creating tmp directory /home/elicer/capstone/ricl_openpi_libero/checkpoints/pi0_fast_libero_ricl/priming/4800.orbax-checkpoint-tmp-45/params.orbax-checkpoint-tmp-47 (5344:atomicity.py:144)
+08:10:57.334 [I] [process=0][thread=MainThread] Skipping global process sync, barrier name: create_tmp_directory:post (5344:multihost.py:293)
+08:10:57.338 [I] Transferring arrays to host memory with options: use_replica_parallel=False, enable_pinned_host_transfer=False (5344:replica_slices.py:419)
+08:11:00.794 [I] Array name: 'params.PaliGemma.llm.layers.mlp.gating_einsum.value', global shape: (18, 2, 2048, 16384), write shape: (18, 2, 2048, 16384), chosen chunk shape: (18, 2, 2048, 4096) (5344:tensorstore_utils.py:371)
+08:11:00.794 [I] [process=0] /jax/checkpoint/write/blocking_bytes_per_sec: 2.9 GiB/s (total bytes: 10.1 GiB) (time elapsed: 3 seconds) (per-host) (5344:base_pytree_checkpoint_handler.py:113)
+08:11:00.795 [I] Array name: 'params.PaliGemma.llm.layers.mlp.linear.value', global shape: (18, 16384, 2048), write shape: (18, 16384, 2048), chosen chunk shape: (18, 8192, 2048) (5344:tensorstore_utils.py:371)
+08:11:00.797 [I] [process=0][thread=async_save] Background save thread started.                   (5344:async_checkpointer.py:121)
+08:11:00.807 [I] Preserving Checkpoint[step=300 | time=2026-03-13 14:55:18.504691+00:00 | is_locked=None]: (Reason: on keep_period=300). (5344:checkpoint_manager.py:1734)
+08:11:00.808 [I] Preserving Checkpoint[step=600 | time=2026-03-13 16:03:55.273348+00:00 | is_locked=None]: (Reason: on keep_period=300). (5344:checkpoint_manager.py:1734)
+08:11:00.808 [I] Preserving Checkpoint[step=900 | time=2026-03-13 17:19:14.810701+00:00 | is_locked=None]: (Reason: on keep_period=300). (5344:checkpoint_manager.py:1734)
+08:11:00.809 [I] Preserving Checkpoint[step=1200 | time=2026-03-13 18:27:43.891039+00:00 | is_locked=None]: (Reason: on keep_period=300). (5344:checkpoint_manager.py:1734)
+08:11:00.809 [I] Preserving Checkpoint[step=1500 | time=2026-03-13 19:35:55.991718+00:00 | is_locked=None]: (Reason: on keep_period=300). (5344:checkpoint_manager.py:1734)
+08:11:00.809 [I] Preserving Checkpoint[step=1800 | time=2026-03-13 20:45:47.384159+00:00 | is_locked=None]: (Reason: on keep_period=300). (5344:checkpoint_manager.py:1734)
+08:11:00.810 [I] Preserving Checkpoint[step=2100 | time=2026-03-13 21:56:48.036710+00:00 | is_locked=None]: (Reason: on keep_period=300). (5344:checkpoint_manager.py:1734)
+08:11:00.810 [I] Preserving Checkpoint[step=2400 | time=2026-03-13 23:04:52.181604+00:00 | is_locked=None]: (Reason: on keep_period=300). (5344:checkpoint_manager.py:1734)
+08:11:00.810 [I] Preserving Checkpoint[step=2700 | time=2026-03-14 00:12:14.127106+00:00 | is_locked=None]: (Reason: on keep_period=300). (5344:checkpoint_manager.py:1734)
+08:11:00.810 [I] Preserving Checkpoint[step=3000 | time=2026-03-14 01:20:47.498725+00:00 | is_locked=None]: (Reason: on keep_period=300). (5344:checkpoint_manager.py:1734)
+08:11:00.810 [I] Preserving Checkpoint[step=3300 | time=2026-03-14 02:28:56.843623+00:00 | is_locked=None]: (Reason: on keep_period=300). (5344:checkpoint_manager.py:1734)
+08:11:00.810 [I] Preserving Checkpoint[step=3600 | time=2026-03-14 03:37:03.812859+00:00 | is_locked=None]: (Reason: on keep_period=300). (5344:checkpoint_manager.py:1734)
+08:11:00.811 [I] Preserving Checkpoint[step=3900 | time=2026-03-14 04:46:51.519179+00:00 | is_locked=None]: (Reason: on keep_period=300). (5344:checkpoint_manager.py:1734)
+08:11:00.811 [I] Preserving Checkpoint[step=4200 | time=2026-03-14 05:54:42.990998+00:00 | is_locked=None]: (Reason: on keep_period=300). (5344:checkpoint_manager.py:1734)
+08:11:00.811 [I] Preserving Checkpoint[step=4500 | time=2026-03-14 07:02:49.811273+00:00 | is_locked=None]: (Reason: on keep_period=300). (5344:checkpoint_manager.py:1734)
+08:11:00.811 [I] [process=0][thread=MainThread] Skipping global process sync, barrier name: CheckpointManager:old_steps_to_remove (5344:multihost.py:293)
+08:11:00.812 [I] [process=0][thread=MainThread][step=4800] Starting CheckpointManager Save Finalize thread=save_finalize (5344:checkpoint_manager.py:1328)
+08:11:00.812 [I] [process=0][thread=save_finalize] Waiting for background save thread=async_save. (5344:async_checkpointer.py:231)
+08:11:00.812 [I] {'step': 4800, 'event_type': 'save', 'directory': '/home/elicer/capstone/ricl_openpi_libero/checkpoints/pi0_fast_libero_ricl/priming', 'reached_preemption': False, 'preemption_received_at': None, 'synchronous': False, 'wait_for_prev_start_time': 1773475857.3272784, 'wait_for_prev_duration_secs': 0.0008809566497802734, 'checkpointer_blocking_start_time': 1773475857.3287406, 'checkpointer_blocking_duration_secs': 3.479170322418213, 'get_old_steps_start_time': 1773475860.8079305, 'get_old_steps_duration_secs': 0.003889322280883789, 'checkpoint_manager_blocking_start_time': 1773475857.3271317, 'checkpoint_manager_blocking_duration_secs': 3.485499143600464} (5344:standard_logger.py:34)
+08:11:00.813 [I] Progress on: 4.80kit/10.0kit rate:15.8s/it remaining:22:48:19 elapsed:18:26:03 postfix:- (5344:tqdm_logging.py:145)
+08:11:17.143 [I] ChainedFuture completed 1/1 futures in 16.34 seconds.                            (5344:future.py:137)
+08:11:17.144 [I] [process=0] /jax/checkpoint/write/bytes_per_sec: 523.0 MiB/s (total bytes: 10.1 GiB) (time elapsed: 19 seconds) (per-host) (5344:base_pytree_checkpoint_handler.py:113)
+08:11:17.144 [I] [process=0][thread=async_save] 2 Handler Commit operations completed.            (5344:async_checkpointer.py:131)
+08:11:17.145 [I] [process=0][thread=async_save] Async Save Callback [1/3]: Finalizing Handler: <orbax.checkpoint._src.handlers.composite_checkpoint_handler.CompositeCheckpointHandler object at 0x7fad2c2e2a90> on /home/elicer/capstone/ricl_openpi_libero/checkpoints/pi0_fast_libero_ricl/priming/4800.orbax-checkpoint-tmp-45 (5344:async_checkpointer.py:406)
+08:11:17.146 [I] Renaming /home/elicer/capstone/ricl_openpi_libero/checkpoints/pi0_fast_libero_ricl/priming/4800.orbax-checkpoint-tmp-45/assets.orbax-checkpoint-tmp-46 to /home/elicer/capstone/ricl_openpi_libero/checkpoints/pi0_fast_libero_ricl/priming/4800.orbax-checkpoint-tmp-45/assets (5344:atomicity.py:287)
+08:11:17.153 [I] Renaming /home/elicer/capstone/ricl_openpi_libero/checkpoints/pi0_fast_libero_ricl/priming/4800.orbax-checkpoint-tmp-45/params.orbax-checkpoint-tmp-47 to /home/elicer/capstone/ricl_openpi_libero/checkpoints/pi0_fast_libero_ricl/priming/4800.orbax-checkpoint-tmp-45/params (5344:atomicity.py:287)
+08:11:17.153 [I] [process=0][thread=async_save] Async Save Callback [2/3]: Running post_finalization_callback: None on /home/elicer/capstone/ricl_openpi_libero/checkpoints/pi0_fast_libero_ricl/priming/4800 (5344:async_checkpointer.py:416)
+08:11:17.153 [I] [process=0][thread=async_save] Async Save Callback [3/3]: Finalizing checkpoint directory: /home/elicer/capstone/ricl_openpi_libero/checkpoints/pi0_fast_libero_ricl/priming/4800.orbax-checkpoint-tmp-45 (5344:async_checkpointer.py:426)
+08:11:17.154 [I] Renaming /home/elicer/capstone/ricl_openpi_libero/checkpoints/pi0_fast_libero_ricl/priming/4800.orbax-checkpoint-tmp-45 to /home/elicer/capstone/ricl_openpi_libero/checkpoints/pi0_fast_libero_ricl/priming/4800 (5344:atomicity.py:287)
+08:11:17.155 [I] [process=0][thread=async_save] Finished saving checkpoint (finalized tmp dir) to `/home/elicer/capstone/ricl_openpi_libero/checkpoints/pi0_fast_libero_ricl/priming/4800`. (5344:atomicity.py:548)
+08:11:17.155 [I] [process=0][thread=async_save] Background save thread done.                      (5344:async_checkpointer.py:183)
+08:11:17.155 [I] [process=0][thread=save_finalize] Done with waiting for background save thread=async_save. (5344:async_checkpointer.py:239)
+08:11:17.155 [I] [process=0][thread=save_finalize] No errors found in background save thread=async_save. (5344:async_checkpointer.py:249)
+08:11:17.156 [I] [process=0][thread=save_finalize][step=4800] CheckpointManager Save Finalize is syncing with other hosts... (5344:checkpoint_manager.py:1890)
+08:11:17.156 [I] [process=0][thread=save_finalize][step=4800] CheckpointManager Save Finalize is done on all hosts. (5344:checkpoint_manager.py:1905)
+08:11:19.471 [I] Progress on: 4.80kit/10.0kit rate:13.8s/it remaining:19:53:24 elapsed:18:26:22 postfix:- (5344:tqdm_logging.py:145)
+08:11:35.174 [I] Progress on: 4.80kit/10.0kit rate:14.6s/it remaining:21:01:03 elapsed:18:26:38 postfix:- (5344:tqdm_logging.py:145)
+08:11:51.796 [I] Progress on: 4.80kit/10.0kit rate:14.0s/it remaining:20:09:48 elapsed:18:26:54 postfix:- (5344:tqdm_logging.py:145)
+08:12:10.523 [I] Progress on: 4.81kit/10.0kit rate:12.5s/it remaining:18:02:39 elapsed:18:27:13 postfix:- (5344:tqdm_logging.py:145)
+08:12:25.468 [I] Progress on: 4.81kit/10.0kit rate:13.5s/it remaining:19:24:47 elapsed:18:27:28 postfix:- (5344:tqdm_logging.py:145)
+08:12:48.418 [I] Progress on: 4.81kit/10.0kit rate:15.3s/it remaining:22:06:46 elapsed:18:27:51 postfix:- (5344:tqdm_logging.py:145)
+08:13:07.144 [I] Progress on: 4.81kit/10.0kit rate:13.4s/it remaining:19:22:27 elapsed:18:28:10 postfix:- (5344:tqdm_logging.py:145)
+08:13:24.130 [I] Progress on: 4.81kit/10.0kit rate:14.7s/it remaining:21:15:16 elapsed:18:28:27 postfix:- (5344:tqdm_logging.py:145)
+08:13:43.628 [I] Progress on: 4.81kit/10.0kit rate:14.9s/it remaining:21:30:58 elapsed:18:28:46 postfix:- (5344:tqdm_logging.py:145)
+08:14:02.357 [I] Progress on: 4.81kit/10.0kit rate:13.2s/it remaining:18:57:23 elapsed:18:29:05 postfix:- (5344:tqdm_logging.py:145)
+08:14:17.762 [I] Progress on: 4.82kit/10.0kit rate:14.1s/it remaining:20:16:35 elapsed:18:29:20 postfix:- (5344:tqdm_logging.py:145)
+08:14:34.209 [I] Progress on: 4.82kit/10.0kit rate:13.7s/it remaining:19:42:26 elapsed:18:29:37 postfix:- (5344:tqdm_logging.py:145)
+08:14:52.933 [I] Progress on: 4.82kit/10.0kit rate:12.3s/it remaining:17:41:19 elapsed:18:29:55 postfix:- (5344:tqdm_logging.py:145)
+08:15:08.419 [I] Progress on: 4.82kit/10.0kit rate:13.5s/it remaining:19:25:59 elapsed:18:30:11 postfix:- (5344:tqdm_logging.py:145)
+08:15:26.525 [I] Progress on: 4.82kit/10.0kit rate:13.9s/it remaining:19:59:06 elapsed:18:30:29 postfix:- (5344:tqdm_logging.py:145)
+08:15:45.113 [I] Progress on: 4.82kit/10.0kit rate:12.4s/it remaining:17:50:53 elapsed:18:30:48 postfix:- (5344:tqdm_logging.py:145)
+08:16:00.061 [I] Progress on: 4.82kit/10.0kit rate:13.4s/it remaining:19:17:40 elapsed:18:31:02 postfix:- (5344:tqdm_logging.py:145)
+08:16:19.996 [I] Progress on: 4.83kit/10.0kit rate:14.4s/it remaining:20:40:59 elapsed:18:31:22 postfix:- (5344:tqdm_logging.py:145)
+08:16:38.518 [I] Progress on: 4.83kit/10.0kit rate:12.8s/it remaining:18:19:45 elapsed:18:31:41 postfix:- (5344:tqdm_logging.py:145)
+08:16:50.169 [I] Progress on: 4.83kit/10.0kit rate:12.6s/it remaining:18:10:33 elapsed:18:31:53 postfix:- (5344:tqdm_logging.py:145)
+08:17:11.063 [I] Progress on: 4.83kit/10.0kit rate:14.3s/it remaining:20:32:57 elapsed:18:32:13 postfix:- (5344:tqdm_logging.py:145)
+08:17:29.620 [I] Progress on: 4.83kit/10.0kit rate:12.7s/it remaining:18:14:31 elapsed:18:32:32 postfix:- (5344:tqdm_logging.py:145)
+08:17:48.302 [I] Progress on: 4.83kit/10.0kit rate:14.7s/it remaining:21:09:06 elapsed:18:32:51 postfix:- (5344:tqdm_logging.py:145)
+08:18:04.221 [I] Progress on: 4.83kit/10.0kit rate:13.8s/it remaining:19:51:20 elapsed:18:33:07 postfix:- (5344:tqdm_logging.py:145)
+08:18:22.881 [I] Progress on: 4.83kit/10.0kit rate:12.4s/it remaining:17:45:33 elapsed:18:33:25 postfix:- (5344:tqdm_logging.py:145)
+08:18:37.152 [I] Progress on: 4.83kit/10.0kit rate:13.2s/it remaining:18:54:59 elapsed:18:33:40 postfix:- (5344:tqdm_logging.py:145)
+08:18:53.142 [I] Progress on: 4.84kit/10.0kit rate:13.1s/it remaining:18:48:17 elapsed:18:33:56 postfix:- (5344:tqdm_logging.py:145)
+08:19:11.857 [I] Progress on: 4.84kit/10.0kit rate:11.9s/it remaining:17:04:02 elapsed:18:34:14 postfix:- (5344:tqdm_logging.py:145)
+08:19:22.228 [I] Progress on: 4.84kit/10.0kit rate:14.3s/it remaining:20:32:54 elapsed:18:34:25 postfix:- (5344:tqdm_logging.py:145)
+08:19:40.875 [I] Progress on: 4.84kit/10.0kit rate:12.7s/it remaining:18:15:27 elapsed:18:34:43 postfix:- (5344:tqdm_logging.py:145)
+08:19:54.856 [I] Progress on: 4.84kit/10.0kit rate:13.3s/it remaining:19:07:02 elapsed:18:34:57 postfix:- (5344:tqdm_logging.py:145)
+08:20:05.632 [I] Progress on: 4.84kit/10.0kit rate:12.6s/it remaining:18:00:23 elapsed:18:35:08 postfix:- (5344:tqdm_logging.py:145)
+08:20:20.628 [I] Progress on: 4.84kit/10.0kit rate:13.3s/it remaining:19:03:18 elapsed:18:35:23 postfix:- (5344:tqdm_logging.py:145)
+08:20:32.828 [I] Progress on: 4.84kit/10.0kit rate:13.0s/it remaining:18:34:49 elapsed:18:35:35 postfix:- (5344:tqdm_logging.py:145)
+08:20:50.091 [I] Progress on: 4.84kit/10.0kit rate:14.3s/it remaining:20:25:42 elapsed:18:35:53 postfix:- (5344:tqdm_logging.py:145)
+08:21:01.946 [I] Progress on: 4.85kit/10.0kit rate:13.5s/it remaining:19:23:07 elapsed:18:36:04 postfix:- (5344:tqdm_logging.py:145)
+08:21:16.863 [I] Progress on: 4.85kit/10.0kit rate:13.9s/it remaining:19:58:03 elapsed:18:36:19 postfix:- (5344:tqdm_logging.py:145)
+08:21:34.803 [I] Progress on: 4.85kit/10.0kit rate:15.2s/it remaining:21:41:26 elapsed:18:36:37 postfix:- (5344:tqdm_logging.py:145)
+08:21:51.161 [I] Progress on: 4.85kit/10.0kit rate:14.2s/it remaining:20:16:25 elapsed:18:36:54 postfix:- (5344:tqdm_logging.py:145)
+08:22:09.747 [I] Progress on: 4.85kit/10.0kit rate:12.6s/it remaining:18:03:03 elapsed:18:37:12 postfix:- (5344:tqdm_logging.py:145)
+08:22:25.824 [I] Progress on: 4.85kit/10.0kit rate:13.9s/it remaining:19:50:49 elapsed:18:37:28 postfix:- (5344:tqdm_logging.py:145)
+08:22:45.271 [I] Progress on: 4.85kit/10.0kit rate:14.5s/it remaining:20:41:47 elapsed:18:37:48 postfix:- (5344:tqdm_logging.py:145)
+08:23:03.876 [I] Progress on: 4.86kit/10.0kit rate:12.8s/it remaining:18:20:02 elapsed:18:38:06 postfix:- (5344:tqdm_logging.py:145)
+08:23:19.874 [I] Progress on: 4.86kit/10.0kit rate:14.0s/it remaining:20:01:31 elapsed:18:38:22 postfix:- (5344:tqdm_logging.py:145)
+08:23:37.171 [I] Progress on: 4.86kit/10.0kit rate:13.9s/it remaining:19:51:09 elapsed:18:38:40 postfix:- (5344:tqdm_logging.py:145)
+08:23:55.880 [I] Progress on: 4.86kit/10.0kit rate:12.4s/it remaining:17:45:51 elapsed:18:38:58 postfix:- (5344:tqdm_logging.py:145)
+08:24:07.325 [I] Progress on: 4.86kit/10.0kit rate:15.0s/it remaining:21:28:45 elapsed:18:39:10 postfix:- (5344:tqdm_logging.py:145)
+08:24:26.033 [I] Progress on: 4.86kit/10.0kit rate:13.3s/it remaining:19:01:16 elapsed:18:39:28 postfix:- (5344:tqdm_logging.py:145)
+08:24:43.782 [I] Progress on: 4.86kit/10.0kit rate:14.8s/it remaining:21:06:51 elapsed:18:39:46 postfix:- (5344:tqdm_logging.py:145)
+08:25:01.308 [I] Progress on: 4.86kit/10.0kit rate:14.3s/it remaining:20:26:24 elapsed:18:40:04 postfix:- (5344:tqdm_logging.py:145)
+08:25:11.518 [I] Progress on: 4.87kit/10.0kit rate:13.1s/it remaining:18:40:28 elapsed:18:40:14 postfix:- (5344:tqdm_logging.py:145)
+08:25:24.828 [I] Progress on: 4.87kit/10.0kit rate:13.2s/it remaining:18:45:50 elapsed:18:40:27 postfix:- (5344:tqdm_logging.py:145)
+08:25:36.595 [I] Progress on: 4.87kit/10.0kit rate:12.7s/it remaining:18:09:55 elapsed:18:40:39 postfix:- (5344:tqdm_logging.py:145)
+08:25:57.734 [I] Progress on: 4.87kit/10.0kit rate:15.3s/it remaining:21:45:14 elapsed:18:41:00 postfix:- (5344:tqdm_logging.py:145)
+08:26:16.521 [I] Progress on: 4.87kit/10.0kit rate:13.4s/it remaining:19:05:16 elapsed:18:41:19 postfix:- (5344:tqdm_logging.py:145)
+08:26:31.990 [I] Progress on: 4.87kit/10.0kit rate:14.3s/it remaining:20:21:13 elapsed:18:41:34 postfix:- (5344:tqdm_logging.py:145)
+08:26:45.898 [I] Progress on: 4.87kit/10.0kit rate:13.0s/it remaining:18:32:33 elapsed:18:41:48 postfix:- (5344:tqdm_logging.py:145)
+08:27:04.528 [I] Progress on: 4.87kit/10.0kit rate:11.8s/it remaining:16:49:08 elapsed:18:42:07 postfix:- (5344:tqdm_logging.py:145)
+08:27:16.651 [I] Progress on: 4.87kit/10.0kit rate:14.8s/it remaining:21:04:01 elapsed:18:42:19 postfix:- (5344:tqdm_logging.py:145)
+08:27:35.224 [I] Progress on: 4.88kit/10.0kit rate:13.0s/it remaining:18:34:22 elapsed:18:42:38 postfix:- (5344:tqdm_logging.py:145)
+08:27:52.622 [I] Progress on: 4.88kit/10.0kit rate:14.6s/it remaining:20:46:13 elapsed:18:42:55 postfix:- (5344:tqdm_logging.py:145)
+08:28:12.098 [I] Progress on: 4.88kit/10.0kit rate:14.8s/it remaining:21:05:46 elapsed:18:43:15 postfix:- (5344:tqdm_logging.py:145)
+08:28:30.614 [I] Progress on: 4.88kit/10.0kit rate:13.1s/it remaining:18:34:58 elapsed:18:43:33 postfix:- (5344:tqdm_logging.py:145)
+08:28:47.023 [I] Progress on: 4.88kit/10.0kit rate:14.3s/it remaining:20:19:53 elapsed:18:43:49 postfix:- (5344:tqdm_logging.py:145)
+08:29:02.549 [I] Progress on: 4.88kit/10.0kit rate:13.5s/it remaining:19:09:06 elapsed:18:44:05 postfix:- (5344:tqdm_logging.py:145)
+08:29:16.631 [I] Progress on: 4.88kit/10.0kit rate:13.7s/it remaining:19:24:30 elapsed:18:44:19 postfix:- (5344:tqdm_logging.py:145)
+08:29:35.178 [I] Progress on: 4.88kit/10.0kit rate:12.3s/it remaining:17:24:50 elapsed:18:44:38 postfix:- (5344:tqdm_logging.py:145)
+08:29:48.505 [I] Progress on: 4.88kit/10.0kit rate:15.4s/it remaining:21:56:36 elapsed:18:44:51 postfix:- (5344:tqdm_logging.py:145)
+08:30:07.030 [I] Progress on: 4.89kit/10.0kit rate:13.5s/it remaining:19:10:06 elapsed:18:45:09 postfix:- (5344:tqdm_logging.py:145)
+08:30:18.066 [I] Progress on: 4.89kit/10.0kit rate:15.6s/it remaining:22:12:02 elapsed:18:45:21 postfix:- (5344:tqdm_logging.py:145)
+08:30:36.681 [I] Progress on: 4.89kit/10.0kit rate:13.9s/it remaining:19:42:07 elapsed:18:45:39 postfix:- (5344:tqdm_logging.py:145)
+08:30:54.667 [I] Progress on: 4.89kit/10.0kit rate:15.1s/it remaining:21:26:23 elapsed:18:45:57 postfix:- (5344:tqdm_logging.py:145)
+08:31:18.332 [I] Progress on: 4.89kit/10.0kit rate:16.3s/it remaining:23:11:39 elapsed:18:46:21 postfix:- (5344:tqdm_logging.py:145)
+08:31:37.043 [I] Progress on: 4.89kit/10.0kit rate:14.1s/it remaining:20:04:07 elapsed:18:46:39 postfix:- (5344:tqdm_logging.py:145)
+08:31:54.110 [I] Progress on: 4.89kit/10.0kit rate:15.3s/it remaining:21:38:35 elapsed:18:46:57 postfix:- (5344:tqdm_logging.py:145)
+08:32:11.238 [I] Progress on: 4.89kit/10.0kit rate:14.5s/it remaining:20:31:35 elapsed:18:47:14 postfix:- (5344:tqdm_logging.py:145)
+08:32:29.984 [I] Progress on: 4.90kit/10.0kit rate:12.8s/it remaining:18:12:01 elapsed:18:47:32 postfix:- (5344:tqdm_logging.py:145)
+08:32:46.155 [I] Progress on: 4.90kit/10.0kit rate:14.1s/it remaining:19:58:22 elapsed:18:47:49 postfix:- (5344:tqdm_logging.py:145)
+08:33:04.454 [I] Progress on: 4.90kit/10.0kit rate:14.2s/it remaining:20:11:24 elapsed:18:48:07 postfix:- (5344:tqdm_logging.py:145)
+08:33:23.098 [I] Progress on: 4.90kit/10.0kit rate:12.7s/it remaining:17:56:51 elapsed:18:48:26 postfix:- (5344:tqdm_logging.py:145)
+08:33:38.971 [I] Progress on: 4.90kit/10.0kit rate:13.9s/it remaining:19:39:13 elapsed:18:48:41 postfix:- (5344:tqdm_logging.py:145)
+08:33:53.733 [I] Progress on: 4.90kit/10.0kit rate:13.1s/it remaining:18:30:35 elapsed:18:48:56 postfix:- (5344:tqdm_logging.py:145)
+08:34:12.345 [I] Progress on: 4.90kit/10.0kit rate:11.9s/it remaining:16:46:54 elapsed:18:49:15 postfix:- (5344:tqdm_logging.py:145)
+08:34:29.531 [I] Progress on: 4.91kit/10.0kit rate:13.7s/it remaining:19:21:49 elapsed:18:49:32 postfix:- (5344:tqdm_logging.py:145)
+08:34:48.998 [I] Progress on: 4.91kit/10.0kit rate:14.4s/it remaining:20:20:57 elapsed:18:49:51 postfix:- (5344:tqdm_logging.py:145)
+08:35:07.579 [I] Progress on: 4.91kit/10.0kit rate:12.8s/it remaining:18:02:19 elapsed:18:50:10 postfix:- (5344:tqdm_logging.py:145)
+08:35:24.547 [I] Progress on: 4.91kit/10.0kit rate:14.3s/it remaining:20:09:49 elapsed:18:50:27 postfix:- (5344:tqdm_logging.py:145)
+08:35:43.884 [I] Progress on: 4.91kit/10.0kit rate:14.6s/it remaining:20:40:57 elapsed:18:50:46 postfix:- (5344:tqdm_logging.py:145)
+08:36:02.488 [I] Progress on: 4.91kit/10.0kit rate:12.9s/it remaining:18:16:06 elapsed:18:51:05 postfix:- (5344:tqdm_logging.py:145)
+08:36:19.341 [I] Progress on: 4.91kit/10.0kit rate:14.3s/it remaining:20:16:18 elapsed:18:51:22 postfix:- (5344:tqdm_logging.py:145)
+08:36:33.203 [I] Progress on: 4.92kit/10.0kit rate:13.0s/it remaining:18:24:45 elapsed:18:51:36 postfix:- (5344:tqdm_logging.py:145)
+08:36:51.875 [I] Progress on: 4.92kit/10.0kit rate:11.8s/it remaining:16:43:16 elapsed:18:51:54 postfix:- (5344:tqdm_logging.py:145)
+08:37:07.925 [I] Progress on: 4.92kit/10.0kit rate:13.3s/it remaining:18:49:13 elapsed:18:52:10 postfix:- (5344:tqdm_logging.py:145)
+08:37:18.372 [I] Progress on: 4.92kit/10.0kit rate:12.5s/it remaining:17:35:28 elapsed:18:52:21 postfix:- (5344:tqdm_logging.py:145)
+08:37:33.849 [I] Progress on: 4.92kit/10.0kit rate:13.4s/it remaining:18:51:57 elapsed:18:52:36 postfix:- (5344:tqdm_logging.py:145)
+08:37:45.692 [I] Progress on: 4.92kit/10.0kit rate:12.9s/it remaining:18:12:16 elapsed:18:52:48 postfix:- (5344:tqdm_logging.py:145)
+08:38:01.288 [I] Progress on: 4.92kit/10.0kit rate:13.7s/it remaining:19:20:27 elapsed:18:53:04 postfix:- (5344:tqdm_logging.py:145)
+08:38:16.024 [I] Progress on: 4.92kit/10.0kit rate:14.0s/it remaining:19:47:01 elapsed:18:53:18 postfix:- (5344:tqdm_logging.py:145)
+08:38:28.005 [I] Progress on: 4.92kit/10.0kit rate:13.4s/it remaining:18:54:39 elapsed:18:53:30 postfix:- (5344:tqdm_logging.py:145)
+08:38:46.771 [I] Progress on: 4.92kit/10.0kit rate:15.0s/it remaining:21:10:56 elapsed:18:53:49 postfix:- (5344:tqdm_logging.py:145)
+08:39:05.418 [I] Progress on: 4.93kit/10.0kit rate:14.8s/it remaining:20:51:45 elapsed:18:54:08 postfix:- (5344:tqdm_logging.py:145)
+08:39:18.036 [I] Progress on: 4.93kit/10.0kit rate:14.1s/it remaining:19:56:07 elapsed:18:54:20 postfix:- (5344:tqdm_logging.py:145)
+08:39:35.507 [I] Progress on: 4.93kit/10.0kit rate:15.1s/it remaining:21:20:11 elapsed:18:54:38 postfix:- (5344:tqdm_logging.py:145)
+08:39:54.110 [I] Progress on: 4.93kit/10.0kit rate:13.5s/it remaining:18:56:57 elapsed:18:54:57 postfix:- (5344:tqdm_logging.py:145)
+08:40:08.976 [I] Progress on: 4.93kit/10.0kit rate:13.9s/it remaining:19:38:37 elapsed:18:55:11 postfix:- (5344:tqdm_logging.py:145)
+08:40:23.031 [I] Progress on: 4.93kit/10.0kit rate:14.0s/it remaining:19:40:43 elapsed:18:55:25 postfix:- (5344:tqdm_logging.py:145)
+08:40:40.543 [I] Progress on: 4.93kit/10.0kit rate:15.0s/it remaining:21:10:44 elapsed:18:55:43 postfix:- (5344:tqdm_logging.py:145)
+08:40:55.978 [I] Progress on: 4.93kit/10.0kit rate:13.8s/it remaining:19:29:04 elapsed:18:55:58 postfix:- (5344:tqdm_logging.py:145)
+08:41:14.660 [I] Progress on: 4.93kit/10.0kit rate:12.4s/it remaining:17:26:36 elapsed:18:56:17 postfix:- (5344:tqdm_logging.py:145)
+08:41:26.469 [I] Progress on: 4.94kit/10.0kit rate:15.1s/it remaining:21:16:08 elapsed:18:56:29 postfix:- (5344:tqdm_logging.py:145)
+08:41:45.175 [I] Progress on: 4.94kit/10.0kit rate:13.3s/it remaining:18:41:36 elapsed:18:56:48 postfix:- (5344:tqdm_logging.py:145)
+08:41:59.373 [I] Progress on: 4.94kit/10.0kit rate:13.8s/it remaining:19:24:19 elapsed:18:57:02 postfix:- (5344:tqdm_logging.py:145)
+08:42:21.040 [I] Progress on: 4.94kit/10.0kit rate:15.1s/it remaining:21:14:44 elapsed:18:57:23 postfix:- (5344:tqdm_logging.py:145)
+08:42:39.725 [I] Progress on: 4.94kit/10.0kit rate:13.3s/it remaining:18:40:37 elapsed:18:57:42 postfix:- (5344:tqdm_logging.py:145)
+08:42:50.075 [I] Progress on: 4.94kit/10.0kit rate:15.3s/it remaining:21:30:07 elapsed:18:57:53 postfix:- (5344:tqdm_logging.py:145)
+08:43:08.733 [I] Progress on: 4.94kit/10.0kit rate:13.4s/it remaining:18:51:12 elapsed:18:58:11 postfix:- (5344:tqdm_logging.py:145)
+08:43:25.027 [I] Progress on: 4.94kit/10.0kit rate:14.5s/it remaining:20:22:53 elapsed:18:58:27 postfix:- (5344:tqdm_logging.py:145)
+08:43:48.607 [I] Progress on: 4.95kit/10.0kit rate:16.0s/it remaining:22:30:33 elapsed:18:58:51 postfix:- (5344:tqdm_logging.py:145)
+08:44:07.309 [I] Progress on: 4.95kit/10.0kit rate:13.9s/it remaining:19:32:25 elapsed:18:59:10 postfix:- (5344:tqdm_logging.py:145)
+08:44:17.503 [I] Progress on: 4.95kit/10.0kit rate:15.7s/it remaining:22:03:15 elapsed:18:59:20 postfix:- (5344:tqdm_logging.py:145)
+08:44:36.222 [I] Progress on: 4.95kit/10.0kit rate:13.7s/it remaining:19:13:35 elapsed:18:59:39 postfix:- (5344:tqdm_logging.py:145)
+08:44:53.988 [I] Progress on: 4.95kit/10.0kit rate:15.2s/it remaining:21:16:24 elapsed:18:59:56 postfix:- (5344:tqdm_logging.py:145)
+08:45:09.310 [I] Progress on: 4.95kit/10.0kit rate:13.9s/it remaining:19:28:14 elapsed:19:00:12 postfix:- (5344:tqdm_logging.py:145)
+08:45:28.060 [I] Progress on: 4.95kit/10.0kit rate:12.4s/it remaining:17:25:33 elapsed:19:00:30 postfix:- (5344:tqdm_logging.py:145)
+08:45:46.112 [I] Progress on: 4.95kit/10.0kit rate:14.4s/it remaining:20:07:55 elapsed:19:00:49 postfix:- (5344:tqdm_logging.py:145)
+08:46:05.565 [I] Progress on: 4.96kit/10.0kit rate:14.7s/it remaining:20:38:20 elapsed:19:01:08 postfix:- (5344:tqdm_logging.py:145)
+08:46:24.238 [I] Progress on: 4.96kit/10.0kit rate:13.0s/it remaining:18:13:20 elapsed:19:01:27 postfix:- (5344:tqdm_logging.py:145)
+08:46:37.608 [I] Progress on: 4.96kit/10.0kit rate:13.4s/it remaining:18:43:03 elapsed:19:01:40 postfix:- (5344:tqdm_logging.py:145)
+08:46:55.586 [I] Progress on: 4.96kit/10.0kit rate:13.8s/it remaining:19:18:27 elapsed:19:01:58 postfix:- (5344:tqdm_logging.py:145)
+08:47:14.200 [I] Progress on: 4.96kit/10.0kit rate:12.3s/it remaining:17:16:29 elapsed:19:02:17 postfix:- (5344:tqdm_logging.py:145)
+08:47:29.581 [I] Progress on: 4.96kit/10.0kit rate:13.5s/it remaining:18:53:17 elapsed:19:02:32 postfix:- (5344:tqdm_logging.py:145)
+08:47:44.123 [I] Progress on: 4.96kit/10.0kit rate:12.8s/it remaining:17:56:12 elapsed:19:02:47 postfix:- (5344:tqdm_logging.py:145)
+08:48:02.753 [I] Progress on: 4.96kit/10.0kit rate:11.7s/it remaining:16:18:49 elapsed:19:03:05 postfix:- (5344:tqdm_logging.py:145)
+08:48:20.926 [I] Progress on: 4.97kit/10.0kit rate:13.9s/it remaining:19:23:33 elapsed:19:03:23 postfix:- (5344:tqdm_logging.py:145)
+08:48:38.823 [I] Progress on: 4.97kit/10.0kit rate:14.0s/it remaining:19:34:44 elapsed:19:03:41 postfix:- (5344:tqdm_logging.py:145)
+08:48:57.477 [I] Progress on: 4.97kit/10.0kit rate:12.5s/it remaining:17:28:57 elapsed:19:04:00 postfix:- (5344:tqdm_logging.py:145)
+08:49:10.179 [I] Progress on: 4.97kit/10.0kit rate:15.5s/it remaining:21:35:58 elapsed:19:04:13 postfix:- (5344:tqdm_logging.py:145)
+08:49:28.824 [I] Progress on: 4.97kit/10.0kit rate:13.5s/it remaining:18:52:36 elapsed:19:04:31 postfix:- (5344:tqdm_logging.py:145)
+08:49:44.308 [I] Progress on: 4.97kit/10.0kit rate:14.3s/it remaining:20:02:01 elapsed:19:04:47 postfix:- (5344:tqdm_logging.py:145)
+08:50:05.428 [I] Progress on: 4.97kit/10.0kit rate:15.2s/it remaining:21:14:39 elapsed:19:05:08 postfix:- (5344:tqdm_logging.py:145)
+08:50:24.114 [I] Progress on: 4.97kit/10.0kit rate:13.3s/it remaining:18:37:50 elapsed:19:05:27 postfix:- (5344:tqdm_logging.py:145)
+08:50:35.050 [I] Progress on: 4.98kit/10.0kit rate:15.5s/it remaining:21:40:43 elapsed:19:05:37 postfix:- (5344:tqdm_logging.py:145)
+08:50:56.107 [I] Progress on: 4.98kit/10.0kit rate:13.6s/it remaining:18:55:54 elapsed:19:05:59 postfix:- (5344:tqdm_logging.py:145)
+08:51:09.267 [I] Progress on: 4.98kit/10.0kit rate:17.1s/it remaining:23:48:38 elapsed:19:06:12 postfix:- (5344:tqdm_logging.py:145)
+08:51:20.391 [I] Progress on: 4.98kit/10.0kit rate:17.1s/it remaining:23:48:38 elapsed:19:06:23 postfix:- (5344:tqdm_logging.py:145)
+08:51:32.472 [I] Progress on: 4.98kit/10.0kit rate:15.3s/it remaining:21:22:12 elapsed:19:06:35 postfix:- (5344:tqdm_logging.py:145)
+08:51:52.267 [I] Progress on: 4.98kit/10.0kit rate:16.8s/it remaining:23:26:32 elapsed:19:06:55 postfix:- (5344:tqdm_logging.py:145)
+08:52:02.871 [I] Progress on: 4.98kit/10.0kit rate:15.2s/it remaining:21:15:30 elapsed:19:07:05 postfix:- (5344:tqdm_logging.py:145)
+08:52:20.737 [I] Progress on: 4.98kit/10.0kit rate:15.9s/it remaining:22:07:40 elapsed:19:07:23 postfix:- (5344:tqdm_logging.py:145)
+08:52:31.825 [I] Progress on: 4.98kit/10.0kit rate:14.4s/it remaining:20:08:10 elapsed:19:07:34 postfix:- (5344:tqdm_logging.py:145)
+08:52:46.364 [I] Progress on: 4.98kit/10.0kit rate:15.1s/it remaining:21:01:49 elapsed:19:07:49 postfix:- (5344:tqdm_logging.py:145)
+08:53:08.843 [I] Progress on: 4.99kit/10.0kit rate:16.0s/it remaining:22:16:57 elapsed:19:08:11 postfix:- (5344:tqdm_logging.py:145)
+08:53:27.450 [I] Progress on: 4.99kit/10.0kit rate:13.9s/it remaining:19:20:20 elapsed:19:08:30 postfix:- (5344:tqdm_logging.py:145)
+08:53:43.966 [I] Progress on: 4.99kit/10.0kit rate:14.9s/it remaining:20:46:14 elapsed:19:08:46 postfix:- (5344:tqdm_logging.py:145)
+08:54:05.771 [I] Progress on: 4.99kit/10.0kit rate:15.7s/it remaining:21:50:36 elapsed:19:09:08 postfix:- (5344:tqdm_logging.py:145)
+08:54:24.345 [I] Progress on: 4.99kit/10.0kit rate:13.7s/it remaining:19:01:14 elapsed:19:09:27 postfix:- (5344:tqdm_logging.py:145)
+08:54:35.477 [I] Progress on: 4.99kit/10.0kit rate:15.8s/it remaining:21:58:35 elapsed:19:09:38 postfix:- (5344:tqdm_logging.py:145)
+08:54:54.065 [I] Progress on: 4.99kit/10.0kit rate:13.7s/it remaining:19:06:41 elapsed:19:09:57 postfix:- (5344:tqdm_logging.py:145)
+08:55:06.940 [I] Progress on: 4.99kit/10.0kit rate:13.7s/it remaining:19:04:55 elapsed:19:10:09 postfix:- (5344:tqdm_logging.py:145)
+08:55:26.174 [I] Progress on: 5.00kit/10.0kit rate:14.3s/it remaining:19:55:57 elapsed:19:10:29 postfix:- (5344:tqdm_logging.py:145)
+08:55:44.777 [I] Progress on: 5.00kit/10.0kit rate:12.7s/it remaining:17:41:11 elapsed:19:10:47 postfix:- (5344:tqdm_logging.py:145)
+08:55:58.235 [I] Progress on: 5.00kit/10.0kit rate:13.2s/it remaining:18:19:09 elapsed:19:11:01 postfix:- (5344:tqdm_logging.py:145)
+08:56:14.971 [I] Progress on: 5.00kit/10.0kit rate:13.3s/it remaining:18:30:38 elapsed:19:11:17 postfix:- (5344:tqdm_logging.py:145)
+08:56:33.581 [I] Progress on: 5.00kit/10.0kit rate:12.0s/it remaining:16:41:03 elapsed:19:11:36 postfix:- (5344:tqdm_logging.py:145)
+08:56:44.975 [I] Progress on: 5.00kit/10.0kit rate:14.7s/it remaining:20:26:41 elapsed:19:11:47 postfix:- (5344:tqdm_logging.py:145)
+08:57:03.557 [I] Progress on: 5.00kit/10.0kit rate:13.0s/it remaining:18:01:47 elapsed:19:12:06 postfix:- (5344:tqdm_logging.py:145)
+08:57:16.875 [I] Progress on: 5.00kit/10.0kit rate:13.3s/it remaining:18:30:18 elapsed:19:12:19 postfix:- (5344:tqdm_logging.py:145)
+08:57:36.195 [I] Progress on: 5.01kit/10.0kit rate:14.2s/it remaining:19:39:31 elapsed:19:12:39 postfix:- (5344:tqdm_logging.py:145)
+08:57:54.795 [I] Progress on: 5.01kit/10.0kit rate:12.6s/it remaining:17:29:02 elapsed:19:12:57 postfix:- (5344:tqdm_logging.py:145)
+08:58:09.932 [I] Progress on: 5.01kit/10.0kit rate:13.6s/it remaining:18:51:53 elapsed:19:13:12 postfix:- (5344:tqdm_logging.py:145)
+08:58:29.212 [I] Progress on: 5.01kit/10.0kit rate:14.3s/it remaining:19:49:02 elapsed:19:13:32 postfix:- (5344:tqdm_logging.py:145)
+08:58:47.819 [I] Progress on: 5.01kit/10.0kit rate:12.7s/it remaining:17:35:42 elapsed:19:13:50 postfix:- (5344:tqdm_logging.py:145)
+08:59:04.582 [I] Progress on: 5.01kit/10.0kit rate:14.2s/it remaining:19:37:15 elapsed:19:14:07 postfix:- (5344:tqdm_logging.py:145)
+08:59:20.353 [I] Progress on: 5.01kit/10.0kit rate:13.5s/it remaining:18:42:58 elapsed:19:14:23 postfix:- (5344:tqdm_logging.py:145)
+08:59:38.970 [I] Progress on: 5.01kit/10.0kit rate:12.1s/it remaining:16:49:13 elapsed:19:14:41 postfix:- (5344:tqdm_logging.py:145)
+08:59:52.654 [I] Progress on: 5.02kit/10.0kit rate:12.9s/it remaining:17:47:39 elapsed:19:14:55 postfix:- (5344:tqdm_logging.py:145)
+09:00:14.850 [I] Progress on: 5.02kit/10.0kit rate:14.8s/it remaining:20:29:05 elapsed:19:15:17 postfix:- (5344:tqdm_logging.py:145)
+09:00:33.477 [I] Progress on: 5.02kit/10.0kit rate:13.1s/it remaining:18:03:27 elapsed:19:15:36 postfix:- (5344:tqdm_logging.py:145)
+09:00:45.639 [I] Progress on: 5.02kit/10.0kit rate:15.7s/it remaining:21:41:40 elapsed:19:15:48 postfix:- (5344:tqdm_logging.py:145)
+09:01:04.285 [I] Progress on: 5.02kit/10.0kit rate:13.7s/it remaining:18:54:12 elapsed:19:16:07 postfix:- (5344:tqdm_logging.py:145)
+09:01:21.065 [I] Progress on: 5.02kit/10.0kit rate:14.8s/it remaining:20:30:49 elapsed:19:16:24 postfix:- (5344:tqdm_logging.py:145)
+09:01:39.157 [I] Progress on: 5.02kit/10.0kit rate:14.6s/it remaining:20:07:05 elapsed:19:16:42 postfix:- (5344:tqdm_logging.py:145)
+09:01:58.007 [I] Progress on: 5.03kit/10.0kit rate:12.9s/it remaining:17:50:12 elapsed:19:17:00 postfix:- (5344:tqdm_logging.py:145)
+09:02:13.223 [I] Progress on: 5.03kit/10.0kit rate:13.9s/it remaining:19:08:23 elapsed:19:17:16 postfix:- (5344:tqdm_logging.py:145)
+09:02:29.889 [I] Progress on: 5.03kit/10.0kit rate:13.7s/it remaining:18:51:32 elapsed:19:17:32 postfix:- (5344:tqdm_logging.py:145)
+09:02:48.660 [I] Progress on: 5.03kit/10.0kit rate:12.3s/it remaining:16:56:45 elapsed:19:17:51 postfix:- (5344:tqdm_logging.py:145)
+09:03:06.809 [I] Progress on: 5.03kit/10.0kit rate:14.3s/it remaining:19:43:08 elapsed:19:18:09 postfix:- (5344:tqdm_logging.py:145)
+09:03:23.022 [I] Progress on: 5.03kit/10.0kit rate:13.7s/it remaining:18:56:01 elapsed:19:18:25 postfix:- (5344:tqdm_logging.py:145)
+09:03:41.678 [I] Progress on: 5.03kit/10.0kit rate:12.3s/it remaining:16:58:12 elapsed:19:18:44 postfix:- (5344:tqdm_logging.py:145)
+09:03:58.560 [I] Progress on: 5.03kit/10.0kit rate:13.9s/it remaining:19:12:42 elapsed:19:19:01 postfix:- (5344:tqdm_logging.py:145)
+09:04:16.150 [I] Progress on: 5.04kit/10.0kit rate:13.9s/it remaining:19:13:37 elapsed:19:19:19 postfix:- (5344:tqdm_logging.py:145)
+09:04:34.722 [I] Progress on: 5.04kit/10.0kit rate:12.4s/it remaining:17:09:10 elapsed:19:19:37 postfix:- (5344:tqdm_logging.py:145)
+09:04:45.122 [I] Progress on: 5.04kit/10.0kit rate:14.7s/it remaining:20:17:19 elapsed:19:19:48 postfix:- (5344:tqdm_logging.py:145)
+09:05:03.675 [I] Progress on: 5.04kit/10.0kit rate:13.0s/it remaining:17:53:25 elapsed:19:20:06 postfix:- (5344:tqdm_logging.py:145)
+09:05:18.422 [I] Progress on: 5.04kit/10.0kit rate:13.7s/it remaining:18:56:37 elapsed:19:20:21 postfix:- (5344:tqdm_logging.py:145)
+09:05:33.930 [I] Progress on: 5.04kit/10.0kit rate:13.2s/it remaining:18:13:30 elapsed:19:20:36 postfix:- (5344:tqdm_logging.py:145)
+

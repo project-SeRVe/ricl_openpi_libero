@@ -129,9 +129,9 @@ LIBERO RICL의 serving/evaluation은 두 환경을 분리해서 실행해야 한
 - policy server: 프로젝트 루트 `.venv`
 - LIBERO evaluation: `examples/libero/.venv`
 
-이유는 `serve_policy_ricl.py`는 현재 OpenPI/JAX 환경을 요구하고, `examples/libero/main_ricl.py`는 LIBERO의 예전 simulator 의존성 (`robosuite`, `mujoco`, `robomimic`, `bddl`, `gym`, `hydra-core`)을 요구하기 때문이다. 하나의 Python 환경에서 같이 돌리면 버전 충돌이 나기 쉽다.
+이는 `serve_policy_ricl.py`는 위에서 세팅한 RICL 환경을 요구하고, `examples/libero/main_ricl.py`는 LIBERO simulator 의존성을 요구하기 때문이다. 하나의 Python 환경에서 같이 돌리면 버전 충돌이 난다. 다음 instruction에 따라서 libero 환경을 세팅하고, 그 아래의 셸 스크립트로 이 두 환경을 나눠서 자동으로 실행한다.
 
-Terminal window 1: LIBERO evaluation용 환경 생성
+1) LIBERO evaluation용 환경 생성
 
 ```shell
 cd /home/elicer/capstone/ricl_openpi_libero
@@ -142,69 +142,62 @@ source examples/libero/.venv/bin/activate
 uv pip sync examples/libero/requirements.txt third_party/libero/requirements.txt \
   --extra-index-url https://download.pytorch.org/whl/cu113 \
   --index-strategy=unsafe-best-match
+# 참고로, third_party와 example의 libero robosuite 버전이 안 맞아서, example의 것을 third_party에 맞춰줬다. (1.4.1->1.4.0)
 
 uv pip install -e packages/openpi-client
 uv pip install -e third_party/libero
-```
-
-Terminal window 1: LIBERO 경로 설정
-
-```shell
-cd /home/elicer/capstone/ricl_openpi_libero
-source examples/libero/.venv/bin/activate
-
+sudo apt-get install -y libegl1-mesa-dev libgl1-mesa-dev libgles2-mesa-dev
 export PYTHONPATH=$PYTHONPATH:$PWD/third_party/libero
-export LIBERO_CONFIG_PATH=$PWD/.libero
-mkdir -p $LIBERO_CONFIG_PATH
-cat > $LIBERO_CONFIG_PATH/config.yaml <<EOF
-benchmark_root: $PWD/third_party/libero/libero/libero
-bddl_files: $PWD/third_party/libero/libero/libero/bddl_files
-init_states: $PWD/third_party/libero/libero/libero/init_files
-datasets: $PWD/third_party/libero/libero/datasets
-assets: $PWD/third_party/libero/libero/libero/assets
-EOF
+export MUJOCO_GL=egl
+
+# 이 부분은 위의 세팅으로도 안되면 사용을 검토하자
+# export LIBERO_CONFIG_PATH=$PWD/.libero
+# mkdir -p $LIBERO_CONFIG_PATH
+# cat > $LIBERO_CONFIG_PATH/config.yaml <<EOF
+# benchmark_root: $PWD/third_party/libero/libero/libero
+# bddl_files: $PWD/third_party/libero/libero/libero/bddl_files
+# init_states: $PWD/third_party/libero/libero/libero/init_files
+# datasets: $PWD/third_party/libero/libero/datasets
+# assets: $PWD/third_party/libero/libero/libero/assets
+# EOF
 ```
 
-Terminal window 1: evaluation 환경 검증
+3) evaluation 환경 검증
 
 ```shell
 python -c "from libero.libero import benchmark, get_libero_path; print(get_libero_path('bddl_files'))"
 python -c "import robosuite, mujoco, bddl, gym, robomimic, hydra; print('libero env ok')"
 ```
 
-Terminal window 2: RICL policy server 실행
+4) 스크립트로 serving/eval 수행
+
+- `scripts/run_libero_ricl_servers.sh`는 policy server를 루트 `.venv`의 Python으로 실행하고, LIBERO eval은 `examples/libero/.venv`의 Python으로 실행하는 serving/eval 통합 실행 스크립트이다.
+- `--task-name`을 생략하면 `preprocessing/libero_collected_demos` 아래의 모든 task를 task별로 개별 평가한다.
+- `--task-name=<task_name>` 또는 기존 별칭인 `--task=<task_name>`을 주면 해당 task만 평가한다.
+- 배치 러너는 task마다 policy server를 다시 띄우므로, 각 task 평가 시 해당 task의 retrieval demo만 사용한다.
+- 필요하면 `--server-python`, `--eval-python`으로 각 환경의 Python 경로를 직접 지정할 수 있다.
+- 이 스크립트를 쓰는 경우 `serve_policy_ricl.py`와 `main_ricl.py`를 따로 실행할 필요가 없다.
+
+모든 task를 개별 평가하는 예시:
 
 ```shell
-cd /home/elicer/capstone/ricl_openpi_libero
-source .venv/bin/activate
-
-uv run --no-sync scripts/serve_policy_ricl.py \
-  --port=8000 \
-  policy:checkpoint \
-  --policy.config=pi0_fast_libero_ricl \
-  --policy.dir=/home/elicer/capstone/ricl_openpi_libero/checkpoints/pi0_fast_libero_ricl/priming/3600 \
-  --policy.demos-dir=/home/elicer/capstone/ricl_openpi_libero/preprocessing/libero_collected_demos/open_the_middle_drawer_of_the_cabinet \
-  --policy.ricl-env=libero
-```
-
-Terminal window 1: LIBERO RICL evaluation 실행
-
-```shell
-cd /home/elicer/capstone/ricl_openpi_libero
-source examples/libero/.venv/bin/activate
-
-export PYTHONPATH=$PYTHONPATH:$PWD/third_party/libero
-export LIBERO_CONFIG_PATH=$PWD/.libero
-
-python examples/libero/main_ricl.py \
-  --host=127.0.0.1 \
-  --port=8000 \
-  --task-name=open_the_middle_drawer_of_the_cabinet \
+./scripts/run_libero_ricl_servers.sh \
+  --demos-root=preprocessing/libero_collected_demos \
+  --checkpoint-dir=checkpoints/pi0_fast_libero_ricl/priming/3600 \
   --num-trials-per-task=10 \
-  --video-out-path=$PWD/examples/libero/data/libero_ricl/batch_eval/open_the_middle_drawer_of_the_cabinet
+  --video-out-root=examples/libero/data/libero_ricl/batch_eval
 ```
 
-여러 task를 연속으로 평가하고 싶다면 위 두 명령을 task별로 반복 실행하자. 현재 `scripts/run_libero_ricl_servers.py`는 server와 eval이 같은 Python 환경에 있다고 가정하므로, LIBERO 전용 가상환경을 분리해서 쓸 때는 수동으로 두 터미널에서 실행하는 방식이 가장 안전하다.
+특정 task만 평가하는 예시:
+
+```shell
+./scripts/run_libero_ricl_servers.sh \
+  --demos-root=preprocessing/libero_collected_demos \
+  --checkpoint-dir=checkpoints/pi0_fast_libero_ricl/priming/3600 \
+  --num-trials-per-task=10 \
+  --video-out-root=examples/libero/data/libero_ricl/batch_eval \
+  --task-name=open_the_middle_drawer_of_the_cabinet
+```
 ---
 
 # RICL: Re-training (a VLA) for In-Context Learning

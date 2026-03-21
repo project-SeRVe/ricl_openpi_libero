@@ -183,3 +183,6 @@ preprocessing/libero_collected_demos/
 # else
 obs_logs
 
+error.log
+output.log
+

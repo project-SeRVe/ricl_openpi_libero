@@ -193,9 +193,9 @@ python -c "import robosuite, mujoco, bddl, gym, robomimic, hydra; print('libero 
 ```shell
 ./scripts/run_libero_ricl_servers.sh \
   --demos-root=preprocessing/libero_collected_demos \
-  --checkpoint-dir=checkpoints/pi0_fast_libero_ricl/priming/3600 \
+  --checkpoint-dir=checkpoints/pi0_fast_libero_ricl/priming/5700 \
   --num-trials-per-task=10 \
-  --video-out-root=examples/libero/data/libero_ricl/batch_eval \
+  --video-out-root=examples/libero/data/libero_ricl/batch_eval2 \
   --task-name=open_the_middle_drawer_of_the_cabinet
 ```
 ---

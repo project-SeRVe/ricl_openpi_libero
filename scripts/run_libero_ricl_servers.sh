@@ -12,7 +12,7 @@ HOST="127.0.0.1"
 PORT="8000"
 NUM_TRIALS_PER_TASK="50"
 VIDEO_OUT_ROOT="$REPO_ROOT/examples/libero/data/libero_ricl/batch_eval"
-SERVER_STARTUP_TIMEOUT="120"
+SERVER_STARTUP_TIMEOUT="300"
 TASK_NAME=""
 PRINT_ONLY="0"
 SERVER_PYTHON="$REPO_ROOT/.venv/bin/python"
@@ -78,13 +78,22 @@ EOF
 
 wait_for_server() {
   local deadline_seconds="$1"
+  local server_pid="$2"
   local start_time
   start_time="$(date +%s)"
 
   while true; do
+    if ! kill -0 "$server_pid" >/dev/null 2>&1; then
+      echo "Server process exited before becoming ready on $HOST:$PORT" >&2
+      return 1
+    fi
+
     if SERVER_HOST="$HOST" SERVER_PORT="$PORT" "$SERVER_PYTHON" -c \
       "from websockets.sync.client import connect; import os; connect(f\"ws://{os.environ['SERVER_HOST']}:{os.environ['SERVER_PORT']}\", open_timeout=1, close_timeout=1).close()" \
       >/dev/null 2>&1; then
+      local elapsed_seconds
+      elapsed_seconds=$(( "$(date +%s)" - start_time ))
+      echo "Server became ready on $HOST:$PORT after ${elapsed_seconds}s" >&2
       return 0
     fi
 
@@ -186,7 +195,7 @@ run_for_task() {
   }
   trap cleanup RETURN
 
-  wait_for_server "$SERVER_STARTUP_TIMEOUT"
+  wait_for_server "$SERVER_STARTUP_TIMEOUT" "$server_pid"
 
   PYTHONPATH="$eval_pythonpath" LIBERO_CONFIG_PATH="$libero_config_path" \
     "$EVAL_PYTHON" "$REPO_ROOT/examples/libero/main_ricl.py" \

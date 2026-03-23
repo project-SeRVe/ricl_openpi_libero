@@ -121,6 +121,9 @@ uv run --no-sync scripts/train_pi0_fast_ricl.py pi0_fast_libero_ricl___finetune_
   --exp-name=finetuning \
   --overwrite
 
+# 가장 마지막에 저장된 checkpoint부터 학습 이어서 시작
+uv run --no-sync scripts/train_pi0_fast_ricl.py pi0_fast_libero_ricl --exp-name=priming --resume
+
 ---
 4. Serving/Evaluation
 
@@ -193,9 +196,9 @@ python -c "import robosuite, mujoco, bddl, gym, robomimic, hydra; print('libero 
 ```shell
 ./scripts/run_libero_ricl_servers.sh \
   --demos-root=preprocessing/libero_collected_demos \
-  --checkpoint-dir=checkpoints/pi0_fast_libero_ricl/priming/5700 \
+  --checkpoint-dir=checkpoints/pi0_fast_libero_ricl/priming/9600 \
   --num-trials-per-task=10 \
-  --video-out-root=examples/libero/data/libero_ricl/batch_eval2 \
+  --video-out-root=examples/libero/data/libero_ricl/batch_eval_262303_1000 \
   --task-name=open_the_middle_drawer_of_the_cabinet
 ```
 ---

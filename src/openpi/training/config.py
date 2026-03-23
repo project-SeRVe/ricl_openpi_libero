@@ -722,8 +722,8 @@ _CONFIGS = [
         ).get_freeze_filter_with_frozen_img_encoder(),
         ema_decay=None,
         log_interval=1,
-        save_interval=300,
-        keep_period=300,
+        save_interval=1500,
+        keep_period=1500,
         lr_schedule=_optimizer.CosineDecaySchedule(warmup_steps=300, peak_lr=2.5e-5, decay_steps=12_000, decay_lr=2.5e-6),
     ),
     #

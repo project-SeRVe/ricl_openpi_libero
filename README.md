@@ -196,10 +196,17 @@ python -c "import robosuite, mujoco, bddl, gym, robomimic, hydra; print('libero 
 ```shell
 ./scripts/run_libero_ricl_servers.sh \
   --demos-root=preprocessing/libero_collected_demos \
-  --checkpoint-dir=checkpoints/pi0_fast_libero_ricl/priming/9600 \
+  --checkpoint-dir=checkpoints/pi0_fast_libero_ricl/priming/9000 \
   --num-trials-per-task=10 \
-  --video-out-root=examples/libero/data/libero_ricl/batch_eval_262303_1000 \
-  --task-name=open_the_middle_drawer_of_the_cabinet
+  --video-out-root=examples/libero/data/libero_ricl/batch_eval_260326_1719 \
+  --task-name=pick_up_the_black_bowl_next_to_the_plate_and_place_it_on_the_plate
+
+./scripts/run_libero_ricl_servers.sh \
+  --demos-root=preprocessing/libero_collected_demos \
+  --checkpoint-dir=checkpoints/pi0_fast_libero_ricl/priming/28500 \
+  --num-trials-per-task=10 \
+  --video-out-root=examples/libero/data/libero_ricl/batch_eval_260326_1718 \
+  --task-name=open_the_top_drawer_and_put_the_bowl_inside
 ```
 ---
 

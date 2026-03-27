@@ -95,8 +95,10 @@ def restore_state(
         train_state, params = _split_params(state)
 
         # Check if train_state was saved in the checkpoint.
-        available_items = checkpoint_manager.item_names(step or checkpoint_manager.latest_step())
-        if "train_state" in available_items:
+        restore_step = step or checkpoint_manager.latest_step()
+        ckpt_dir = epath.Path(checkpoint_manager.directory) / str(restore_step)
+        has_train_state = (ckpt_dir / "train_state").exists()
+        if has_train_state:
             restored = checkpoint_manager.restore(
                 step,
                 items={
@@ -106,7 +108,6 @@ def restore_state(
             )
             return _merge_params(restored["train_state"], restored["params"])
         else:
-            restore_step = step or checkpoint_manager.latest_step()
             logging.warning(
                 f"train_state not found in checkpoint (step={restore_step}), "
                 "restoring params only. Optimizer state will be reset."

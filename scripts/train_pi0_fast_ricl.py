@@ -2,6 +2,7 @@ import dataclasses
 import functools
 import logging
 import os
+import pathlib
 import platform
 from typing import Any
 
@@ -269,7 +270,15 @@ def main(config: _config.TrainConfig):
     batch = next(data_iter)
     logging.info(f"Initialized data loader:\n{training_utils.array_tree_to_info(batch)}")
 
-    train_state, train_state_sharding = init_train_state(config, init_rng, mesh, resume=resuming)
+    # Check if train_state exists in the checkpoint to decide initialization strategy.
+    if resuming:
+        restore_step = checkpoint_manager.latest_step()
+        ckpt_dir = pathlib.Path(checkpoint_manager.directory) / str(restore_step)
+        has_train_state = (ckpt_dir / "train_state").exists()
+    else:
+        has_train_state = False
+
+    train_state, train_state_sharding = init_train_state(config, init_rng, mesh, resume=resuming and has_train_state)
     jax.block_until_ready(train_state)
     logging.info(f"Initialized train state:\n{training_utils.array_tree_to_info(train_state.params)}")
 

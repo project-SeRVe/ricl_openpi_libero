@@ -708,8 +708,9 @@ _CONFIGS = [
                 prompt_from_task=False,
             ),
         ),
-        weight_loader=weight_loaders.CheckpointWeightLoader("s3://openpi-assets/checkpoints/pi0_fast_base/params"),
-        num_train_steps=10_000,
+        # Start LIBERO RICL from the LIBERO-tuned pi0-FAST checkpoint instead of the generic base model.
+        weight_loader=weight_loaders.CheckpointWeightLoader("s3://openpi-assets/checkpoints/pi0_fast_libero/params"),
+        num_train_steps=40_000,
         batch_size=16,
         freeze_filter=pi0_fast_ricl.Pi0FASTRiclConfig(
             action_dim=7,
@@ -721,9 +722,9 @@ _CONFIGS = [
         ).get_freeze_filter_with_frozen_img_encoder(),
         ema_decay=None,
         log_interval=1,
-        save_interval=300,
-        keep_period=300,
-        lr_schedule=_optimizer.CosineDecaySchedule(warmup_steps=300, peak_lr=2.5e-5, decay_steps=3000, decay_lr=2.5e-6),
+        save_interval=1500,
+        keep_period=1500,
+        lr_schedule=_optimizer.CosineDecaySchedule(warmup_steps=300, peak_lr=2.5e-5, decay_steps=12_000, decay_lr=2.5e-6),
     ),
     #
     # RICL-Pi0-FAST-LIBERO Finetuning configs.

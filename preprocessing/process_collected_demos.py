@@ -5,6 +5,7 @@ import os
 import argparse
 from PIL import Image
 from openpi.policies.utils import embed_with_batches, load_dinov2, EMBED_DIM
+from openpi.shared.runtime_env import configure_project_cache_env
 from openpi_client.image_tools import resize_with_pad
 import logging
 logging.basicConfig(level=logging.INFO, force=True)
@@ -72,6 +73,7 @@ def process(dir, prompts):
         np.savez(f"{demo_folder}/processed_demo.npz", **processed_demo)
 
 if __name__ == "__main__":
+    configure_project_cache_env()
     parser = argparse.ArgumentParser()
     parser.add_argument("--dir", type=str, default=None)
     parser.add_argument("--dir_of_dirs", type=str, default=None)

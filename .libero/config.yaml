@@ -1,0 +1,5 @@
+benchmark_root: /home/elicer/capstone/ricl_openpi_libero/third_party/libero/libero/libero
+bddl_files: /home/elicer/capstone/ricl_openpi_libero/third_party/libero/libero/libero/bddl_files
+init_states: /home/elicer/capstone/ricl_openpi_libero/third_party/libero/libero/libero/init_files
+datasets: /home/elicer/capstone/ricl_openpi_libero/third_party/libero/libero/datasets
+assets: /home/elicer/capstone/ricl_openpi_libero/third_party/libero/libero/libero/assets

@@ -1,8 +1,13 @@
 import dataclasses
 import functools
 import logging
+import os
 import platform
 from typing import Any
+
+import openpi.shared.runtime_env as runtime_env
+
+runtime_env.configure_jax_cuda_compat_env()
 
 import etils.epath as epath
 import flax.nnx as nnx
@@ -191,6 +196,7 @@ def train_step(
 
 
 def main(config: _config.TrainConfig):
+    runtime_env.configure_project_cache_env()
     init_logging()
     logging.info(f"Running on: {platform.node()}")
 
@@ -199,7 +205,7 @@ def main(config: _config.TrainConfig):
             f"Batch size {config.batch_size} must be divisible by the number of devices {jax.device_count()}."
         )
 
-    jax.config.update("jax_compilation_cache_dir", str(epath.Path("~/.cache/jax").expanduser()))
+    jax.config.update("jax_compilation_cache_dir", os.environ["JAX_COMPILATION_CACHE_DIR"])
 
     rng = jax.random.key(config.seed)
     train_rng, init_rng = jax.random.split(rng)

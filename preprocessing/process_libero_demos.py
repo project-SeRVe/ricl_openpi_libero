@@ -9,6 +9,7 @@ from openpi_client.image_tools import resize_with_pad
 from openpi.policies.utils import EMBED_DIM
 from openpi.policies.utils import embed_with_batches
 from openpi.policies.utils import load_dinov2
+from openpi.shared.runtime_env import configure_project_cache_env
 
 logging.basicConfig(level=logging.INFO, force=True)
 logger = logging.getLogger(__name__)
@@ -16,7 +17,7 @@ logger = logging.getLogger(__name__)
 REPO_ID = "physical-intelligence/libero"
 
 
-def process_libero_demos(output_dir: str):
+def process_libero_demos(output_dir: str, compressed: bool = False):
     """Extract all LIBERO benchmark demos from LeRobot HF dataset into processed_demo.npz format.
 
     Args:
@@ -167,7 +168,9 @@ def process_libero_demos(output_dir: str):
                 "wrist_image_embeddings": wrist_embeddings,
                 "prompt": task_desc,
             }
-            np.savez(os.path.join(ep_output_dir, "processed_demo.npz"), **processed_demo)
+            save_path = os.path.join(ep_output_dir, "processed_demo.npz")
+            save_fn = np.savez_compressed if compressed else np.savez
+            save_fn(save_path, **processed_demo)
 
             # Save episode metadata
             episode_meta = {
@@ -188,6 +191,7 @@ def process_libero_demos(output_dir: str):
 
 
 if __name__ == "__main__":
+    configure_project_cache_env()
     parser = argparse.ArgumentParser()
     parser.add_argument(
         "--output_dir",
@@ -195,6 +199,12 @@ if __name__ == "__main__":
         required=True,
         help="Output directory (e.g., libero_collected_demos_training or libero_collected_demos)",
     )
+    parser.add_argument(
+        "--compressed",
+        action=argparse.BooleanOptionalAction,
+        default=False,
+        help="Save processed_demo.npz with ZIP compression (--compressed / --no-compressed).",
+    )
     args = parser.parse_args()
 
-    process_libero_demos(args.output_dir)
+    process_libero_demos(args.output_dir, compressed=args.compressed)

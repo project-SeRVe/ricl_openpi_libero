@@ -180,3 +180,10 @@ third_party/
 preprocessing/libero_collected_demos_training/
 preprocessing/libero_collected_demos/
 
+# else
+obs_logs
+
+error.log
+output.log
+
+libero_ricl_checkpoint_and_3_training_tasks.tar.gz

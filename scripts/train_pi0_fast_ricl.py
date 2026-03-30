@@ -1,8 +1,14 @@
 import dataclasses
 import functools
 import logging
+import os
+import pathlib
 import platform
 from typing import Any
+
+import openpi.shared.runtime_env as runtime_env
+
+runtime_env.configure_jax_cuda_compat_env()
 
 import etils.epath as epath
 import flax.nnx as nnx
@@ -228,6 +234,7 @@ def train_step(
 
 
 def main(config: _config.TrainConfig):
+    runtime_env.configure_project_cache_env()
     init_logging()
     logging.info(f"Running on: {platform.node()}")
 
@@ -236,7 +243,7 @@ def main(config: _config.TrainConfig):
             f"Batch size {config.batch_size} must be divisible by the number of devices {jax.device_count()}."
         )
 
-    jax.config.update("jax_compilation_cache_dir", str(epath.Path("~/.cache/jax").expanduser()))
+    jax.config.update("jax_compilation_cache_dir", os.environ["JAX_COMPILATION_CACHE_DIR"])
 
     rng = jax.random.key(config.seed)
     train_rng, init_rng = jax.random.split(rng)
@@ -263,7 +270,15 @@ def main(config: _config.TrainConfig):
     batch = next(data_iter)
     logging.info(f"Initialized data loader:\n{training_utils.array_tree_to_info(batch)}")
 
-    train_state, train_state_sharding = init_train_state(config, init_rng, mesh, resume=resuming)
+    # Check if train_state exists in the checkpoint to decide initialization strategy.
+    if resuming:
+        restore_step = checkpoint_manager.latest_step()
+        ckpt_dir = pathlib.Path(checkpoint_manager.directory) / str(restore_step)
+        has_train_state = (ckpt_dir / "train_state").exists()
+    else:
+        has_train_state = False
+
+    train_state, train_state_sharding = init_train_state(config, init_rng, mesh, resume=resuming and has_train_state)
     jax.block_until_ready(train_state)
     logging.info(f"Initialized train state:\n{training_utils.array_tree_to_info(train_state.params)}")
 

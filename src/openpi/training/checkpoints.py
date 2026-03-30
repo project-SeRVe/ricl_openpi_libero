@@ -76,7 +76,7 @@ def save_state(
         train_state, params = _split_params(state)
     items = {
         "assets": save_assets,
-        # "train_state": train_state, # Commented out to reduce saving time and memory
+        "train_state": train_state,
         "params": {"params": params},
     }
     checkpoint_manager.save(step, items)
@@ -93,14 +93,33 @@ def restore_state(
     with at.disable_typechecking():
         # Split params that can be used for inference into a separate item.
         train_state, params = _split_params(state)
-        restored = checkpoint_manager.restore(
-            step,
-            items={
-                "train_state": train_state,
-                "params": {"params": params},
-            },
-        )
-    return _merge_params(restored["train_state"], restored["params"])
+
+        # Check if train_state was saved in the checkpoint.
+        restore_step = step or checkpoint_manager.latest_step()
+        ckpt_dir = epath.Path(checkpoint_manager.directory) / str(restore_step)
+        has_train_state = (ckpt_dir / "train_state").exists()
+        if has_train_state:
+            restored = checkpoint_manager.restore(
+                step,
+                items={
+                    "train_state": train_state,
+                    "params": {"params": params},
+                },
+            )
+            return _merge_params(restored["train_state"], restored["params"])
+        else:
+            logging.warning(
+                f"train_state not found in checkpoint (step={restore_step}), "
+                "restoring params only. Optimizer state will be reset."
+            )
+            restored = checkpoint_manager.restore(
+                step,
+                items={
+                    "params": {"params": params},
+                },
+            )
+            merged = _merge_params(train_state, restored["params"])
+            return dataclasses.replace(merged, step=restore_step)
 
 
 def load_norm_stats(assets_dir: epath.Path | str, asset_id: str) -> dict[str, _normalize.NormStats] | None:

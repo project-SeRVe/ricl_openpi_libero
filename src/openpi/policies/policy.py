@@ -385,7 +385,17 @@ class RiclLiberoPolicy(BasePolicy):
                 for ep_idx, step_idx in retrieved_indices[0, 1:]
             ]
             distances.append(np.linalg.norm(query_embedding - first_embedding))
-            distances = np.clip(np.array(distances), 0, self._max_dist) / self._max_dist
+            distances = np.array(distances)
+            # Retrieved distances (all from stored demos, same domain) normalize fine
+            # with training max_dist. But the query distance is inflated by domain gap
+            # (live simulator render vs stored LeRobot data), causing it to always clip
+            # to max_dist and producing near-zero weight.
+            # Fix: use the mean of retrieved distances as a proxy for the query distance,
+            # since retrieved distances are in the same range as training distances.
+            retrieved_nonzero = distances[1:-1][distances[1:-1] > 0]
+            if len(retrieved_nonzero) > 0:
+                distances[-1] = retrieved_nonzero.mean()
+            distances = np.clip(distances, 0, self._max_dist) / self._max_dist
             print(f"distances: {distances}")
             more_obs["exp_lamda_distances"] = np.exp(-self._lamda * distances).reshape(-1, 1)
             print(f'exp_lamda_distances: {more_obs["exp_lamda_distances"]}')
